@@ -1,0 +1,84 @@
+.contactFormWrapper {
+  margin-top: 2rem;
+}
+
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  background-color: var(--bg-white);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background-color: var(--primary-color);
+  color: var(--bg-white);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.successMessage {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #d1fae5;
+  color: #065f46;
+  border-radius: var(--border-radius);
+  border: 1px solid #10b981;
+}
+
+.errorMessage {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-radius: var(--border-radius);
+  border: 1px solid #ef4444;
+}
+
