@@ -38,6 +38,10 @@ export default function Header() {
     { href: '/contact', label: 'Contact' },
   ]
 
+  // Pages whose hero is dark (bg-black) — header should match when unscrolled
+  const darkHeroPages = ['/about', '/services', '/solutions', '/resources']
+  const hasDarkHero = !isScrolled && darkHeroPages.includes(pathname ?? '')
+
   const isActive = (href: string) => {
     if (href === '/') {
       return pathname === '/'
@@ -47,9 +51,11 @@ export default function Header() {
 
       return (
         <header className={`fixed top-0 left-0 right-0 w-full z-[100] transition-all duration-300 overflow-hidden ${
-          isScrolled 
-            ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-lg' 
-            : 'bg-gradient-to-br from-white via-blue-50/20 to-orange-50/10 dark:from-black dark:via-gray-900 dark:to-black'
+          isScrolled
+            ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-lg'
+            : hasDarkHero
+              ? 'bg-black'
+              : 'bg-gradient-to-br from-white via-blue-50/20 to-orange-50/10 dark:from-black dark:via-gray-900 dark:to-black'
         }`}>
           {/* Thin Line Separator */}
           <div className={`absolute bottom-0 left-0 right-0 h-[1px] transition-all duration-300 ${
@@ -104,9 +110,11 @@ export default function Header() {
                     <Link 
                       href={link.href} 
                       className={`font-display text-sm font-medium transition-all duration-200 no-underline relative inline-block group/link ${
-                        active 
-                          ? 'text-brand-blue dark:text-brand-blue' 
-                          : 'text-black/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-brand-blue'
+                        active
+                          ? 'text-brand-blue'
+                          : hasDarkHero
+                            ? 'text-white/70 hover:text-white'
+                            : 'text-black/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-brand-blue'
                       }`}
                     >
                       <span className="relative z-10">{link.label}</span>
@@ -119,9 +127,11 @@ export default function Header() {
                     </Link>
                     {/* Number indicator */}
                     <span className={`absolute -left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold transition-colors ${
-                      active 
-                        ? 'text-brand-orange dark:text-brand-orange' 
-                        : 'text-black/20 dark:text-white/20 group-hover:text-brand-blue dark:group-hover:text-brand-blue'
+                      active
+                        ? 'text-brand-orange'
+                        : hasDarkHero
+                          ? 'text-white/20 group-hover:text-white/50'
+                          : 'text-black/20 dark:text-white/20 group-hover:text-brand-blue dark:group-hover:text-brand-blue'
                     }`}>
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -131,7 +141,7 @@ export default function Header() {
             </ul>
 
             {/* Divider */}
-            <div className="h-6 w-px bg-black/10 dark:bg-white/20" />
+            <div className={`h-6 w-px ${hasDarkHero ? 'bg-white/20' : 'bg-black/10 dark:bg-white/20'}`} />
 
             {/* Theme Toggle */}
             <ThemeToggle />
@@ -151,7 +161,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden flex flex-col justify-center items-center w-10 h-10 p-0 bg-transparent border-none cursor-pointer relative z-10 dark:text-white"
+            className={`lg:hidden flex flex-col justify-center items-center w-10 h-10 p-0 bg-transparent border-none cursor-pointer relative z-10 ${hasDarkHero ? 'text-white' : 'dark:text-white'}`}
             onClick={toggleMenu}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
@@ -159,17 +169,17 @@ export default function Header() {
           >
                   <span className="relative w-6 h-5 flex flex-col justify-center">
                   <span 
-                    className={`absolute left-0 w-full h-[2px] bg-black dark:bg-white transition-all duration-300 ${
+                    className={`absolute left-0 w-full h-[2px] transition-all duration-300 ${hasDarkHero ? 'bg-white' : 'bg-black dark:bg-white'} ${
                       isMenuOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0'
                     }`}
                   />
-                  <span 
-                    className={`absolute left-0 w-full h-[2px] bg-black dark:bg-white transition-all duration-300 top-1/2 -translate-y-1/2 ${
+                  <span
+                    className={`absolute left-0 w-full h-[2px] transition-all duration-300 top-1/2 -translate-y-1/2 ${hasDarkHero ? 'bg-white' : 'bg-black dark:bg-white'} ${
                       isMenuOpen ? 'opacity-0' : 'opacity-100'
                     }`}
                   />
-                  <span 
-                    className={`absolute left-0 w-full h-[2px] bg-black dark:bg-white transition-all duration-300 ${
+                  <span
+                    className={`absolute left-0 w-full h-[2px] transition-all duration-300 ${hasDarkHero ? 'bg-white' : 'bg-black dark:bg-white'} ${
                       isMenuOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0'
                     }`}
                   />
