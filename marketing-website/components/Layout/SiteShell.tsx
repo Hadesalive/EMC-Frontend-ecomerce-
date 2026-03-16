@@ -7,9 +7,9 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isApp = pathname?.startsWith('/dashboard') ||
                 pathname?.startsWith('/auth') ||
-                pathname?.startsWith('/apply') ||
-                pathname?.startsWith('/request-placement') ||
-                pathname?.startsWith('/jobs')
+                pathname?.startsWith('/request-placement')
+
+  const hideFooter = pathname?.startsWith('/jobs')
 
   if (isApp) return <>{children}</>
 
@@ -17,7 +17,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     <>
       <Header />
       <main>{children}</main>
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   )
 }

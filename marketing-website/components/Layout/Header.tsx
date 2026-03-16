@@ -30,17 +30,20 @@ export default function Header() {
   }
 
   const navLinks = [
-    { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/services', label: 'Services' },
     { href: '/solutions', label: 'Solutions' },
+    { href: '/jobs', label: 'Jobs' },
     { href: '/resources', label: 'Resources' },
     { href: '/contact', label: 'Contact' },
   ]
 
-  // Pages whose hero is dark (bg-black) — header should match when unscrolled
-  const darkHeroPages = ['/about', '/services', '/solutions', '/resources']
-  const hasDarkHero = !isScrolled && darkHeroPages.includes(pathname ?? '')
+  // Routes whose hero is dark (bg-black) — header should match when unscrolled
+  // Uses startsWith so nested routes like /jobs/[id] are included
+  const darkHeroRoutes = ['/about', '/services', '/solutions', '/jobs', '/apply']
+  const hasDarkHero = !isScrolled && darkHeroRoutes.some(
+    route => pathname === route || pathname?.startsWith(route + '/')
+  )
 
   const isActive = (href: string) => {
     if (href === '/') {
@@ -63,27 +66,9 @@ export default function Header() {
               ? 'bg-gradient-to-r from-transparent via-black/10 to-transparent' 
               : 'bg-gradient-to-r from-transparent via-brand-blue/20 to-transparent'
           }`} />
-          {/* Background Pattern */}
-          <div className={`absolute inset-0 z-0 overflow-hidden transition-opacity duration-300 ${isScrolled ? 'opacity-20' : 'opacity-100'}`}>
-            {/* Blue Pattern */}
-            <div 
-              className={`absolute inset-0 transition-opacity duration-300 ${isScrolled ? 'opacity-[0.02]' : 'opacity-[0.06] sm:opacity-[0.04]'}`}
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23539fea' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-              }}
-            />
-            {/* Orange Pattern - Offset */}
-            <div 
-              className={`absolute inset-0 transition-opacity duration-300 ${isScrolled ? 'opacity-[0.015]' : 'opacity-[0.05] sm:opacity-[0.03]'}`}
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f1975e' fill-opacity='1'%3E%3Ccircle cx='5' cy='5' r='2'/%3E%3Ccircle cx='35' cy='35' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                backgroundPosition: '30px 30px',
-              }}
-            />
-          </div>
           
-          <div className="container relative z-20">
-        <nav className="flex items-center py-4 lg:py-5 w-full">
+          <div className="container">
+            <nav className="flex items-center py-4 lg:py-5 w-full">
           {/* Logo - Left aligned */}
           <Link 
             href="/" 
@@ -103,12 +88,12 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-8 ml-auto">
             {/* Navigation Links - Horizontal but with unique styling */}
             <ul className="flex gap-8 items-center list-none m-0 p-0">
-              {navLinks.map((link, index) => {
+              {navLinks.map((link) => {
                 const active = isActive(link.href)
                 return (
                   <li key={link.href} className="relative group">
-                    <Link 
-                      href={link.href} 
+                    <Link
+                      href={link.href}
                       className={`font-display text-sm font-medium transition-all duration-200 no-underline relative inline-block group/link ${
                         active
                           ? 'text-brand-blue'
@@ -125,16 +110,6 @@ export default function Header() {
                         <span className="absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-brand-blue/0 via-brand-orange/50 to-brand-blue/0 scale-x-0 group-hover/link:scale-x-100 transition-transform duration-200 origin-center" />
                       )}
                     </Link>
-                    {/* Number indicator */}
-                    <span className={`absolute -left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold transition-colors ${
-                      active
-                        ? 'text-brand-orange'
-                        : hasDarkHero
-                          ? 'text-white/20 group-hover:text-white/50'
-                          : 'text-black/20 dark:text-white/20 group-hover:text-brand-blue dark:group-hover:text-brand-blue'
-                    }`}>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
                   </li>
                 )
               })}
@@ -146,16 +121,13 @@ export default function Header() {
             {/* Theme Toggle */}
             <ThemeToggle />
 
-            {/* CTA Button - More prominent */}
+            {/* CTA Button */}
             <Link
               href="/contact"
-              className="px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-full hover:bg-black/90 dark:hover:bg-white/90 hover:scale-105 transition-all duration-200 no-underline relative overflow-hidden group"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-lg hover:bg-black/80 dark:hover:bg-white/90 transition-colors duration-200 no-underline group"
             >
-              <span className="relative z-10 inline-flex items-center gap-2">
-                Get Started
-                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </span>
-              <span className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-orange to-brand-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              Get Started
+              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
           </div>
 
@@ -225,7 +197,7 @@ export default function Header() {
             </div>
           </div>
         )}
-      </div>
-    </header>
+          </div>
+        </header>
   )
 }

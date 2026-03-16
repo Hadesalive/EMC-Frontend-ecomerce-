@@ -1,133 +1,202 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import {
-  UserGroupIcon,
-  BuildingOfficeIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  ArrowUpIcon,
-} from '@heroicons/react/24/outline'
+import { createAdminClient } from '@/lib/supabase/server'
+import type { JobRow, ApplicationRow } from '@/lib/supabase/types'
 
-export const metadata: Metadata = { title: 'Dashboard' }
+type RecentApp = Pick<ApplicationRow, 'id' | 'status' | 'created_at'> & {
+  talent_profiles: { full_name: string } | null
+  jobs: { title: string; sector: string } | null
+}
+type JobSummary = Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'urgent' | 'created_at'>
 
-const stats = [
-  { label: 'Total Applications', value: '248', change: '+12 today', icon: UserGroupIcon, color: 'brand-blue' },
-  { label: 'Placement Requests', value: '34', change: '+3 this week', icon: BuildingOfficeIcon, color: 'brand-orange' },
-  { label: 'Placements This Month', value: '18', change: '+4 vs last month', icon: CheckCircleIcon, color: 'brand-blue' },
-  { label: 'Avg. Response Time', value: '1.4d', change: 'down from 2.1d', icon: ClockIcon, color: 'brand-orange' },
-]
+export const metadata: Metadata = { title: 'Dashboard — EMC' }
+export const dynamic = 'force-dynamic'
 
-const recentApplications = [
-  { id: 'APP-248', name: 'James Koroma', role: 'Site Engineer', sector: 'Construction', date: 'Today', status: 'new' },
-  { id: 'APP-247', name: 'Mariama Bangura', role: 'HR Manager', sector: 'Healthcare', date: 'Today', status: 'reviewing' },
-  { id: 'APP-246', name: 'Abu Sesay', role: 'Logistics Officer', sector: 'Transport', date: 'Yesterday', status: 'shortlisted' },
-  { id: 'APP-245', name: 'Fatmata Jalloh', role: 'Accounts Executive', sector: 'FMCG', date: 'Yesterday', status: 'reviewing' },
-  { id: 'APP-244', name: 'Mohamed Conteh', role: 'Safety Officer', sector: 'Mining', date: '2d ago', status: 'placed' },
-]
-
-const recentRequests = [
-  { id: 'REQ-034', company: 'Sierra Leone Mining Co.', role: 'Safety Officers', count: 3, date: 'Today', status: 'new' },
-  { id: 'REQ-033', company: 'Freetown Hotel Group', role: 'Front Desk Staff', count: 5, date: 'Yesterday', status: 'in-progress' },
-  { id: 'REQ-032', company: 'MedPro Healthcare', role: 'Registered Nurses', count: 4, date: '2d ago', status: 'in-progress' },
-  { id: 'REQ-031', company: 'AgriGrow SL', role: 'Field Supervisors', count: 2, date: '3d ago', status: 'filled' },
-]
-
-const statusBadge: Record<string, string> = {
-  new: 'bg-gray-100 text-gray-600',
-  reviewing: 'bg-blue-50 text-blue-600',
-  shortlisted: 'bg-orange-50 text-brand-orange',
-  placed: 'bg-green-50 text-green-600',
-  rejected: 'bg-red-50 text-red-500',
-  'in-progress': 'bg-blue-50 text-blue-600',
-  filled: 'bg-green-50 text-green-600',
-  closed: 'bg-gray-100 text-gray-500',
+const statusPill: Record<string, { bg: string; text: string; label: string }> = {
+  pending:     { bg: 'bg-gray-100',    text: 'text-gray-600',    label: 'Pending'     },
+  reviewing:   { bg: 'bg-blue-50',     text: 'text-blue-600',    label: 'Reviewing'   },
+  shortlisted: { bg: 'bg-amber-50',    text: 'text-amber-600',   label: 'Shortlisted' },
+  interview:   { bg: 'bg-violet-50',   text: 'text-violet-600',  label: 'Interview'   },
+  placed:      { bg: 'bg-emerald-50',  text: 'text-emerald-600', label: 'Placed'      },
+  rejected:    { bg: 'bg-red-50',      text: 'text-red-500',     label: 'Rejected'    },
 }
 
-export default function DashboardPage() {
+function relativeDate(iso: string) {
+  const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000)
+  if (d === 0) return 'Today'
+  if (d === 1) return 'Yesterday'
+  if (d < 7)  return `${d}d ago`
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+}
+
+export default async function DashboardPage() {
+  const supabase = createAdminClient()
+
+  const [
+    { count: totalApplications },
+    { count: pendingReview },
+    { count: activeJobs },
+    { count: totalTalent },
+    { count: newRequests },
+    { data: rawRecentApps },
+    { data: rawJobsList },
+  ] = await Promise.all([
+    supabase.from('applications').select('*', { count: 'exact', head: true }),
+    supabase.from('applications').select('*', { count: 'exact', head: true }).in('status', ['pending', 'reviewing']),
+    supabase.from('jobs').select('*', { count: 'exact', head: true }).eq('is_active', true),
+    supabase.from('talent_profiles').select('*', { count: 'exact', head: true }),
+    supabase.from('placement_requests').select('*', { count: 'exact', head: true }).eq('status', 'new'),
+    supabase
+      .from('applications')
+      .select('id, status, created_at, talent_profiles(full_name), jobs(title, sector)')
+      .order('created_at', { ascending: false })
+      .limit(7),
+    supabase
+      .from('jobs')
+      .select('id, title, sector, type, urgent, created_at')
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .limit(7),
+  ])
+
+  const recentApps = (rawRecentApps ?? []) as unknown as RecentApp[]
+  const jobsList   = (rawJobsList   ?? []) as unknown as JobSummary[]
+
+  const dateStr = new Date().toLocaleDateString('en-GB', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+  })
+
+  const kpis = [
+    { label: 'Active Jobs',      value: activeJobs        ?? 0, href: '/dashboard/jobs',         accent: 'text-black' },
+    { label: 'Applications',     value: totalApplications ?? 0, href: '/dashboard/applications', accent: 'text-black' },
+    { label: 'Needs Review',     value: pendingReview     ?? 0, href: '/dashboard/applications', accent: (pendingReview ?? 0) > 0 ? 'text-amber-500' : 'text-black' },
+    { label: 'Talent on Roster', value: totalTalent       ?? 0, href: '/dashboard/talent',       accent: 'text-black' },
+    { label: 'New Requests',     value: newRequests       ?? 0, href: '/dashboard/requests',     accent: (newRequests ?? 0) > 0 ? 'text-amber-500' : 'text-black' },
+  ]
+
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="font-display text-2xl font-bold text-black">Good morning, Admin</h1>
-        <p className="text-black/50 text-sm mt-1">Here is what is happening at EMC today.</p>
+    <div className="space-y-6">
+
+      {/* Page header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold text-black">Overview</h1>
+        <span className="text-sm text-black/40">{dateStr}</span>
       </div>
 
-      {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stats.map((s, i) => {
-          const Icon = s.icon
-          const isBlue = s.color === 'brand-blue'
-          return (
-            <div key={i} className="bg-white rounded-2xl p-5 border border-black/5">
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isBlue ? 'bg-brand-blue/10' : 'bg-brand-orange/10'}`}>
-                  <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
-                </div>
-                <div className="flex items-center gap-1 text-xs text-green-600 font-medium">
-                  <ArrowUpIcon className="w-3 h-3" />
-                </div>
-              </div>
-              <div className="font-display text-2xl font-bold text-black mb-0.5">{s.value}</div>
-              <div className="text-xs text-black/50 font-medium mb-1">{s.label}</div>
-              <div className="text-xs text-green-600">{s.change}</div>
-            </div>
-          )
-        })}
+      {/* KPI cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        {kpis.map(k => (
+          <Link key={k.label} href={k.href}
+            className="no-underline bg-white rounded-xl border border-black/[0.07] shadow-sm hover:shadow-md transition-shadow p-5 block group">
+            <p className={`font-display text-4xl font-bold mb-2 leading-none transition-colors group-hover:text-brand-blue ${k.accent}`}>
+              {k.value}
+            </p>
+            <p className="text-[13px] text-black/50 font-medium">{k.label}</p>
+          </Link>
+        ))}
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      {/* Main content */}
+      <div className="grid lg:grid-cols-5 gap-5">
+
         {/* Recent Applications */}
-        <div className="bg-white rounded-2xl border border-black/5 overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-black/5">
-            <h2 className="font-display text-base font-bold text-black">Recent Applications</h2>
-            <Link href="/dashboard/applications" className="text-xs font-medium text-brand-blue hover:underline no-underline">View all</Link>
+        <div className="lg:col-span-3 bg-white rounded-xl border border-black/[0.07] shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-black/[0.06]">
+            <h2 className="text-[13px] font-semibold text-black">Recent Applications</h2>
+            <Link href="/dashboard/applications"
+              className="text-[13px] text-black/40 hover:text-brand-blue transition-colors no-underline font-medium">
+              View all
+            </Link>
           </div>
-          <div className="divide-y divide-black/5">
-            {recentApplications.map((a, i) => (
-              <div key={i} className="flex items-center gap-4 px-6 py-3.5 hover:bg-gray-50 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-brand-blue text-xs font-bold">{a.name.charAt(0)}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-black truncate">{a.name}</p>
-                  <p className="text-xs text-black/50 truncate">{a.role} · {a.sector}</p>
-                </div>
-                <div className="text-right flex-shrink-0">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full capitalize ${statusBadge[a.status]}`}>
-                    {a.status}
-                  </span>
-                  <p className="text-xs text-black/40 mt-1">{a.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+
+          {(recentApps ?? []).length === 0 ? (
+            <div className="px-5 py-14 text-center text-[13px] text-black/30">
+              No applications yet.
+            </div>
+          ) : (
+            <div className="divide-y divide-black/[0.05]">
+              {(recentApps ?? []).map(a => {
+                const profile = a.talent_profiles as { full_name: string } | null
+                const job     = a.jobs           as { title: string; sector: string } | null
+                const pill    = statusPill[a.status]
+                const initial = profile?.full_name?.charAt(0).toUpperCase() ?? '?'
+                return (
+                  <div key={a.id} className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50/80 transition-colors">
+                    {/* Avatar */}
+                    <div className="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
+                      <span className="text-brand-blue text-xs font-bold">{initial}</span>
+                    </div>
+
+                    {/* Name + role */}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-semibold text-black leading-tight">{profile?.full_name ?? '—'}</p>
+                      <p className="text-[12px] text-black/40 mt-0.5 truncate">
+                        {job?.title ?? 'General CV'}{job?.sector ? ` · ${job.sector}` : ''}
+                      </p>
+                    </div>
+
+                    {/* Date + status */}
+                    <div className="flex items-center gap-2.5 flex-shrink-0">
+                      <span className="text-[12px] text-black/30 hidden sm:block">{relativeDate(a.created_at)}</span>
+                      {pill && (
+                        <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${pill.bg} ${pill.text}`}>
+                          {pill.label}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
 
-        {/* Recent Requests */}
-        <div className="bg-white rounded-2xl border border-black/5 overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-black/5">
-            <h2 className="font-display text-base font-bold text-black">Recent Requests</h2>
-            <Link href="/dashboard/requests" className="text-xs font-medium text-brand-blue hover:underline no-underline">View all</Link>
+        {/* Open Positions */}
+        <div className="lg:col-span-2 bg-white rounded-xl border border-black/[0.07] shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-black/[0.06]">
+            <h2 className="text-[13px] font-semibold text-black">
+              Open Positions
+              {(activeJobs ?? 0) > 0 && (
+                <span className="ml-2 text-[11px] font-semibold px-1.5 py-0.5 rounded-md bg-gray-100 text-black/40">
+                  {activeJobs}
+                </span>
+              )}
+            </h2>
+            <Link href="/dashboard/jobs"
+              className="text-[13px] text-black/40 hover:text-brand-blue transition-colors no-underline font-medium">
+              Manage
+            </Link>
           </div>
-          <div className="divide-y divide-black/5">
-            {recentRequests.map((r, i) => (
-              <div key={i} className="flex items-center gap-4 px-6 py-3.5 hover:bg-gray-50 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-brand-orange/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-brand-orange text-xs font-bold">{r.company.charAt(0)}</span>
+
+          {(jobsList ?? []).length === 0 ? (
+            <div className="px-5 py-14 text-center">
+              <p className="text-[13px] text-black/30 mb-3">No active positions.</p>
+              <Link href="/dashboard/jobs" className="text-[13px] font-semibold text-brand-blue no-underline hover:underline">
+                Post a job →
+              </Link>
+            </div>
+          ) : (
+            <div className="divide-y divide-black/[0.05]">
+              {(jobsList ?? []).map(j => (
+                <div key={j.id} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-gray-50/80 transition-colors">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="text-[13px] font-semibold text-black leading-tight truncate">{j.title}</p>
+                      {j.urgent && (
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-red-50 text-red-500 flex-shrink-0">
+                          Urgent
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[12px] text-black/40 mt-0.5">{j.sector}</p>
+                  </div>
+                  <span className="text-[11px] font-medium text-black/30 flex-shrink-0">{j.type}</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-black truncate">{r.company}</p>
-                  <p className="text-xs text-black/50 truncate">{r.role} · {r.count} position{r.count > 1 ? 's' : ''}</p>
-                </div>
-                <div className="text-right flex-shrink-0">
-                  <span className={`text-xs font-medium px-2 py-1 rounded-full capitalize ${statusBadge[r.status]}`}>
-                    {r.status}
-                  </span>
-                  <p className="text-xs text-black/40 mt-1">{r.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
+
       </div>
     </div>
   )

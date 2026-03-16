@@ -27,7 +27,7 @@ const featured = {
 const articles = [
   {
     icon: ClipboardDocumentListIcon,
-    color: 'brand-orange',
+    color: 'brand-blue',
     tag: 'Checklist',
     title: 'Recruitment Readiness Checklist',
     description: 'Ensure your organisation is fully prepared before starting a recruitment drive — from job design to onboarding plans.',
@@ -98,17 +98,37 @@ export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Hero */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-28">
+      {/* Hero — light, editorial, with category pills */}
+      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 border-b border-black/5">
         <div className="container">
-          <div className="max-w-4xl">
-            <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">Knowledge Hub</p>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
-              Resources
-            </h1>
-            <p className="text-xl text-white/60 leading-relaxed max-w-2xl">
-              Guides, insights, and tools to help you hire smarter, manage better, and build stronger organisations.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-end">
+            <div>
+              <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">Knowledge Hub</p>
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-black leading-tight mb-6 tracking-tight">
+                Insights &amp;<br />
+                <span className="text-brand-orange">resources.</span>
+              </h1>
+              <p className="text-xl text-black/60 leading-relaxed">
+                Guides, articles, and tools to help you hire smarter, manage better, and build stronger organisations.
+              </p>
+            </div>
+            <div className="lg:pl-8">
+              <p className="text-xs text-black/40 font-medium tracking-widest uppercase mb-4">Browse by type</p>
+              <div className="flex flex-wrap gap-2">
+                {['Guides', 'Articles', 'Checklists', 'Templates', 'Insights', 'FAQs'].map((cat, i) => (
+                  <span
+                    key={i}
+                    className={`px-4 py-2 rounded-full text-sm font-medium border cursor-pointer transition-colors ${
+                      i === 0
+                        ? 'bg-brand-blue text-white border-brand-blue'
+                        : 'border-black/10 text-black/50 hover:border-black/20 hover:text-black/70'
+                    }`}
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -206,7 +226,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20">
+      <section className="py-20 bg-gray-50 border-t border-black/5">
         <div className="container">
           <div className="max-w-2xl">
             <h2 className="font-display text-4xl font-bold text-black mb-4">

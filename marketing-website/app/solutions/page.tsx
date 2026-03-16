@@ -63,7 +63,7 @@ const solutions = [
   },
   {
     icon: BuildingOfficeIcon,
-    color: 'brand-orange',
+    color: 'brand-blue',
     num: '06',
     title: 'HR Outsourcing',
     description: 'Outsource your HR operations to us and benefit from professional management without the overhead. From payroll to onboarding to compliance, we handle it all.',
@@ -71,7 +71,7 @@ const solutions = [
   },
   {
     icon: ChartBarIcon,
-    color: 'brand-blue',
+    color: 'brand-orange',
     num: '07',
     title: 'Workforce Planning & Strategy',
     description: 'Data-driven workforce planning that aligns your talent strategy with your business objectives. We help you forecast needs, identify gaps, and build resilient teams.',
@@ -96,43 +96,69 @@ const process = [
   { step: '06', title: 'Post-Placement Follow-Up', description: 'We stay engaged after placement to ensure a successful long-term fit for both parties.' },
 ]
 
+const industries = [
+  { name: 'Construction',                  color: 'blue' },
+  { name: 'Natural Resources & Mining',    color: 'orange' },
+  { name: 'Hospitality',                   color: 'orange' },
+  { name: 'Healthcare',                    color: 'blue' },
+  { name: 'Agriculture & Fisheries',       color: 'orange' },
+  { name: 'Manufacturing',                 color: 'blue' },
+  { name: 'Retail & FMCG',                 color: 'orange' },
+  { name: 'Logistics & Transport',         color: 'blue' },
+  { name: 'IT & Telecommunications',       color: 'blue' },
+  { name: 'Government & Public Sector',    color: 'blue' },
+  { name: 'Security Services',             color: 'orange' },
+]
+
 export default function SolutionsPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Hero */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-28">
+      {/* Hero — 2-col: text left, solution names grid right */}
+      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-24">
         <div className="container">
-          <div className="max-w-4xl">
-            <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">Workforce &amp; HR Solutions</p>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
-              Every hire.<br />
-              <span className="text-brand-orange">Every level.</span>{' '}
-              <span className="text-brand-blue">Every sector.</span>
-            </h1>
-            <p className="text-xl text-white/60 leading-relaxed max-w-2xl mb-10">
-              Tailored workforce and HR solutions for organisations in Sierra Leone and beyond — from single hires to large-scale programmes.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black text-sm font-semibold rounded-lg hover:bg-white/90 transition-all duration-200 no-underline group/btn"
-              >
-                Get in Touch
-                <ArrowRightIcon className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="/services"
-                className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/20 text-white text-sm font-semibold rounded-lg hover:border-white/40 hover:bg-white/5 transition-all duration-200 no-underline"
-              >
-                View All Services
-              </a>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+            <div className="lg:col-span-7">
+              <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">Workforce &amp; HR Solutions</p>
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
+                Every hire.<br />
+                <span className="text-brand-orange">Every level.</span>{' '}
+                <span className="text-brand-blue">Every sector.</span>
+              </h1>
+              <p className="text-xl text-white/60 leading-relaxed mb-10">
+                Purpose-built for Sierra Leone&rsquo;s job market. Whether you need one specialist or a full workforce programme, we bring the same rigour to every brief.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="/contact"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black text-sm font-semibold rounded-lg hover:bg-white/90 transition-all duration-200 no-underline group/btn"
+                >
+                  Get in Touch
+                  <ArrowRightIcon className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </a>
+                <a
+                  href="/services"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/20 text-white text-sm font-semibold rounded-lg hover:border-white/40 hover:bg-white/5 transition-all duration-200 no-underline"
+                >
+                  View All Services
+                </a>
+              </div>
+            </div>
+            <div className="lg:col-span-5 self-end lg:pb-2">
+              <p className="text-xs font-medium text-white/30 tracking-widest uppercase mb-4">{solutions.length} solutions</p>
+              <div className="grid grid-cols-2 gap-2">
+                {solutions.map((s, i) => (
+                  <div key={i} className="px-3 py-2.5 rounded-lg bg-white/[0.06] text-white/50 text-xs font-medium leading-snug">
+                    {s.title}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Solutions — full-width row layout */}
+      {/* Solutions list */}
       <section className="py-20">
         <div className="container">
           <div className="flex items-end justify-between mb-12 pb-6 border-b border-black/5">
@@ -195,12 +221,13 @@ export default function SolutionsPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
             {process.map((p, i) => (
               <div key={i} className="relative">
-                {/* Connector line */}
                 {i < process.length - 1 && (
                   <div className="hidden lg:block absolute top-6 left-12 right-0 h-px bg-white/10" />
                 )}
                 <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-5 relative z-10 bg-black">
-                  <span className={`text-xs font-bold ${i % 2 === 0 ? 'text-brand-blue' : 'text-brand-orange'}`}>{p.step}</span>
+                  <span className={`text-xs font-bold ${
+                    i === 0 ? 'text-brand-orange' : i === 5 ? 'text-brand-blue' : 'text-white/30'
+                  }`}>{p.step}</span>
                 </div>
                 <h3 className="font-display text-sm font-bold text-white mb-2">{p.title}</h3>
                 <p className="text-white/40 text-xs leading-relaxed">{p.description}</p>
@@ -210,15 +237,15 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      {/* Industries — grid tiles */}
-      <section className="py-20">
+      {/* Industries */}
+      <section className="py-20 border-t border-black/5">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-4">Where we operate</p>
               <h2 className="font-display text-4xl font-bold text-black mb-6">Industries we serve</h2>
               <p className="text-black/60 leading-relaxed mb-8">
-                We have built deep expertise across the sectors that drive Sierra Leone's economy — giving us the networks and market knowledge to find the right people, fast.
+                Our team has worked directly inside many of the sectors we recruit for. That gives us the context to ask the right questions — and find candidates who actually fit, not just candidates who look right on paper.
               </p>
               <a href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:gap-4 transition-all duration-200 no-underline">
                 Talk to a specialist
@@ -226,28 +253,16 @@ export default function SolutionsPage() {
               </a>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {[
-                'Construction',
-                'Natural Resources & Mining',
-                'Hospitality',
-                'Healthcare',
-                'Agriculture & Fisheries',
-                'Manufacturing',
-                'Retail & FMCG',
-                'Logistics & Transport',
-                'IT & Telecommunications',
-                'Government & Public Sector',
-                'Security Services',
-              ].map((industry, i) => (
+              {industries.map((industry, i) => (
                 <div
                   key={i}
                   className={`px-4 py-3 rounded-xl text-sm font-medium border ${
-                    i % 2 === 0
+                    industry.color === 'blue'
                       ? 'border-brand-blue/15 text-brand-blue bg-brand-blue/5'
                       : 'border-brand-orange/15 text-brand-orange bg-brand-orange/5'
                   }`}
                 >
-                  {industry}
+                  {industry.name}
                 </div>
               ))}
             </div>
@@ -256,7 +271,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 border-t border-black/5">
+      <section className="py-20 bg-gray-50 border-t border-black/5">
         <div className="container">
           <div className="max-w-2xl">
             <h2 className="font-display text-4xl font-bold text-black mb-4">

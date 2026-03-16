@@ -12,39 +12,31 @@ const advantages = [
     icon: GlobeAltIcon,
     color: 'brand-blue',
     title: 'Deep Local Network',
-    description: 'Extensive connections across every major sector in Sierra Leone, built through years of active recruitment and trusted industry partnerships.',
-    stat: '11',
-    statLabel: 'sectors covered',
+    description: 'Our consultants have worked directly inside the industries we recruit for — construction, mining, healthcare, hospitality, and more. We know what good looks like in each sector.',
   },
   {
     icon: BoltIcon,
     color: 'brand-orange',
     title: 'Fast Turnaround',
-    description: 'Most shortlists delivered within 5–10 business days. We move quickly without ever compromising on candidate quality or cultural fit.',
-    stat: '48h',
-    statLabel: 'avg. first response',
+    description: 'We respond to every brief within 48 hours and deliver a qualified shortlist within 5–10 working days. You will never be left waiting without a clear update.',
   },
   {
     icon: ShieldCheckIcon,
     color: 'brand-blue',
     title: 'Compliance First',
-    description: 'Full adherence to Sierra Leone labour laws, ethical recruitment standards, and regulatory requirements on every single engagement.',
-    stat: '100%',
-    statLabel: 'compliance rate',
+    description: 'Every engagement is conducted within Sierra Leone\'s labour laws and professional recruitment ethics. We will not cut corners to make a placement faster.',
   },
   {
     icon: AdjustmentsHorizontalIcon,
     color: 'brand-orange',
-    title: 'Tailored to You',
-    description: 'No templates, no generic approaches. Every solution is built specifically around your organisation, your sector, and your goals.',
-    stat: '500+',
-    statLabel: 'clients served',
+    title: 'No Generic Approaches',
+    description: 'We don\'t send bulk CVs and hope one fits. Every role gets a dedicated search — we take the brief seriously before we start sourcing.',
   },
 ]
 
 export default function Features() {
   return (
-    <section className="py-20 lg:py-32 bg-white dark:bg-black">
+    <section className="py-20 lg:py-32 bg-gray-50 dark:bg-gray-950 border-t border-gray-100 dark:border-white/5">
       <div className="container">
 
         {/* Section header */}
@@ -52,11 +44,11 @@ export default function Features() {
           <div>
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">Why EMC</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-black dark:text-white leading-tight tracking-tight">
-              Trusted expertise,<br />real results.
+              How we work,<br />and why it matters.
             </h2>
           </div>
           <p className="text-black/60 dark:text-white/60 leading-relaxed max-w-sm lg:text-right">
-            We combine deep local market knowledge with professional rigour to deliver workforce solutions that actually work.
+            We built EMC because Sierra Leone's job market deserves a recruitment firm that actually knows it.
           </p>
         </div>
 
@@ -68,17 +60,10 @@ export default function Features() {
             return (
               <div
                 key={i}
-                className="group relative p-7 rounded-2xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-900 flex flex-col gap-5"
+                className="group relative p-7 rounded-2xl border border-black/8 dark:border-white/5 hover:border-black/15 dark:hover:border-white/10 hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-900 flex flex-col gap-5"
               >
-                {/* Top row: icon + stat */}
-                <div className="flex items-start justify-between">
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
-                    <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
-                  </div>
-                  <div className="text-right">
-                    <div className={`text-2xl font-bold leading-none ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}>{a.stat}</div>
-                    <div className="text-xs text-black/40 dark:text-white/40 mt-0.5">{a.statLabel}</div>
-                  </div>
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
+                  <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
                 </div>
 
                 {/* Text */}

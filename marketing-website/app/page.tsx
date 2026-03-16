@@ -1,15 +1,16 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/Home/Hero'
 import Features from '@/components/Home/Features'
+import JobsPreview from '@/components/Home/JobsPreview'
 import ServicesSection from '@/components/Home/ServicesSection'
 import CTA from '@/components/Home/CTA'
 
 export const metadata: Metadata = {
   title: 'Home',
-  description: 'Express Management Consultancy - Leading talent management and recruitment solutions. Modern, efficient, and scalable platform for your business.',
+  description: 'Express Management Consultancy - Sierra Leone\'s specialist recruitment and HR consultancy. We help growing businesses hire the right people and build stronger teams.',
   openGraph: {
-    title: 'Express Management Consultancy - Talent Management Platform',
-    description: 'Leading talent management and recruitment solutions.',
+    title: 'Express Management Consultancy',
+    description: 'Sierra Leone\'s specialist recruitment and HR consultancy.',
   },
 }
 
@@ -18,6 +19,7 @@ export default function HomePage() {
     <>
       <Hero />
       <Features />
+      <JobsPreview />
       <ServicesSection />
       <CTA />
     </>

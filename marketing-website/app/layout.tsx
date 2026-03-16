@@ -26,11 +26,12 @@ export const metadata: Metadata = {
   description: 'Leading talent management and recruitment solutions in Sierra Leone.',
   keywords: ['recruitment', 'talent management', 'HR solutions', 'staffing', 'consultancy'],
   authors: [{ name: 'Express Management Consultancy' }],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: 'Express Management Consultancy',
+    images: [{ url: '/images/Emc%20Logo%20header.png', alt: 'Express Management Consultancy' }],
   },
 }
 

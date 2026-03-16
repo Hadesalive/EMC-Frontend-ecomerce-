@@ -25,19 +25,34 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Hero — left-aligned, dark */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-28">
+      {/* Hero — 2-col: headline left, service category index right */}
+      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-24">
         <div className="container">
-          <div className="max-w-4xl">
-            <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">What We Do</p>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
-              Services built<br />
-              <span className="text-brand-orange">around your</span>{' '}
-              <span className="text-brand-blue">needs.</span>
-            </h1>
-            <p className="text-xl text-white/60 leading-relaxed max-w-2xl">
-              From sourcing a single specialist to restructuring an entire HR function, we have the expertise and network to deliver.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-16 items-end">
+            <div>
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-6 tracking-tight">
+                Services built<br />around your<br />
+                <span className="text-brand-orange">needs.</span>
+              </h1>
+              <p className="text-xl text-white/60 leading-relaxed">
+                Whether you need one specialist or want to rethink your entire HR function, we have the sector knowledge and the process to get it right.
+              </p>
+            </div>
+            <div className="lg:border-l lg:border-white/10 lg:pl-16 lg:pb-2">
+              <p className="text-xs font-medium text-white/30 tracking-widest uppercase mb-6">What we cover</p>
+              <div className="space-y-5">
+                {[
+                  { num: '01', name: 'Recruitment & Staffing',        color: 'text-brand-blue' },
+                  { num: '02', name: 'HR & Management Consulting',    color: 'text-brand-orange' },
+                  { num: '03', name: 'Outsourcing Services',          color: 'text-brand-blue' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <span className={`text-xs font-bold tracking-widest ${item.color}`}>{item.num}</span>
+                    <span className="text-white/70 text-lg font-medium">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -238,7 +253,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-blue-50/30 to-orange-50/20">
+      <section className="py-20 bg-gray-50 border-t border-black/5">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-display text-4xl font-bold text-black mb-6">

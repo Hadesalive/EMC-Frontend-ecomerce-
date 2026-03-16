@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 const team = [
   {
-    name: 'Ibrahim Kamara',
-    title: 'Managing Director',
-    bio: 'Over 15 years of experience in HR and workforce strategy across Sierra Leone and West Africa.',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80',
+    name: 'Abu Bakarr Turay',
+    title: 'Founder & CEO',
+    bio: 'Founder of EMC and architect of its approach to Sierra Leone\'s recruitment market. Abu Bakarr built EMC to bridge the gap between the country\'s growing organisations and the talent they need to succeed.',
+    image: '/images/team/abu-bakarr-turay.jpg',
     color: 'brand-blue',
   },
   {
@@ -52,43 +52,41 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Dark Hero */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-28">
+      {/* Hero — 2-col: headline left, stats grid right */}
+      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-24">
         <div className="container">
-          <div className="max-w-4xl">
-            <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">About EMC</p>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
-              Built for the people<br />
-              <span className="text-brand-blue">who build</span>{' '}
-              <span className="text-brand-orange">businesses.</span>
-            </h1>
-            <p className="text-xl text-white/60 leading-relaxed max-w-2xl">
-              Express Management Consultancy connects organisations with exceptional talent and delivers strategic HR and management solutions across Sierra Leone and beyond.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Strip */}
-      <section className="py-12 border-b border-black/5">
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: '2,500+', label: 'Successful Placements', color: 'text-brand-blue' },
-              { value: '500+',   label: 'Trusted Companies',     color: 'text-brand-orange' },
-              { value: '98%',    label: 'Success Rate',          color: 'text-brand-blue' },
-              { value: '11',     label: 'Industries Served',     color: 'text-brand-orange' },
-            ].map((stat, i) => (
-              <div key={i}>
-                <div className={`text-4xl font-bold mb-1 ${stat.color}`}>{stat.value}</div>
-                <div className="text-sm text-black/50 font-medium">{stat.label}</div>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+            <div className="lg:col-span-7">
+              <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">About EMC</p>
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
+                Built for the people<br />
+                <span className="text-brand-blue">who build</span>{' '}
+                <span className="text-brand-orange">businesses.</span>
+              </h1>
+              <p className="text-xl text-white/60 leading-relaxed">
+                A Freetown-based recruitment and HR consultancy. We help Sierra Leone&rsquo;s organisations hire better, manage smarter, and build teams that last.
+              </p>
+            </div>
+            <div className="lg:col-span-5 lg:pb-2">
+              <div className="grid grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden">
+                {[
+                  { label: 'Sierra Leone-focused',  sub: 'Built for this market, not adapted to it',      color: 'text-brand-blue' },
+                  { label: 'Transparent process',   sub: 'Clear updates from brief to placement',          color: 'text-brand-orange' },
+                  { label: 'No placement, no fee',  sub: 'Our interests are only aligned when yours are',  color: 'text-brand-blue' },
+                  { label: 'Confidential search',   sub: 'Every brief and candidate handled discreetly',   color: 'text-brand-orange' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-white/[0.04] p-6 hover:bg-white/[0.07] transition-colors">
+                    <p className={`text-sm font-semibold mb-2 leading-snug ${item.color}`}>{item.label}</p>
+                    <p className="text-xs text-white/40 leading-relaxed">{item.sub}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Story — split layout */}
+      {/* Story */}
       <section className="py-24">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -97,16 +95,25 @@ export default function AboutPage() {
                 Who we are
               </h2>
               <p className="text-lg text-black/70 leading-relaxed mb-5">
-                Express Management Consultancy (EMC) is a professional recruitment and management consultancy dedicated to delivering comprehensive workforce solutions and strategic business support in Sierra Leone and beyond.
+                EMC is a recruitment and management consultancy built specifically for Sierra Leone&rsquo;s market. We work with organisations that are serious about hiring well — not just filling seats, but finding people who will genuinely make a difference.
               </p>
               <p className="text-lg text-black/70 leading-relaxed mb-8">
-                We specialise in connecting organisations with exceptional talent while offering expert advisory services that strengthen operational efficiency, improve organisational structures, and support business growth. Our team combines deep local market knowledge with global best practices to drive impactful results.
+                We specialise in matching organisations with the right people, and advising on the HR structures that let those people do their best work. Our consultants have direct experience inside the industries we recruit for — which means better briefs, more accurate assessments, and real accountability for the outcomes we deliver.
               </p>
-              <div className="flex items-start gap-4 p-5 bg-brand-blue/5 rounded-xl border border-brand-blue/10">
-                <div className="w-1 h-16 bg-brand-blue rounded-full flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-semibold text-brand-blue uppercase tracking-widest mb-1">Our Vision</p>
-                  <p className="text-black/70 leading-relaxed">To be a leading recruitment and management consultancy recognised for excellence, integrity, and impactful business solutions across Sierra Leone and beyond.</p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-5 bg-brand-blue/5 rounded-xl border border-brand-blue/10">
+                  <div className="w-1 h-16 bg-brand-blue rounded-full flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-semibold text-brand-blue uppercase tracking-widest mb-1">Our Vision</p>
+                    <p className="text-black/70 leading-relaxed">To be a leading recruitment and management consultancy recognised for excellence, integrity, and impactful business solutions across Sierra Leone and beyond.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 p-5 bg-brand-orange/5 rounded-xl border border-brand-orange/10">
+                  <div className="w-1 h-16 bg-brand-orange rounded-full flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-semibold text-brand-orange uppercase tracking-widest mb-1">Our Mission</p>
+                    <p className="text-black/70 leading-relaxed">To help organisations across Sierra Leone build great teams and professional HR functions — so that businesses and the people who work for them can grow together.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -125,7 +132,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-24 bg-gradient-to-br from-blue-50/30 to-orange-50/20">
+      <section className="py-24 bg-gray-50">
         <div className="container">
           <div className="mb-14">
             <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-3">Our People</p>
@@ -155,14 +162,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values — dark, editorial numbered list */}
+      {/* Values — dark, editorial */}
       <section className="bg-black py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <h2 className="font-display text-4xl font-bold text-white mb-2">Our Values</h2>
             <p className="text-white/40 text-lg mb-14">The principles that guide every engagement we take on.</p>
+
+            {/* Featured first value */}
+            <div className="py-10 border-b border-white/10">
+              <div className="flex items-start gap-6 mb-4">
+                <span className="font-display text-5xl font-bold text-brand-orange/40 leading-none">{values[0].num}</span>
+                <div>
+                  <h3 className="font-display text-3xl font-bold text-white mb-3">{values[0].name}</h3>
+                  <p className="text-white/55 text-lg leading-relaxed max-w-xl">{values[0].desc}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Remaining values */}
             <div className="divide-y divide-white/10">
-              {values.map((v, i) => (
+              {values.slice(1).map((v, i) => (
                 <div key={i} className="flex items-start gap-8 py-8 group">
                   <span className="font-display text-3xl font-bold text-white/10 group-hover:text-brand-orange transition-colors duration-300 w-12 flex-shrink-0">
                     {v.num}
@@ -178,20 +198,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission Quote */}
-      <section className="py-24 bg-gradient-to-br from-brand-blue to-brand-orange">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-white/70 text-xs font-medium tracking-widest uppercase mb-8">Our Mission</p>
-            <blockquote className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-snug">
-              &ldquo;To empower organisations in Sierra Leone and beyond with high-quality talent and strategic management services that drive sustainable growth, productivity, and long-term success.&rdquo;
-            </blockquote>
-          </div>
-        </div>
-      </section>
-
       {/* CSR / Community */}
-      <section className="py-24">
+      <section className="py-24 border-t border-black/5">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
@@ -210,10 +218,10 @@ export default function AboutPage() {
                 Giving back to<br />our community
               </h2>
               <p className="text-lg text-black/70 leading-relaxed mb-5">
-                At EMC, we believe that responsible business goes beyond client engagements. We actively support ethical recruitment practices, promote fair employment standards, and contribute to community workforce development initiatives.
+                Good recruitment has a real impact on people&rsquo;s lives — not just on business outcomes. We take that responsibility seriously. Every candidate we work with is treated with honesty about the roles we&rsquo;re briefed on and the realistic chances of success.
               </p>
               <p className="text-lg text-black/70 leading-relaxed">
-                Through training programmes, awareness initiatives, and partnerships with local organisations, we work to foster education and create meaningful career opportunities for people across Sierra Leone.
+                We are committed to fair, transparent hiring practices across Sierra Leone — and to working with employers who share those standards. Through local partnerships and training initiatives, we aim to create real opportunities, not just fill vacancies.
               </p>
             </div>
           </div>
@@ -221,7 +229,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-blue-50/30 to-orange-50/20">
+      <section className="py-20 bg-gray-50 border-t border-black/5">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-display text-4xl font-bold text-black mb-6">
