@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Express Management Consultancy',
-    images: [{ url: '/images/Emc%20Logo%20header.png', alt: 'Express Management Consultancy' }],
   },
 }
 

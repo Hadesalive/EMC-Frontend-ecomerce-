@@ -19,17 +19,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${job.title} — ${job.sector}`,
     description: job.description?.slice(0, 160),
-    openGraph: {
-      title: `${job.title} | Express Management Consultancy`,
-      description: job.description?.slice(0, 160),
-      images: [{ url: '/images/Emc%20Logo%20header.png', alt: `${job.title} — Express Management Consultancy` }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${job.title} | Express Management Consultancy`,
-      description: job.description?.slice(0, 160),
-      images: ['/images/Emc%20Logo%20header.png'],
-    },
   }
 }
 
