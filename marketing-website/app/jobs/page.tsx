@@ -1,8 +1,20 @@
+import type { Metadata } from 'next'
 import { createAdminClient } from '@/lib/supabase/server'
 import JobsList from './JobsList'
 import type { JobRow } from '@/lib/supabase/types'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Job Vacancies in Sierra Leone | Current Openings',
+  description: 'Browse current job vacancies across Sierra Leone. EMC recruits for mining, construction, healthcare, hospitality, logistics, IT and more. Apply online today.',
+  alternates: { canonical: 'https://expresssl.com/jobs' },
+  openGraph: {
+    title: 'Job Vacancies in Sierra Leone | Express Management Consultancy',
+    description: 'Browse current job vacancies across Sierra Leone — mining, construction, healthcare, hospitality, logistics, IT and more.',
+    url: 'https://expresssl.com/jobs',
+  },
+}
 
 export default async function JobsPage() {
   const supabase = createAdminClient()
@@ -22,13 +34,13 @@ export default async function JobsPage() {
     <div className="min-h-screen bg-gray-50">
 
       {/* Hero */}
-      <section className="bg-gray-950 pt-32 pb-14">
-        <div className="container flex items-end justify-between gap-10">
+      <section className="bg-gray-950 pt-28 md:pt-32 pb-10 md:pb-14">
+        <div className="container flex items-end justify-between gap-6 md:gap-10">
           <div>
             <p className="text-white/35 text-xs font-medium tracking-widest uppercase mb-5">
               Sierra Leone &nbsp;·&nbsp; Freetown & beyond
             </p>
-            <h1 className="font-display text-5xl md:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-4">
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-4">
               Find your<br />next role.
             </h1>
             <p className="text-white/35 text-[15px] leading-relaxed max-w-xs">

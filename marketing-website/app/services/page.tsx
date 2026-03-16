@@ -13,11 +13,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 export const metadata: Metadata = {
-  title: 'Our Services',
-  description: 'Comprehensive talent management services including recruitment, client relationship management, employee self-service, and automated workflow solutions.',
+  title: 'Recruitment & HR Services | Staffing Agency Sierra Leone',
+  description: 'EMC offers permanent recruitment, contract staffing, executive search, HR consulting, HR outsourcing and management consulting across Sierra Leone. Specialists in mining, construction, healthcare and more.',
+  alternates: { canonical: 'https://expresssl.com/services' },
   openGraph: {
-    title: 'Our Services | Express Management Consultancy',
-    description: 'Comprehensive talent management and recruitment services.',
+    title: 'Recruitment & HR Services Sierra Leone | EMC',
+    description: 'Permanent recruitment, contract staffing, executive search, HR consulting, HR outsourcing and management consulting across Sierra Leone.',
+    url: 'https://expresssl.com/services',
   },
 }
 

@@ -1,8 +1,10 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { MagnifyingGlassIcon, XMarkIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, XMarkIcon, AdjustmentsHorizontalIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import type { JobRow } from '@/lib/supabase/types'
+
+const PAGE_SIZE = 10
 
 const TYPES     = ['Contract', 'Permanent', 'Temporary'] as const
 const SECTORS   = ['Agriculture', 'Construction', 'Government', 'Healthcare', 'Hospitality', 'IT & Telecom', 'Logistics', 'Mining'] as const
@@ -63,6 +65,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
   const [sectors,    setSectors]    = useState<string[]>([])
   const [locations,  setLocations]  = useState<string[]>([])
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [page,       setPage]       = useState(0)
 
   const toggle = (arr: string[], set: (v: string[]) => void, val: string) =>
     set(arr.includes(val) ? arr.filter(x => x !== val) : [...arr, val])
@@ -76,6 +79,12 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
       (!locations.length|| locations.includes(j.location))
     )
   }, [search, types, sectors, locations, jobs])
+
+  // Reset to page 0 whenever filters change
+  useEffect(() => { setPage(0) }, [search, types, sectors, locations])
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const paginated  = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
 
   const hasFilters  = !!(search || types.length || sectors.length || locations.length)
   const clearAll    = () => { setSearch(''); setTypes([]); setSectors([]); setLocations([]) }
@@ -176,9 +185,9 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           {/* Cards */}
           {filtered.length > 0 ? (
             <div className="space-y-3">
-              {filtered.map(job => (
+              {paginated.map(job => (
                 <Link key={job.id} href={`/jobs/${job.id}`} className="no-underline block group">
-                  <article className={`bg-white rounded-2xl p-6 transition-all duration-150 group-hover:shadow-md ${
+                  <article className={`bg-white rounded-2xl p-5 sm:p-6 transition-all duration-150 group-hover:shadow-md ${
                     job.urgent
                       ? 'border-2 border-amber-400'
                       : 'border border-gray-200 group-hover:border-gray-300'
@@ -188,33 +197,72 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                         Urgently hiring
                       </p>
                     )}
-                    <h2 className="text-[19px] font-bold text-gray-900 group-hover:text-brand-blue transition-colors duration-150 leading-snug mb-1">
+                    <h2 className="text-[17px] sm:text-[19px] font-bold text-gray-900 group-hover:text-brand-blue transition-colors duration-150 leading-snug mb-1">
                       {job.title}
                     </h2>
-                    <p className="text-[15px] text-gray-500 leading-snug">Express Management Consultancy</p>
-                    <p className="text-[15px] text-gray-500 leading-snug mb-4">{job.location}, Sierra Leone</p>
+                    <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug">Express Management Consultancy</p>
+                    <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug mb-4">{job.location}, Sierra Leone</p>
                     <div className="flex flex-wrap gap-2 mb-3">
                       {[job.type, job.sector, job.salary_range].filter(Boolean).map(tag => (
-                        <span key={tag} className="text-[13px] font-semibold text-gray-700 bg-gray-100 px-3 py-1 rounded-lg">
+                        <span key={tag} className="text-[12px] sm:text-[13px] font-semibold text-gray-700 bg-gray-100 px-2.5 sm:px-3 py-1 rounded-lg">
                           {tag}
                         </span>
                       ))}
                     </div>
-                    <p className="text-[13px] text-gray-400">Posted {relativeDate(job.created_at)}</p>
+                    <p className="text-[12px] sm:text-[13px] text-gray-400">Posted {relativeDate(job.created_at)}</p>
                   </article>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-gray-200 py-20 text-center">
+            <div className="bg-white rounded-2xl border border-gray-200 py-16 sm:py-20 text-center px-4">
               <p className="text-gray-500 font-medium mb-1">No positions match your search</p>
               <p className="text-gray-400 text-sm mb-5">Try adjusting your filters or search terms</p>
               <button onClick={clearAll} className="text-brand-blue text-sm font-medium hover:underline">Clear all filters</button>
             </div>
           )}
 
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+              <button
+                onClick={() => { setPage(p => Math.max(0, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                disabled={page === 0}
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronLeftIcon className="w-4 h-4" />
+                <span className="hidden sm:inline">Previous</span>
+              </button>
+
+              <div className="flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setPage(i); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                    className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
+                      i === page
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-500 hover:bg-gray-100'
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => { setPage(p => Math.min(totalPages - 1, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                disabled={page === totalPages - 1}
+                className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                <span className="hidden sm:inline">Next</span>
+                <ChevronRightIcon className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
           {filtered.length > 0 && (
-            <p className="text-center text-[12px] text-gray-400 mt-8">
+            <p className="text-center text-[12px] text-gray-400 mt-6">
               Don't see the right role?{' '}
               <Link href="/apply" className="text-brand-blue font-medium hover:underline no-underline">Submit your CV</Link>
               {' '}and we'll reach out when something fits.

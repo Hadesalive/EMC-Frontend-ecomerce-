@@ -9,11 +9,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 export const metadata: Metadata = {
-  title: 'Resources',
-  description: 'Access valuable resources, guides, and insights to help you make informed decisions about talent management and recruitment.',
+  title: 'HR Resources & Career Guides | Sierra Leone',
+  description: 'Free HR resources, career guides, and recruitment insights for employers and job seekers in Sierra Leone from Express Management Consultancy.',
+  alternates: { canonical: 'https://expresssl.com/resources' },
   openGraph: {
-    title: 'Resources | Express Management Consultancy',
-    description: 'Valuable resources and insights for talent management.',
+    title: 'HR Resources & Career Guides | EMC Sierra Leone',
+    description: 'Free HR resources, career guides and recruitment insights for employers and job seekers in Sierra Leone.',
+    url: 'https://expresssl.com/resources',
   },
 }
 

@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Learn about Express Management Consultancy - our mission, values, and commitment to exceptional talent management and recruitment solutions in Sierra Leone.',
+  title: 'About Us | Recruitment Consultancy Sierra Leone',
+  description: 'Learn about Express Management Consultancy — founded by Abu Bakarr Turay. A team of veteran business leaders driving talent management and HR solutions across Sierra Leone.',
+  alternates: { canonical: 'https://expresssl.com/about' },
   openGraph: {
-    title: 'About Us | Express Management Consultancy',
-    description: 'Learn about Express Management Consultancy and our commitment to excellence.',
+    title: 'About Express Management Consultancy | Sierra Leone',
+    description: 'Founded by Abu Bakarr Turay. A veteran team of business leaders and analysts dedicated to recruitment and HR excellence in Sierra Leone.',
+    url: 'https://expresssl.com/about',
   },
 }
 
@@ -13,7 +15,7 @@ const team = [
   {
     name: 'Abu Bakarr Turay',
     title: 'Founder & CEO',
-    bio: 'Founder of EMC and architect of its approach to Sierra Leone\'s recruitment market. Abu Bakarr built EMC to bridge the gap between the country\'s growing organisations and the talent they need to succeed.',
+    bio: 'Abu Bakarr has a vision to create a business that offers an end-to-end service to clients, delivered by local experts on a global scale. A project manager and Supply Chain Management professional with over 15 years of experience in executive contracts and project management, he holds an LLM in International Trade & Commercial Law from the University of Essex and an MSc in Economics from the University of Sierra Leone.',
     image: '/images/team/abu-bakarr-turay.jpg',
     color: 'brand-blue',
   },
@@ -95,24 +97,24 @@ export default function AboutPage() {
                 Who we are
               </h2>
               <p className="text-lg text-black/70 leading-relaxed mb-5">
-                EMC is a recruitment and management consultancy built specifically for Sierra Leone&rsquo;s market. We work with organisations that are serious about hiring well — not just filling seats, but finding people who will genuinely make a difference.
+                Express Management Consultancy is a team of veteran business leaders, analysts, and researchers united in the mission to use data and experience to improve our clients&rsquo; businesses. We do not work like traditional consultants — we roll up our sleeves and work alongside our clients&rsquo; teams to fix problems.
               </p>
               <p className="text-lg text-black/70 leading-relaxed mb-8">
-                We specialise in matching organisations with the right people, and advising on the HR structures that let those people do their best work. Our consultants have direct experience inside the industries we recruit for — which means better briefs, more accurate assessments, and real accountability for the outcomes we deliver.
+                Our inputs don&rsquo;t stop at a report. We are relentless in our pursuit of measurable results — whether that means increased revenue, a more efficient employee structure, higher customer satisfaction, or improved profitability. EMC helps businesses achieve aggressive, profitable and sustainable growth.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-4 p-5 bg-brand-blue/5 rounded-xl border border-brand-blue/10">
                   <div className="w-1 h-16 bg-brand-blue rounded-full flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-semibold text-brand-blue uppercase tracking-widest mb-1">Our Vision</p>
-                    <p className="text-black/70 leading-relaxed">To be a leading recruitment and management consultancy recognised for excellence, integrity, and impactful business solutions across Sierra Leone and beyond.</p>
+                    <p className="text-black/70 leading-relaxed">We are motivated by people and product. We intend to provide a single-source solution with the highest standards of quality, supported with innovative technology, at a fair price point, and delivered by a team of exceptional people who believe in our values.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-5 bg-brand-orange/5 rounded-xl border border-brand-orange/10">
                   <div className="w-1 h-16 bg-brand-orange rounded-full flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-semibold text-brand-orange uppercase tracking-widest mb-1">Our Mission</p>
-                    <p className="text-black/70 leading-relaxed">To help organisations across Sierra Leone build great teams and professional HR functions — so that businesses and the people who work for them can grow together.</p>
+                    <p className="text-black/70 leading-relaxed">To make a positive impact every day by breaking boundaries and building a better business that inspires others. We listen to our clients and evolve our offering to put our people at the heart of our journey, sharing in business success by rewarding high performers who work with energy and agility.</p>
                   </div>
                 </div>
               </div>
@@ -137,6 +139,9 @@ export default function AboutPage() {
           <div className="mb-14">
             <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-3">Our People</p>
             <h2 className="font-display text-4xl font-bold text-black tracking-tight">Meet the team</h2>
+            <p className="text-black/60 text-lg mt-4 max-w-2xl leading-relaxed">
+              We foster a culture of leading by example, inspiring and engaging others to empower our people to reach their full potential. Our Executive Committee comprises experienced individuals from all walks of life — we recruit the best talent and put the right people in the right positions.
+            </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, i) => {

@@ -56,7 +56,7 @@ export default async function JobDetailPage({ params }: Props) {
 
       {/* Dark header */}
       <div className="bg-black pt-20">
-        <div className="container py-12 lg:py-16">
+        <div className="container py-8 lg:py-16">
           <Link href="/jobs"
             className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm font-medium no-underline transition-colors mb-8 group">
             <ArrowLeftIcon className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
@@ -81,7 +81,7 @@ export default async function JobDetailPage({ params }: Props) {
                 </div>
               )}
 
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
+              <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6">
                 {job.title}
               </h1>
 
@@ -112,13 +112,13 @@ export default async function JobDetailPage({ params }: Props) {
           {/* Main content */}
           <div className="lg:col-span-8 space-y-10">
 
-            <div className="bg-white rounded-2xl border border-black/5 p-8 lg:p-10">
+            <div className="bg-white rounded-2xl border border-black/5 p-5 sm:p-8 lg:p-10">
               <h2 className="font-display text-2xl font-bold text-black mb-5">About this role</h2>
               <p className="text-black/65 leading-relaxed text-[15px]">{job.description}</p>
             </div>
 
             {job.responsibilities.length > 0 && (
-              <div className="bg-white rounded-2xl border border-black/5 p-8 lg:p-10">
+              <div className="bg-white rounded-2xl border border-black/5 p-5 sm:p-8 lg:p-10">
                 <h2 className="font-display text-2xl font-bold text-black mb-6">What you'll be doing</h2>
                 <ul className="space-y-3">
                   {job.responsibilities.map((r, i) => (
@@ -134,7 +134,7 @@ export default async function JobDetailPage({ params }: Props) {
             )}
 
             {job.requirements.length > 0 && (
-              <div className="bg-white rounded-2xl border border-black/5 p-8 lg:p-10">
+              <div className="bg-white rounded-2xl border border-black/5 p-5 sm:p-8 lg:p-10">
                 <h2 className="font-display text-2xl font-bold text-black mb-6">Requirements</h2>
                 <ul className="space-y-3 mb-8">
                   {job.requirements.map((r, i) => (
@@ -160,7 +160,7 @@ export default async function JobDetailPage({ params }: Props) {
               </div>
             )}
 
-            <div className="bg-black rounded-2xl p-8 lg:p-10">
+            <div className="bg-black rounded-2xl p-5 sm:p-8 lg:p-10">
               <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-3">Ready to apply?</p>
               <h2 className="font-display text-2xl font-bold text-white mb-3">Think this role is right for you?</h2>
               <p className="text-white/55 leading-relaxed mb-6 text-sm">
@@ -182,7 +182,7 @@ export default async function JobDetailPage({ params }: Props) {
           {/* Sidebar */}
           <div className="lg:col-span-4">
             <div className="sticky top-28 space-y-5">
-              <div className="bg-white rounded-2xl border border-black/5 p-7">
+              <div className="bg-white rounded-2xl border border-black/5 p-5 sm:p-7">
                 <h3 className="font-display text-lg font-bold text-black mb-5">Role overview</h3>
                 <div className="space-y-4">
                   {[

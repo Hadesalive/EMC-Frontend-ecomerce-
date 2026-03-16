@@ -143,7 +143,7 @@ function ApplyForm() {
           ))}
         </div>
 
-        <div className="bg-white rounded-2xl border border-black/5 p-8">
+        <div className="bg-white rounded-2xl border border-black/5 p-5 sm:p-8">
 
           {/* Step 0 — Personal Info */}
           {step === 0 && (

@@ -12,11 +12,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 export const metadata: Metadata = {
-  title: 'Solutions',
-  description: 'Comprehensive talent management solutions designed to streamline your hiring process and optimize workforce performance.',
+  title: 'HR Solutions & Management Consulting Sierra Leone',
+  description: 'Tailored HR solutions and management consulting for businesses in Sierra Leone. EMC delivers workforce planning, organisational design, policy development and performance management.',
+  alternates: { canonical: 'https://expresssl.com/solutions' },
   openGraph: {
-    title: 'Solutions | Express Management Consultancy',
-    description: 'Comprehensive talent management solutions.',
+    title: 'HR Solutions & Management Consulting Sierra Leone | EMC',
+    description: 'Tailored HR solutions and management consulting — workforce planning, organisational design, policy development and performance management.',
+    url: 'https://expresssl.com/solutions',
   },
 }
 

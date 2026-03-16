@@ -3,7 +3,7 @@ import { useState, useMemo, useTransition } from 'react'
 import { EnvelopeIcon } from '@heroicons/react/24/outline'
 import { updateApplicationStatus, updateApplicationNotes, notifyCandidate } from './actions'
 import { cvViewerUrl } from '@/lib/cloudinary'
-import { DEFAULT_STATUS_MESSAGES } from '@/lib/email'
+import { DEFAULT_STATUS_MESSAGES } from '@/lib/status-messages'
 import type { ApplicationWithRelations, ApplicationRow } from '@/lib/supabase/types'
 
 type Status = ApplicationRow['status']
