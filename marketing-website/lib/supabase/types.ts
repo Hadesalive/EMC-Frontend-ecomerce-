@@ -18,19 +18,34 @@ export type JobRow = {
 
 export type TalentProfile = {
   id: string
+  user_id: string | null
   full_name: string
   email: string
   phone: string | null
   location: string | null
   linkedin_url: string | null
+  headline: string | null
   current_role: string | null
   years_experience: string | null
   qualification: string | null
   summary: string | null
   cv_url: string | null
+  profile_photo_url: string | null
+  // Legacy single-value (from apply form)
   preferred_sector: string | null
   employment_type: string | null
   preferred_location: string | null
+  // Candidate portal arrays
+  preferred_sectors: string[]
+  skills: string[]
+  certifications: string[]
+  languages: string[]
+  availability: string | null
+  salary_min: number | null
+  salary_max: number | null
+  date_of_birth: string | null
+  nationality: string | null
+  profile_complete: boolean
   status: 'active' | 'contacted' | 'placed' | 'inactive'
   notes: string | null
   source: 'general_cv' | 'job_application'
@@ -70,10 +85,57 @@ export type PlacementRequest = {
   updated_at: string
 }
 
-// Joined shape used in the dashboard applications view
+export type WorkExperience = {
+  id: string
+  profile_id: string
+  job_title: string
+  company: string
+  location: string | null
+  sector: string | null
+  start_date: string
+  end_date: string | null
+  is_current: boolean
+  description: string | null
+  created_at: string
+}
+
+export type Education = {
+  id: string
+  profile_id: string
+  institution: string
+  degree: string
+  field_of_study: string | null
+  start_year: number | null
+  end_year: number | null
+  created_at: string
+}
+
+export type SavedJob = {
+  id: string
+  profile_id: string
+  job_id: string
+  created_at: string
+}
+
+export type CandidateNotification = {
+  id: string
+  profile_id: string
+  type: 'application_status' | 'new_match' | 'message' | 'system'
+  title: string
+  message: string
+  is_read: boolean
+  link: string | null
+  created_at: string
+}
+
+// Joined shapes
 export type ApplicationWithRelations = ApplicationRow & {
   talent_profiles: Pick<TalentProfile, 'full_name' | 'email' | 'phone' | 'cv_url' | 'current_role' | 'years_experience'>
   jobs: Pick<JobRow, 'title' | 'sector' | 'type'> | null
+}
+
+export type ApplicationWithJob = ApplicationRow & {
+  jobs: Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent'> | null
 }
 
 export type Database = {
@@ -92,14 +154,7 @@ export type Database = {
       }
       talent_profiles: {
         Row: TalentProfile
-        Insert: Omit<TalentProfile, 'id' | 'created_at' | 'updated_at' | 'status' | 'notes' | 'phone' | 'location' | 'linkedin_url' | 'current_role' | 'years_experience' | 'qualification' | 'summary' | 'cv_url' | 'preferred_sector' | 'employment_type' | 'preferred_location' | 'source'> & {
-          id?: string; created_at?: string; updated_at?: string
-          status?: TalentProfile['status']; notes?: string | null; source?: TalentProfile['source']
-          phone?: string | null; location?: string | null; linkedin_url?: string | null
-          current_role?: string | null; years_experience?: string | null; qualification?: string | null
-          summary?: string | null; cv_url?: string | null; preferred_sector?: string | null
-          employment_type?: string | null; preferred_location?: string | null
-        }
+        Insert: { full_name: string; email: string } & Partial<Omit<TalentProfile, 'full_name' | 'email'>>
         Update: Partial<Omit<TalentProfile, 'id' | 'created_at'>>
         Relationships: []
       }
@@ -125,8 +180,34 @@ export type Database = {
         Update: Partial<Omit<PlacementRequest, 'id' | 'created_at'>>
         Relationships: []
       }
+      work_experience: {
+        Row: WorkExperience
+        Insert: Omit<WorkExperience, 'id' | 'created_at'> & { id?: string; created_at?: string }
+        Update: Partial<Omit<WorkExperience, 'id' | 'created_at'>>
+        Relationships: []
+      }
+      education: {
+        Row: Education
+        Insert: Omit<Education, 'id' | 'created_at'> & { id?: string; created_at?: string }
+        Update: Partial<Omit<Education, 'id' | 'created_at'>>
+        Relationships: []
+      }
+      saved_jobs: {
+        Row: SavedJob
+        Insert: Omit<SavedJob, 'id' | 'created_at'> & { id?: string; created_at?: string }
+        Update: Partial<Omit<SavedJob, 'id' | 'created_at'>>
+        Relationships: []
+      }
+      candidate_notifications: {
+        Row: CandidateNotification
+        Insert: Omit<CandidateNotification, 'id' | 'created_at' | 'is_read'> & { id?: string; created_at?: string; is_read?: boolean }
+        Update: Partial<Omit<CandidateNotification, 'id' | 'created_at'>>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      get_my_candidate_profile_id: { Args: Record<string, never>; Returns: string }
+    }
   }
 }

@@ -20,11 +20,12 @@ export default function LoginPage() {
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       )
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) {
         setError('Invalid email or password.')
       } else {
-        router.push('/dashboard')
+        const role = data.user?.user_metadata?.role
+        router.push(role === 'candidate' ? '/candidate/dashboard' : '/dashboard')
         router.refresh()
       }
     })

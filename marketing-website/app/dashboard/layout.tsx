@@ -8,5 +8,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   if (!user) redirect('/auth/login')
 
+  // Candidates belong in the candidate portal, not the admin dashboard
+  if (user.user_metadata?.role === 'candidate') redirect('/candidate/dashboard')
+
   return <DashboardShell userEmail={user.email ?? ''}>{children}</DashboardShell>
 }

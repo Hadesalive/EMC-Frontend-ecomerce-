@@ -44,9 +44,12 @@ export default function ServicesPage() {
               <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-6">What we cover</p>
               <div className="space-y-5">
                 {[
-                  { num: '01', name: 'Recruitment & Staffing',        color: 'text-brand-blue' },
-                  { num: '02', name: 'HR & Management Consulting',    color: 'text-brand-orange' },
-                  { num: '03', name: 'Outsourcing Services',          color: 'text-brand-blue' },
+                  { num: '01', name: 'Recruitment & Talent Acquisition', color: 'text-brand-blue' },
+                  { num: '02', name: 'Workforce Outsourcing',            color: 'text-brand-orange' },
+                  { num: '03', name: 'Payroll Administration',           color: 'text-brand-blue' },
+                  { num: '04', name: 'HR Advisory Services',             color: 'text-brand-orange' },
+                  { num: '05', name: 'Workforce Planning',               color: 'text-brand-blue' },
+                  { num: '06', name: 'Talent Pool Development',          color: 'text-brand-orange' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
                     <span className={`text-xs font-bold tracking-widest ${item.color}`}>{item.num}</span>
@@ -83,12 +86,12 @@ export default function ServicesPage() {
               <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-6">
                 <UserGroupIcon className="w-6 h-6 text-brand-blue" />
               </div>
-              <h3 className="font-display text-3xl font-bold text-black mb-4">Permanent Recruitment</h3>
+              <h3 className="font-display text-3xl font-bold text-black mb-4">Recruitment &amp; Talent Acquisition</h3>
               <p className="text-black/60 leading-relaxed mb-6 text-lg">
-                End-to-end placement for permanent roles at all levels — from entry positions to senior leadership. We manage sourcing, screening, and final placement.
+                Identification and placement of qualified professionals across Sierra Leone — from entry-level positions to senior leadership. We manage the full recruitment cycle so you can focus on your core business.
               </p>
               <ul className="space-y-2.5 mb-8">
-                {['Job profiling & role scoping', 'Multi-channel candidate sourcing', 'Competency-based screening', 'Post-placement follow-up'].map((item, i) => (
+                {['Job profiling & role scoping', 'Multi-channel candidate sourcing', 'Competency-based screening & evaluation', 'Post-placement follow-up'].map((item, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-sm text-black/70">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-blue flex-shrink-0" />
                     {item}
@@ -108,20 +111,20 @@ export default function ServicesPage() {
               {
                 icon: ArrowPathIcon,
                 color: 'brand-orange',
-                title: 'Temporary & Contract Staffing',
-                desc: 'Flexible workforce solutions for short-term projects, seasonal demand, or interim cover. Pre-vetted candidates ready to deploy quickly.',
+                title: 'Talent Pool Development',
+                desc: 'Development of skilled talent databases for rapid recruitment. We maintain pre-screened candidate rosters so we can respond to your workforce needs quickly.',
               },
               {
                 icon: MagnifyingGlassIcon,
                 color: 'brand-blue',
                 title: 'Executive Search',
-                desc: 'Discreet, targeted search for C-suite and specialist roles. Access passive talent not found on open job boards.',
+                desc: 'Discreet, targeted search for C-suite and specialist roles. Our local networks give you access to passive talent not found on open job boards.',
               },
               {
                 icon: ClipboardDocumentCheckIcon,
                 color: 'brand-orange',
-                title: 'Mass Recruitment',
-                desc: 'Large-scale hiring drives coordinated efficiently — from assessment centres to documentation and compliance.',
+                title: 'Mass & Contract Recruitment',
+                desc: 'Large-scale and short-term hiring coordinated efficiently — from assessment and screening through to deployment and compliance documentation.',
               },
             ].map((s, i) => {
               const Icon = s.icon
@@ -146,7 +149,7 @@ export default function ServicesPage() {
           <div className="flex items-center gap-4 mb-14">
             <span className="text-xs font-bold text-brand-orange tracking-widest uppercase">02</span>
             <div className="h-px flex-1 bg-brand-orange/20" />
-            <h2 className="font-display text-2xl font-bold text-white">HR &amp; Management Consulting</h2>
+            <h2 className="font-display text-2xl font-bold text-white">HR Advisory &amp; Workforce Planning</h2>
             <div className="h-px flex-1 bg-brand-orange/20" />
           </div>
 
@@ -155,23 +158,23 @@ export default function ServicesPage() {
               {
                 icon: BriefcaseIcon,
                 color: 'brand-orange',
-                title: 'HR Management Consulting',
-                desc: 'Expert guidance on HR policies, procedures, and best practices. We help you build scalable HR functions that attract and retain top talent.',
-                tags: ['Policy development', 'Performance management', 'Compensation design'],
+                title: 'HR Advisory Services',
+                desc: 'Professional HR consulting and workforce advisory services. We provide expert guidance on HR policies, compliance, performance management, and building scalable HR functions.',
+                tags: ['Policy development', 'Performance management', 'Regulatory compliance'],
               },
               {
                 icon: BuildingOfficeIcon,
                 color: 'brand-blue',
-                title: 'Business Consulting',
-                desc: 'Strategic advice on business operations, growth strategies, and organisational development to drive long-term performance.',
-                tags: ['Process optimisation', 'Strategic planning', 'Change management'],
+                title: 'Workforce Planning',
+                desc: 'Strategic workforce planning to support business growth. We help you forecast headcount needs, identify skills gaps, and build resilient teams aligned to your operational objectives.',
+                tags: ['Headcount planning', 'Skills gap analysis', 'Succession planning'],
               },
               {
                 icon: Cog6ToothIcon,
                 color: 'brand-orange',
-                title: 'Change & Culture Management',
-                desc: 'Guiding organisations through transitions, restructuring, and cultural transformation to build resilient, high-performing teams.',
-                tags: ['Restructuring', 'Culture assessment', 'Leadership alignment'],
+                title: 'Organisational Development',
+                desc: 'Guiding organisations through restructuring, cultural transformation, and change management to improve operational efficiency and long-term performance.',
+                tags: ['Restructuring support', 'Culture assessment', 'Change management'],
               },
             ].map((s, i) => {
               const Icon = s.icon
@@ -205,7 +208,7 @@ export default function ServicesPage() {
           <div className="flex items-center gap-4 mb-14">
             <span className="text-xs font-bold text-brand-blue tracking-widest uppercase">03</span>
             <div className="h-px flex-1 bg-brand-blue/20" />
-            <h2 className="font-display text-2xl font-bold text-black">Outsourcing Services</h2>
+            <h2 className="font-display text-2xl font-bold text-black">Workforce Outsourcing &amp; Payroll</h2>
             <div className="h-px flex-1 bg-brand-blue/20" />
           </div>
 
@@ -214,25 +217,25 @@ export default function ServicesPage() {
               {
                 icon: DocumentTextIcon,
                 color: 'brand-blue',
-                title: 'HR Outsourcing',
-                desc: 'Outsource your entire HR function to us. We manage recruitment, onboarding, compliance, and day-to-day HR administration so you can focus on your core business.',
+                title: 'Workforce Outsourcing',
+                desc: 'Provision and management of outsourced staff for client organisations. We supply, deploy and manage personnel on your behalf — allowing you to scale your workforce without the administrative overhead.',
               },
               {
                 icon: CurrencyDollarIcon,
                 color: 'brand-orange',
-                title: 'Payroll Management',
-                desc: 'Accurate, on-time payroll processing with full compliance to Sierra Leone labour regulations. We handle calculations, disbursements, and reporting.',
+                title: 'Payroll Administration',
+                desc: 'Administration of employee payroll, statutory deductions and compliance. Accurate, on-time payroll processing with full compliance to Sierra Leone labour regulations.',
               },
               {
                 icon: ChartBarIcon,
                 color: 'brand-orange',
-                title: 'HR Technology & Data Analytics',
-                desc: 'Implementing HRIS systems and providing data-driven insights to help you make smarter workforce decisions and track performance effectively.',
+                title: 'HR Operations Management',
+                desc: 'End-to-end management of day-to-day HR operations including onboarding, employee records, leave administration, and compliance reporting.',
               },
               {
                 icon: UserGroupIcon,
                 color: 'brand-blue',
-                title: 'Background Verification',
+                title: 'Background & Reference Verification',
                 desc: 'Thorough background screening — employment history, qualifications, references, and criminal record checks — for every candidate before placement.',
               },
             ].map((s, i) => {

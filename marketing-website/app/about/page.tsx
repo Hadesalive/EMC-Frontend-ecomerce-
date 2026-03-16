@@ -71,13 +71,13 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-6 text-[17px] text-black/65 leading-[1.8]">
                 <p>
-                  We are a single-source financial solutions provider dedicated to driving positive change while supporting the growth and ambitions of asset managers, allocators, financial institutions, and family offices around the world.
+                  Express Management Consultancy (SL) Limited is a professional workforce solutions and HR consulting firm providing recruitment, staff outsourcing, payroll administration and HR advisory services to organisations across Sierra Leone.
                 </p>
                 <p>
-                  Express Management Consultancy is a team of veteran business leaders, analysts, and researchers united in the mission to use data and experience to improve our clients&rsquo; businesses. We do not work like your traditional consultants — we roll up our sleeves and work with our clients&rsquo; teams to fix problems.
+                  Our goal is to enable organisations to focus on their core business operations while we manage talent acquisition, workforce administration and HR support services. We bring structured recruitment processes and strong local talent networks to every brief — delivering qualified staffing solutions quickly and professionally.
                 </p>
                 <p>
-                  Our inputs do not stop in a report, but we&rsquo;re relentless in our pursuit of measurable results. Whether our clients are seeking increased revenue, efficient employee structure, higher customer satisfaction, or increased profitability, Express Management Consultancy helps in achieving aggressive, profitable, &amp; sustainable growth.
+                  We provide reliable workforce solutions that reduce administrative burden, improve operational efficiency and ensure organisations have access to qualified talent. From a single specialist placement to a full outsourced HR function, we apply the same rigour and commitment to every client engagement.
                 </p>
               </div>
             </div>
@@ -108,30 +108,30 @@ export default function AboutPage() {
             <div className="py-10 md:py-0 md:pr-12 lg:pr-16">
               <p className="text-white/60 text-xs font-medium tracking-widest uppercase mb-6">01 &mdash; Purpose</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
-                Drive positive change.
+                Enabling organisations to focus on what matters.
               </h3>
               <p className="text-white/60 leading-relaxed text-[15px]">
-                Our purpose is to drive positive change in the commercial space; across the environment, society, and with good management and dedication to support a more sustainable, inclusive, and responsible future for our clients.
+                Our purpose is to enable organisations to concentrate on their core business operations while we manage the complexity of talent acquisition, workforce administration and HR support — reducing burden and improving efficiency across the board.
               </p>
             </div>
 
             <div className="py-10 md:py-0 md:px-12 lg:px-16">
               <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">02 &mdash; Vision</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
-                A single-source solution.
+                Sierra Leone&rsquo;s most trusted workforce partner.
               </h3>
               <p className="text-white/60 leading-relaxed text-[15px]">
-                We are motivated by people and product. We intend to provide a single-source solution with the highest standards of quality, supported with innovative technology, at a fair price point, and delivered by a team of exceptional people that believe in our values.
+                To be the leading workforce solutions and HR consulting firm across Sierra Leone — known for the quality of our placements, the professionalism of our advisory, and the depth of our local talent networks across every major industry.
               </p>
             </div>
 
             <div className="py-10 md:py-0 md:pl-12 lg:pl-16">
               <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">03 &mdash; Mission</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
-                Make a positive impact.
+                Deliver high quality staffing solutions quickly and professionally.
               </h3>
               <p className="text-white/60 leading-relaxed text-[15px]">
-                To make a positive impact everyday by breaking boundaries and be a better business that would inspire others. We listen to our clients and evolve our offering to put our people at the heart of our journey. We live our values sharing in business success through rewarding high performers who work with high energy and agility.
+                To provide reliable workforce solutions through structured recruitment processes, strong local networks, and professional HR expertise — ensuring every client organisation has access to the right talent, at the right time, with the right support in place.
               </p>
             </div>
 

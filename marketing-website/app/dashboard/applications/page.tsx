@@ -16,5 +16,5 @@ export default async function ApplicationsPage() {
 
   if (error) throw new Error(error.message)
 
-  return <ApplicationsClient initialApplications={(data ?? []) as import('@/lib/supabase/types').ApplicationWithRelations[]} />
+  return <ApplicationsClient initialApplications={(data ?? []) as unknown as import('@/lib/supabase/types').ApplicationWithRelations[]} />
 }

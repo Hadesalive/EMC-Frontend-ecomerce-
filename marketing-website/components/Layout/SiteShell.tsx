@@ -6,6 +6,7 @@ import Footer from './Footer'
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isApp = pathname?.startsWith('/dashboard') ||
+                pathname?.startsWith('/candidate') ||
                 pathname?.startsWith('/auth') ||
                 pathname?.startsWith('/request-placement')
 
