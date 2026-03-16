@@ -9,7 +9,9 @@ export default function Hero() {
   return (
     <section className="relative bg-white dark:bg-black pt-20 pb-12 sm:pt-24 lg:pt-32 lg:pb-16 overflow-hidden">
       {/* Subtle dot grid */}
-      <div className="absolute inset-0 z-0 opacity-[0.035]"
+      <div
+        className="absolute inset-0 z-0 opacity-[0.035]"
+        aria-hidden="true"
         style={{
           backgroundImage: `radial-gradient(circle, #539fea 1px, transparent 1px)`,
           backgroundSize: '28px 28px',
@@ -44,6 +46,7 @@ export default function Hero() {
                     viewBox="0 0 150 8"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
                   >
                     <path
                       d="M1 5C20 2 40 1 75 3C110 5 130 2 149 4"

@@ -92,7 +92,7 @@ function ApplyForm() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="bg-white rounded-2xl border border-black/5 p-10 max-w-md w-full text-center">
           <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-5">
-            <CheckCircleIcon className="w-8 h-8 text-green-500" />
+            <CheckCircleIcon className="w-8 h-8 text-green-500" aria-hidden="true" />
           </div>
           <h2 className="font-display text-2xl font-bold text-black mb-3">Application Submitted</h2>
           <p className="text-black/60 leading-relaxed mb-6">
@@ -125,19 +125,19 @@ function ApplyForm() {
 
       <div className="container py-10 max-w-2xl">
         {/* Step indicator */}
-        <div className="flex items-center mb-8">
+        <div className="flex items-center mb-8" role="list" aria-label="Application steps">
           {steps.map((s, i) => (
-            <div key={i} className="flex items-center flex-1">
+            <div key={i} className="flex items-center flex-1" role="listitem">
               <div className="flex items-center gap-2">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 transition-colors ${
                   i < step ? 'bg-green-500 text-white' : i === step ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'
-                }`}>
-                  {i < step ? <CheckCircleIcon className="w-4 h-4" /> : i + 1}
+                }`} aria-current={i === step ? 'step' : undefined}>
+                  {i < step ? <CheckCircleIcon className="w-4 h-4" aria-hidden="true" /> : i + 1}
                 </div>
                 <span className={`text-sm font-medium hidden sm:block ${i === step ? 'text-black' : 'text-black/40'}`}>{s}</span>
               </div>
               {i < steps.length - 1 && (
-                <div className={`flex-1 h-px mx-3 ${i < step ? 'bg-green-300' : 'bg-gray-200'}`} />
+                <div className={`flex-1 h-px mx-3 ${i < step ? 'bg-green-300' : 'bg-gray-200'}`} aria-hidden="true" />
               )}
             </div>
           ))}
@@ -151,34 +151,34 @@ function ApplyForm() {
               <h2 className="font-display text-xl font-bold text-black mb-6">Personal Information</h2>
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-black mb-2">First Name *</label>
-                  <input type="text" value={form.firstName} onChange={e => set('firstName', e.target.value)}
+                  <label htmlFor="apply-first-name" className="block text-sm font-medium text-black mb-2">First Name *</label>
+                  <input id="apply-first-name" type="text" value={form.firstName} onChange={e => set('firstName', e.target.value)}
                     className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="John" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-black mb-2">Last Name *</label>
-                  <input type="text" value={form.lastName} onChange={e => set('lastName', e.target.value)}
+                  <label htmlFor="apply-last-name" className="block text-sm font-medium text-black mb-2">Last Name *</label>
+                  <input id="apply-last-name" type="text" value={form.lastName} onChange={e => set('lastName', e.target.value)}
                     className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="Doe" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Email Address *</label>
-                <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
+                <label htmlFor="apply-email" className="block text-sm font-medium text-black mb-2">Email Address *</label>
+                <input id="apply-email" type="email" value={form.email} onChange={e => set('email', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="john@email.com" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Phone Number *</label>
-                <input type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
+                <label htmlFor="apply-phone" className="block text-sm font-medium text-black mb-2">Phone Number *</label>
+                <input id="apply-phone" type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="+232 76 000 000" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Current Location</label>
-                <input type="text" value={form.location} onChange={e => set('location', e.target.value)}
+                <label htmlFor="apply-location" className="block text-sm font-medium text-black mb-2">Current Location</label>
+                <input id="apply-location" type="text" value={form.location} onChange={e => set('location', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="Freetown, Sierra Leone" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">LinkedIn Profile</label>
-                <input type="url" value={form.linkedin} onChange={e => set('linkedin', e.target.value)}
+                <label htmlFor="apply-linkedin" className="block text-sm font-medium text-black mb-2">LinkedIn Profile</label>
+                <input id="apply-linkedin" type="url" value={form.linkedin} onChange={e => set('linkedin', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="https://linkedin.com/in/..." />
               </div>
             </div>
@@ -189,8 +189,8 @@ function ApplyForm() {
             <div className="space-y-5">
               <h2 className="font-display text-xl font-bold text-black mb-6">Experience & CV</h2>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Years of Experience *</label>
-                <select value={form.yearsExperience} onChange={e => set('yearsExperience', e.target.value)}
+                <label htmlFor="apply-years-exp" className="block text-sm font-medium text-black mb-2">Years of Experience *</label>
+                <select id="apply-years-exp" value={form.yearsExperience} onChange={e => set('yearsExperience', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm bg-white text-black/70">
                   <option value="">Select...</option>
                   <option>Less than 1 year</option>
@@ -201,8 +201,8 @@ function ApplyForm() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Highest Qualification *</label>
-                <select value={form.qualification} onChange={e => set('qualification', e.target.value)}
+                <label htmlFor="apply-qualification" className="block text-sm font-medium text-black mb-2">Highest Qualification *</label>
+                <select id="apply-qualification" value={form.qualification} onChange={e => set('qualification', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm bg-white text-black/70">
                   <option value="">Select...</option>
                   <option>WASSCE / O-Level</option>
@@ -214,40 +214,47 @@ function ApplyForm() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Current or Most Recent Role</label>
-                <input type="text" value={form.currentRole} onChange={e => set('currentRole', e.target.value)}
+                <label htmlFor="apply-current-role" className="block text-sm font-medium text-black mb-2">Current or Most Recent Role</label>
+                <input id="apply-current-role" type="text" value={form.currentRole} onChange={e => set('currentRole', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm" placeholder="e.g. Site Engineer at Rokel Construction" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Upload CV</label>
-                <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleCvPick} className="hidden" />
+                <label htmlFor="apply-cv" className="block text-sm font-medium text-black mb-2">Upload CV</label>
+                <input ref={fileInputRef} id="apply-cv" type="file" accept=".pdf,.doc,.docx" onChange={handleCvPick} className="sr-only" />
                 {form.cvFile ? (
                   <div className="flex items-center gap-3 px-4 py-3.5 border border-brand-blue/20 bg-brand-blue/5 rounded-xl">
-                    <PaperClipIcon className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                    <PaperClipIcon className="w-4 h-4 text-brand-blue flex-shrink-0" aria-hidden="true" />
                     <span className="text-sm text-black/70 font-medium flex-1 truncate">{form.cvFile.name}</span>
                     {cvUploading
                       ? <span className="text-xs text-black/40 flex-shrink-0">Uploading…</span>
                       : <span className="text-xs text-green-600 flex-shrink-0">Uploaded ✓</span>
                     }
-                    <button type="button" onClick={() => { set('cvFile', null); setCvUrl(null); if (fileInputRef.current) fileInputRef.current.value = '' }}
-                      className="p-1 rounded hover:bg-black/10 transition-colors flex-shrink-0">
-                      <XMarkIcon className="w-3.5 h-3.5 text-black/40" />
+                    <button
+                      type="button"
+                      aria-label="Remove CV"
+                      onClick={() => { set('cvFile', null); setCvUrl(null); if (fileInputRef.current) fileInputRef.current.value = '' }}
+                      className="p-1 rounded hover:bg-black/10 transition-colors flex-shrink-0"
+                    >
+                      <XMarkIcon className="w-3.5 h-3.5 text-black/40" aria-hidden="true" />
                     </button>
                   </div>
                 ) : (
-                  <div onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-black/10 rounded-xl p-8 text-center hover:border-brand-blue/30 hover:bg-brand-blue/[0.02] transition-all cursor-pointer">
+                  <div className="border-2 border-dashed border-black/10 rounded-xl p-8 text-center hover:border-brand-blue/30 hover:bg-brand-blue/[0.02] transition-all">
                     <p className="text-sm text-black/50 mb-1">Click to upload or drag and drop</p>
                     <p className="text-xs text-black/30">PDF or Word document, max 5MB</p>
-                    <button type="button" className="mt-4 px-5 py-2 border border-black/10 rounded-lg text-sm text-black/60 hover:bg-gray-50 transition-colors">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="mt-4 px-5 py-2 border border-black/10 rounded-lg text-sm text-black/60 hover:bg-gray-50 transition-colors"
+                    >
                       Choose File
                     </button>
                   </div>
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Brief Professional Summary</label>
-                <textarea rows={4} value={form.summary} onChange={e => set('summary', e.target.value)}
+                <label htmlFor="apply-summary" className="block text-sm font-medium text-black mb-2">Brief Professional Summary</label>
+                <textarea id="apply-summary" rows={4} value={form.summary} onChange={e => set('summary', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm resize-none" placeholder="Briefly describe your background and key skills..." />
               </div>
             </div>
@@ -264,8 +271,8 @@ function ApplyForm() {
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Preferred Sector *</label>
-                <select value={form.preferredSector} onChange={e => set('preferredSector', e.target.value)}
+                <label htmlFor="apply-sector" className="block text-sm font-medium text-black mb-2">Preferred Sector *</label>
+                <select id="apply-sector" value={form.preferredSector} onChange={e => set('preferredSector', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm bg-white text-black/70">
                   <option value="">Select sector...</option>
                   <option>Construction</option>
@@ -282,8 +289,8 @@ function ApplyForm() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Employment Type Preference</label>
-                <select value={form.employmentType} onChange={e => set('employmentType', e.target.value)}
+                <label htmlFor="apply-employment-type" className="block text-sm font-medium text-black mb-2">Employment Type Preference</label>
+                <select id="apply-employment-type" value={form.employmentType} onChange={e => set('employmentType', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm bg-white text-black/70">
                   <option>Permanent only</option>
                   <option>Contract / Temporary</option>
@@ -291,13 +298,13 @@ function ApplyForm() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Preferred Location</label>
-                <input type="text" value={form.preferredLocation} onChange={e => set('preferredLocation', e.target.value)}
+                <label htmlFor="apply-preferred-location" className="block text-sm font-medium text-black mb-2">Preferred Location</label>
+                <input id="apply-preferred-location" type="text" value={form.preferredLocation} onChange={e => set('preferredLocation', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm" placeholder="e.g. Freetown or anywhere in SL" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-2">Additional Notes</label>
-                <textarea rows={3} value={form.notes} onChange={e => set('notes', e.target.value)}
+                <label htmlFor="apply-notes" className="block text-sm font-medium text-black mb-2">Additional Notes</label>
+                <textarea id="apply-notes" rows={3} value={form.notes} onChange={e => set('notes', e.target.value)}
                   className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm resize-none" placeholder="Anything else you want us to know..." />
               </div>
               <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">

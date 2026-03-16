@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
-import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -61,7 +60,7 @@ export default function Header() {
               : 'bg-gradient-to-br from-white via-blue-50/20 to-orange-50/10 dark:from-black dark:via-gray-900 dark:to-black'
         }`}>
           {/* Thin Line Separator */}
-          <div className={`absolute bottom-0 left-0 right-0 h-[1px] transition-all duration-300 ${
+          <div aria-hidden="true" className={`absolute bottom-0 left-0 right-0 h-[1px] transition-all duration-300 ${
             isScrolled 
               ? 'bg-gradient-to-r from-transparent via-black/10 to-transparent' 
               : 'bg-gradient-to-r from-transparent via-brand-blue/20 to-transparent'
@@ -115,19 +114,13 @@ export default function Header() {
               })}
             </ul>
 
-            {/* Divider */}
-            <div className={`h-6 w-px ${hasDarkHero ? 'bg-white/20' : 'bg-black/10 dark:bg-white/20'}`} />
-
-            {/* Theme Toggle */}
-            <ThemeToggle />
-
             {/* CTA Button */}
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-lg hover:bg-black/80 dark:hover:bg-white/90 transition-colors duration-200 no-underline group"
             >
               Get Started
-              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true" />
             </Link>
           </div>
 
@@ -135,8 +128,9 @@ export default function Header() {
           <button
             className={`lg:hidden flex flex-col justify-center items-center w-10 h-10 p-0 bg-transparent border-none cursor-pointer relative z-10 ${hasDarkHero ? 'text-white' : 'dark:text-white'}`}
             onClick={toggleMenu}
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
             type="button"
           >
                   <span className="relative w-6 h-5 flex flex-col justify-center">
@@ -161,7 +155,7 @@ export default function Header() {
 
         {/* Mobile Navigation - Minimal Apple Style */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[73px] bg-white/95 dark:bg-black/95 backdrop-blur-xl z-[99] border-t border-black/5 dark:border-white/10 overflow-y-auto flex flex-col">
+          <div id="mobile-nav" className="lg:hidden fixed inset-0 top-[73px] bg-white/95 dark:bg-black/95 backdrop-blur-xl z-[99] border-t border-black/5 dark:border-white/10 overflow-y-auto flex flex-col">
             <div className="container py-6 flex-1 flex flex-col">
               <ul className="flex flex-col flex-1">
                 {navLinks.map((link) => {

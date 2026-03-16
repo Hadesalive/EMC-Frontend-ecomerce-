@@ -41,7 +41,7 @@ export default function ServicesPage() {
               </p>
             </div>
             <div className="lg:border-l lg:border-white/10 lg:pl-16 lg:pb-2">
-              <p className="text-xs font-medium text-white/30 tracking-widest uppercase mb-6">What we cover</p>
+              <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-6">What we cover</p>
               <div className="space-y-5">
                 {[
                   { num: '01', name: 'Recruitment & Staffing',        color: 'text-brand-blue' },

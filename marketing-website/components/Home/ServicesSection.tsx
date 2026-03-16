@@ -91,7 +91,7 @@ export default function ServicesSection() {
                 <div className="lg:col-span-3 flex flex-col gap-3">
                   <ul className="space-y-1.5">
                     {s.features.map((f, fi) => (
-                      <li key={fi} className="flex items-center gap-2 text-xs text-white/40">
+                      <li key={fi} className="flex items-center gap-2 text-xs text-white/60">
                         <span className={`w-1 h-1 rounded-full flex-shrink-0 ${isBlue ? 'bg-brand-blue' : 'bg-brand-orange'}`} />
                         {f}
                       </li>

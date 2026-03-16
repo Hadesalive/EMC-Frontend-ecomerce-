@@ -6,7 +6,9 @@ export default function CTA() {
   return (
     <section className="relative py-20 lg:py-32 bg-brand-blue overflow-hidden">
       {/* Subtle dot grid */}
-      <div className="absolute inset-0 z-0 opacity-[0.08]"
+      <div
+        className="absolute inset-0 z-0 opacity-[0.08]"
+        aria-hidden="true"
         style={{
           backgroundImage: `radial-gradient(circle, #ffffff 1px, transparent 1px)`,
           backgroundSize: '24px 24px',

@@ -25,8 +25,8 @@ export default function Footer() {
   return (
     <footer className="relative bg-black text-white overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div 
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <div
           className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -55,17 +55,17 @@ export default function Footer() {
               
               {/* Contact Info */}
               <div className="space-y-3">
-                <a href="mailto:info@emconsultancy.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
-                  <EnvelopeIcon className="w-5 h-5 text-white/50 group-hover:text-brand-blue transition-colors" />
-                  <span className="font-light">info@emconsultancy.com</span>
+                <a href="mailto:recruitment@expresssl.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
+                  <EnvelopeIcon className="w-5 h-5 text-white/50 group-hover:text-brand-blue transition-colors" aria-hidden="true" />
+                  <span className="font-light">recruitment@expresssl.com</span>
                 </a>
-                <a href="tel:+1234567890" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
-                  <PhoneIcon className="w-5 h-5 text-white/50 group-hover:text-brand-orange transition-colors" />
-                  <span className="font-light">(123) 456-7890</span>
+                <a href="tel:+23279252182" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
+                  <PhoneIcon className="w-5 h-5 text-white/50 group-hover:text-brand-orange transition-colors" aria-hidden="true" />
+                  <span className="font-light">+232 79 252182</span>
                 </a>
                 <div className="flex items-center gap-3 text-white/70">
-                  <MapPinIcon className="w-5 h-5 text-white/50" />
-                  <span className="font-light">Mon - Fri: 9:00 AM - 5:00 PM</span>
+                  <MapPinIcon className="w-5 h-5 text-white/50" aria-hidden="true" />
+                  <span className="font-light">10 Waterside Road, Wilberforce, Freetown</span>
                 </div>
               </div>
             </div>

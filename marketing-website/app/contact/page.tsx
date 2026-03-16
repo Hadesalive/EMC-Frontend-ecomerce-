@@ -35,15 +35,15 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <div className="bg-black rounded-2xl p-8 lg:p-10 sticky top-32">
                 <h2 className="font-display text-2xl font-bold text-white mb-1">Contact Information</h2>
-                <p className="text-white/40 text-sm mb-10">Reach us directly or visit our office.</p>
+                <p className="text-white/60 text-sm mb-10">Reach us directly or visit our office.</p>
 
                 <div className="space-y-8">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                      <MapPinIcon className="w-5 h-5 text-brand-blue" />
+                      <MapPinIcon className="w-5 h-5 text-brand-blue" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-1.5">Address</p>
+                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Address</p>
                       <p className="text-white font-medium">10 Waterside Road</p>
                       <p className="text-white/60">Wilberforce, Freetown</p>
                       <p className="text-white/60">Sierra Leone</p>
@@ -52,10 +52,10 @@ export default function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                      <EnvelopeIcon className="w-5 h-5 text-brand-orange" />
+                      <EnvelopeIcon className="w-5 h-5 text-brand-orange" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-1.5">Email</p>
+                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Email</p>
                       <a href="mailto:recruitment@expresssl.com" className="text-white font-medium hover:text-brand-orange transition-colors no-underline">
                         recruitment@expresssl.com
                       </a>
@@ -64,10 +64,10 @@ export default function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                      <PhoneIcon className="w-5 h-5 text-brand-blue" />
+                      <PhoneIcon className="w-5 h-5 text-brand-blue" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-1.5">Phone</p>
+                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Phone</p>
                       <a href="tel:+23279252182" className="text-white font-medium hover:text-brand-blue transition-colors no-underline">
                         +232 79 252182
                       </a>
@@ -76,18 +76,18 @@ export default function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                      <ClockIcon className="w-5 h-5 text-brand-orange" />
+                      <ClockIcon className="w-5 h-5 text-brand-orange" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-1.5">Office Hours</p>
+                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Office Hours</p>
                       <p className="text-white font-medium">Mon – Fri: 8:30am – 5:00pm</p>
-                      <p className="text-white/50 text-sm mt-0.5">Saturday by appointment</p>
+                      <p className="text-white/60 text-sm mt-0.5">Saturday by appointment</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-10 pt-8 border-t border-white/10">
-                  <p className="text-white/40 text-xs font-medium uppercase tracking-widest mb-4">Follow Us</p>
+                  <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-4">Follow Us</p>
                   <div className="flex gap-2">
                     {['LinkedIn', 'Facebook', 'Instagram'].map((platform) => (
                       <a

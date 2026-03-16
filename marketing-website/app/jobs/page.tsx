@@ -37,13 +37,13 @@ export default async function JobsPage() {
       <section className="bg-gray-950 pt-28 md:pt-32 pb-10 md:pb-14">
         <div className="container flex items-end justify-between gap-6 md:gap-10">
           <div>
-            <p className="text-white/35 text-xs font-medium tracking-widest uppercase mb-5">
+            <p className="text-white/60 text-xs font-medium tracking-widest uppercase mb-5">
               Sierra Leone &nbsp;·&nbsp; Freetown & beyond
             </p>
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-4">
               Find your<br />next role.
             </h1>
-            <p className="text-white/35 text-[15px] leading-relaxed max-w-xs">
+            <p className="text-white/60 text-[15px] leading-relaxed max-w-xs">
               Opportunities across construction, healthcare, mining, hospitality and more.
             </p>
           </div>
@@ -56,7 +56,7 @@ export default async function JobsPage() {
             ].map(({ value, label }) => (
               <div key={label} className="text-right">
                 <p className="font-display text-5xl font-bold text-white">{value}</p>
-                <p className="text-white/35 text-sm mt-1">{label}</p>
+                <p className="text-white/60 text-sm mt-1">{label}</p>
               </div>
             ))}
           </div>

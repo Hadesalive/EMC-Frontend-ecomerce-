@@ -147,7 +147,7 @@ export default function SolutionsPage() {
               </div>
             </div>
             <div className="lg:col-span-5 self-end lg:pb-2">
-              <p className="text-xs font-medium text-white/30 tracking-widest uppercase mb-4">{solutions.length} solutions</p>
+              <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">{solutions.length} solutions</p>
               <div className="grid grid-cols-2 gap-2">
                 {solutions.map((s, i) => (
                   <div key={i} className="px-3 py-2.5 rounded-lg bg-white/[0.06] text-white/50 text-xs font-medium leading-snug">
@@ -228,11 +228,11 @@ export default function SolutionsPage() {
                 )}
                 <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center mb-5 relative z-10 bg-black">
                   <span className={`text-xs font-bold ${
-                    i === 0 ? 'text-brand-orange' : i === 5 ? 'text-brand-blue' : 'text-white/30'
+                    i === 0 ? 'text-brand-orange' : i === 5 ? 'text-brand-blue' : 'text-white/60'
                   }`}>{p.step}</span>
                 </div>
                 <h3 className="font-display text-sm font-bold text-white mb-2">{p.title}</h3>
-                <p className="text-white/40 text-xs leading-relaxed">{p.description}</p>
+                <p className="text-white/60 text-xs leading-relaxed">{p.description}</p>
               </div>
             ))}
           </div>
