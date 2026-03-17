@@ -3,6 +3,7 @@
 import { useState, useTransition, useRef, useEffect } from 'react'
 import { saveHero, saveFeatures, saveCTA } from './actions'
 import type { HeroContent, FeaturesContent, CTAContent, Advantage } from '@/lib/cms-types'
+import { ImageUpload } from '@/components/dashboard/ImageUpload'
 
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
@@ -144,17 +145,13 @@ function HeroPanel({ initial }: { initial: HeroContent }) {
 
       <div className="space-y-3">
         <GroupLabel>Hero image</GroupLabel>
-        <Field label="Image URL">
-          <input type="text" className={cx.input} value={data.image_url} onChange={e => set('image_url', e.target.value)} placeholder="https://..." />
-        </Field>
-        <Field label="Alt text" hint="Describes the image for screen readers">
-          <input type="text" className={cx.input} value={data.image_alt} onChange={e => set('image_alt', e.target.value)} />
-        </Field>
-        {data.image_url && (
-          <div className="rounded-xl overflow-hidden border border-black/5 aspect-video max-w-sm">
-            <img src={data.image_url} alt={data.image_alt} className="w-full h-full object-cover" />
-          </div>
-        )}
+        <ImageUpload
+          value={data.image_url}
+          onChange={url => set('image_url', url)}
+          alt={data.image_alt}
+          onAltChange={alt => set('image_alt', alt)}
+          aspect="video"
+        />
       </div>
 
       <SaveBar isPending={isPending} dirty={dirty} saved={saved} />

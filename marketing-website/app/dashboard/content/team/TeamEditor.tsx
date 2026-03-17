@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react'
 import { createTeamMember, updateTeamMember, deleteTeamMember, toggleTeamMemberActive } from './actions'
 import type { TeamMember, BioSection } from '@/lib/cms-types'
 import { PencilSquareIcon, TrashIcon, PlusIcon, XMarkIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { ImageUpload } from '@/components/dashboard/ImageUpload'
 
 const input = 'w-full px-3.5 py-2.5 rounded-xl border border-black/10 text-sm text-black bg-white placeholder:text-black/30 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue/40 transition'
 const textarea = `${input} resize-none`
@@ -114,18 +115,14 @@ function MemberForm({
         <textarea rows={3} required className={textarea} value={data.short_bio} onChange={e => set('short_bio', e.target.value)} />
       </Field>
 
-      <div className="grid sm:grid-cols-3 gap-4">
-        <div className="sm:col-span-2">
-          <Field label="Photo URL">
-            <input type="text" className={input} value={data.image_url ?? ''} onChange={e => set('image_url', e.target.value)} placeholder="https://... or /images/team/..." />
-          </Field>
-        </div>
-        {data.image_url && (
-          <div className="rounded-xl overflow-hidden border border-black/5 aspect-square self-end">
-            <img src={data.image_url} alt={data.name} className="w-full h-full object-cover" />
-          </div>
-        )}
-      </div>
+      <Field label="Photo">
+        <ImageUpload
+          value={data.image_url ?? ''}
+          onChange={url => set('image_url', url)}
+          alt={data.name}
+          aspect="portrait"
+        />
+      </Field>
 
       {/* Credentials */}
       <Field label="Credentials (one per line)">

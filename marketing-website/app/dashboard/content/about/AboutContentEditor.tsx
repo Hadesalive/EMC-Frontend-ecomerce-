@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { saveAboutIntro, saveAboutPurpose } from './actions'
 import type { AboutIntroContent, AboutPurposeContent } from '@/lib/cms-types'
+import { ImageUpload } from '@/components/dashboard/ImageUpload'
 
 const cx = {
   input: 'w-full px-3.5 py-2.5 rounded-xl border border-black/10 text-sm text-black bg-white placeholder:text-black/25 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue/30 transition',
@@ -81,21 +82,13 @@ function IntroPanel({ initial }: { initial: AboutIntroContent }) {
 
       <div className="pt-2 border-t border-black/5 space-y-4">
         <p className="text-xs font-semibold text-black/40 uppercase tracking-widest">Sidebar image</p>
-        <div className="grid sm:grid-cols-3 gap-4">
-          <div className="sm:col-span-2">
-            <Field label="Image URL">
-              <input type="text" className={cx.input} value={data.image_url} onChange={e => set('image_url', e.target.value)} placeholder="https://..." />
-            </Field>
-          </div>
-          <Field label="Alt text" hint="Screen readers">
-            <input type="text" className={cx.input} value={data.image_alt} onChange={e => set('image_alt', e.target.value)} />
-          </Field>
-        </div>
-        {data.image_url && (
-          <div className="rounded-xl overflow-hidden border border-black/5 aspect-[4/3] max-w-xs">
-            <img src={data.image_url} alt={data.image_alt} className="w-full h-full object-cover" />
-          </div>
-        )}
+        <ImageUpload
+          value={data.image_url}
+          onChange={url => set('image_url', url)}
+          alt={data.image_alt}
+          onAltChange={alt => set('image_alt', alt)}
+          aspect="video"
+        />
       </div>
 
       <SaveBar isPending={isPending} dirty={dirty} saved={saved} />

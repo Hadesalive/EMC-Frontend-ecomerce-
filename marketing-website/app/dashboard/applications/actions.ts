@@ -18,6 +18,14 @@ export async function updateApplicationNotes(id: string, internal_notes: string)
   revalidatePath('/dashboard/applications')
 }
 
+export async function deleteApplication(id: string) {
+  const supabase = createAdminClient()
+  const { error } = await supabase.from('applications').delete().eq('id', id)
+  if (error) throw new Error(error.message)
+  revalidatePath('/dashboard/applications')
+  revalidatePath('/dashboard/pipeline')
+}
+
 export async function notifyCandidate(data: {
   candidateName: string
   candidateEmail: string

@@ -9,6 +9,10 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: `/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/**`,
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
   // Performance optimizations
