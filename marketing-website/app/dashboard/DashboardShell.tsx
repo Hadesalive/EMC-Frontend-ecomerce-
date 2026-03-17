@@ -7,6 +7,7 @@ import {
   HomeIcon, DocumentTextIcon, BuildingOfficeIcon, BriefcaseIcon,
   FunnelIcon, ChartBarIcon, ArrowLeftIcon, Bars3Icon, XMarkIcon,
   BellIcon, UsersIcon, ArrowRightStartOnRectangleIcon, KeyIcon,
+  PencilSquareIcon, ChevronRightIcon,
 } from '@heroicons/react/24/outline'
 import { createBrowserClient } from '@supabase/ssr'
 import { useRouter } from 'next/navigation'
@@ -20,7 +21,60 @@ const navLinks = [
   { href: '/dashboard/pipeline',     label: 'Pipeline',      icon: FunnelIcon },
   { href: '/dashboard/analytics',    label: 'Analytics',     icon: ChartBarIcon },
   { href: '/dashboard/users',        label: 'Users',         icon: KeyIcon },
+  { href: '/dashboard/content',      label: 'Content',       icon: PencilSquareIcon },
 ]
+
+const SEGMENT_LABELS: Record<string, string> = {
+  dashboard:    'Dashboard',
+  jobs:         'Jobs',
+  applications: 'Applications',
+  talent:       'Talent Roster',
+  requests:     'Requests',
+  pipeline:     'Pipeline',
+  analytics:    'Analytics',
+  users:        'Users',
+  content:      'Content',
+  home:         'Home',
+  about:        'About',
+  contact:      'Contact',
+  team:         'Team',
+}
+
+function Breadcrumbs({ pathname }: { pathname: string }) {
+  const segments = pathname.split('/').filter(Boolean) // e.g. ['dashboard','content','home']
+
+  // Build crumb list, skipping the root 'dashboard' segment
+  const crumbs = segments.slice(1).map((seg, i) => {
+    const href = '/' + segments.slice(0, i + 2).join('/')
+    const label = SEGMENT_LABELS[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1)
+    const isLast = i === segments.length - 2
+    return { href, label, isLast }
+  })
+
+  if (crumbs.length === 0) {
+    return <span className="text-sm font-semibold text-black">Overview</span>
+  }
+
+  return (
+    <nav className="flex items-center gap-1">
+      {crumbs.map((crumb, i) => (
+        <span key={crumb.href} className="flex items-center gap-1">
+          {i > 0 && <ChevronRightIcon className="w-3.5 h-3.5 text-black/20 flex-shrink-0" />}
+          {crumb.isLast ? (
+            <span className="text-sm font-semibold text-black">{crumb.label}</span>
+          ) : (
+            <Link
+              href={crumb.href}
+              className="text-sm text-black/40 hover:text-black transition-colors no-underline"
+            >
+              {crumb.label}
+            </Link>
+          )}
+        </span>
+      ))}
+    </nav>
+  )
+}
 
 export default function DashboardShell({
   children,
@@ -107,17 +161,34 @@ export default function DashboardShell({
       )}
 
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
+        {/* Top header */}
         <header className="h-16 bg-white border-b border-black/5 flex items-center px-5 gap-4 sticky top-0 z-30">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
             {sidebarOpen ? <XMarkIcon className="w-5 h-5" /> : <Bars3Icon className="w-5 h-5" />}
           </button>
+
+          {/* Breadcrumbs */}
+          <Breadcrumbs pathname={pathname} />
+
           <div className="flex-1" />
+
+          {/* Right actions */}
           <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-            <BellIcon className="w-5 h-5 text-black/50" />
+            <BellIcon className="w-5 h-5 text-black/40" />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-orange rounded-full" />
           </button>
-          <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center">
-            <span className="text-white text-xs font-bold">{initials}</span>
+
+          <div className="w-px h-5 bg-black/10" />
+
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center">
+              <span className="text-white text-xs font-bold">{initials}</span>
+            </div>
+            <span className="hidden sm:block text-sm text-black/50 max-w-[160px] truncate">{userEmail}</span>
           </div>
         </header>
 

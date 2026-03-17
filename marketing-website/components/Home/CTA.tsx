@@ -1,8 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import type { CTAContent } from '@/lib/cms-types'
+import { DEFAULT_CTA } from '@/lib/cms-types'
 
-export default function CTA() {
+export default function CTA({ content }: { content?: Partial<CTAContent> }) {
+  const c: CTAContent = {
+    ...DEFAULT_CTA,
+    ...content,
+    trust_points: content?.trust_points ?? DEFAULT_CTA.trust_points,
+  }
+
   return (
     <section className="relative py-20 lg:py-32 bg-brand-blue overflow-hidden">
       {/* Subtle dot grid */}
@@ -19,12 +27,12 @@ export default function CTA() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left — text */}
           <div>
-            <p className="text-white/70 text-xs font-medium tracking-widest uppercase mb-5">Work With Us</p>
+            <p className="text-white/70 text-xs font-medium tracking-widest uppercase mb-5">{c.label}</p>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
-              Ready to build<br />your best team?
+              {c.heading}
             </h2>
             <p className="text-lg sm:text-xl text-white/80 leading-relaxed max-w-md">
-              Get in touch with EMC today. Tell us what you need and we will handle the rest — from search to placement.
+              {c.description}
             </p>
           </div>
 
@@ -32,23 +40,23 @@ export default function CTA() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/contact"
+                href={c.cta_primary_href}
                 className="px-8 py-4 bg-white text-black text-base font-semibold rounded-lg hover:bg-white/90 transition-all duration-200 no-underline inline-flex items-center justify-center gap-2"
               >
-                Contact Us Today
+                {c.cta_primary}
                 <ArrowRightIcon className="w-5 h-5" />
               </Link>
               <Link
-                href="/solutions"
+                href={c.cta_secondary_href}
                 className="px-8 py-4 bg-transparent text-white text-base font-medium rounded-lg hover:bg-white/10 border border-white/30 hover:border-white/50 transition-all duration-200 no-underline inline-flex items-center justify-center"
               >
-                View Solutions
+                {c.cta_secondary}
               </Link>
             </div>
 
             {/* Quick trust points */}
             <div className="flex flex-wrap gap-x-6 gap-y-2">
-              {['Free initial consultation', 'No placement, no fee', 'Confidential search'].map((point, i) => (
+              {c.trust_points.map((point, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm text-white/70">
                   <span className="w-1 h-1 rounded-full bg-white/50" />
                   {point}

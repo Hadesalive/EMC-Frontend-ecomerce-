@@ -204,6 +204,33 @@ export type Database = {
         Update: Partial<Omit<CandidateNotification, 'id' | 'created_at'>>
         Relationships: []
       }
+      site_content: {
+        Row: { id: string; page: string; section: string; content: Record<string, unknown>; updated_at: string }
+        Insert: { page: string; section: string; content: Record<string, unknown>; id?: string; updated_at?: string }
+        Update: Partial<{ page: string; section: string; content: Record<string, unknown>; updated_at: string }>
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          id: string; name: string; title: string; tagline: string | null
+          short_bio: string; sections: unknown; credentials: string[]; specialisms: string[]
+          image_url: string | null; color: string; display_order: number; is_active: boolean
+          created_at: string; updated_at: string
+        }
+        Insert: {
+          name: string; title: string; short_bio: string
+          tagline?: string | null; sections?: unknown; credentials?: string[]; specialisms?: string[]
+          image_url?: string | null; color?: string; display_order?: number; is_active?: boolean
+          id?: string; created_at?: string; updated_at?: string
+        }
+        Update: Partial<{
+          name: string; title: string; tagline: string | null; short_bio: string
+          sections: unknown; credentials: string[]; specialisms: string[]
+          image_url: string | null; color: string; display_order: number; is_active: boolean
+          updated_at: string
+        }>
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {

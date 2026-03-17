@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import TeamSection from './TeamSection'
+import { getContent, getTeamMembers } from '@/lib/cms'
+import { DEFAULT_ABOUT_INTRO, DEFAULT_ABOUT_PURPOSE } from '@/lib/cms-types'
+import type { AboutIntroContent, AboutPurposeContent } from '@/lib/cms-types'
 
 export const metadata: Metadata = {
   title: 'About Us | Recruitment Consultancy Sierra Leone',
@@ -20,7 +23,16 @@ const values = [
   { num: '05', name: 'Partnership', desc: 'Building long-term, mutually beneficial relationships with every client and candidate.' },
 ]
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [introData, purposeData, team] = await Promise.all([
+    getContent<AboutIntroContent>('about', 'intro'),
+    getContent<AboutPurposeContent>('about', 'purpose'),
+    getTeamMembers(),
+  ])
+
+  const intro: AboutIntroContent = { ...DEFAULT_ABOUT_INTRO, ...introData }
+  const purpose: AboutPurposeContent = { ...DEFAULT_ABOUT_PURPOSE, ...purposeData }
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -70,15 +82,9 @@ export default function AboutPage() {
                 Who we are
               </h2>
               <div className="space-y-6 text-[17px] text-black/65 leading-[1.8]">
-                <p>
-                  Express Management Consultancy (SL) Limited is a professional workforce solutions and HR consulting firm providing recruitment, staff outsourcing, payroll administration and HR advisory services to organisations across Sierra Leone.
-                </p>
-                <p>
-                  Our goal is to enable organisations to focus on their core business operations while we manage talent acquisition, workforce administration and HR support services. We bring structured recruitment processes and strong local talent networks to every brief — delivering qualified staffing solutions quickly and professionally.
-                </p>
-                <p>
-                  We provide reliable workforce solutions that reduce administrative burden, improve operational efficiency and ensure organisations have access to qualified talent. From a single specialist placement to a full outsourced HR function, we apply the same rigour and commitment to every client engagement.
-                </p>
+                <p>{intro.paragraph_1}</p>
+                <p>{intro.paragraph_2}</p>
+                <p>{intro.paragraph_3}</p>
               </div>
             </div>
 
@@ -88,8 +94,8 @@ export default function AboutPage() {
                 <div className="absolute -inset-4 bg-gradient-to-br from-brand-blue/10 to-brand-orange/10 rounded-3xl blur-2xl" aria-hidden="true" />
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-xl">
                   <img
-                    src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1200&q=80"
-                    alt="EMC team at work"
+                    src={intro.image_url}
+                    alt={intro.image_alt}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -108,30 +114,30 @@ export default function AboutPage() {
             <div className="py-10 md:py-0 md:pr-12 lg:pr-16">
               <p className="text-white/60 text-xs font-medium tracking-widest uppercase mb-6">01 &mdash; Purpose</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
-                Enabling organisations to focus on what matters.
+                {purpose.purpose_heading}
               </h3>
               <p className="text-white/60 leading-relaxed text-[15px]">
-                Our purpose is to enable organisations to concentrate on their core business operations while we manage the complexity of talent acquisition, workforce administration and HR support — reducing burden and improving efficiency across the board.
+                {purpose.purpose_body}
               </p>
             </div>
 
             <div className="py-10 md:py-0 md:px-12 lg:px-16">
               <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">02 &mdash; Vision</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
-                Sierra Leone&rsquo;s most trusted workforce partner.
+                {purpose.vision_heading}
               </h3>
               <p className="text-white/60 leading-relaxed text-[15px]">
-                To be the leading workforce solutions and HR consulting firm across Sierra Leone — known for the quality of our placements, the professionalism of our advisory, and the depth of our local talent networks across every major industry.
+                {purpose.vision_body}
               </p>
             </div>
 
             <div className="py-10 md:py-0 md:pl-12 lg:pl-16">
               <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">03 &mdash; Mission</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
-                Deliver high quality staffing solutions quickly and professionally.
+                {purpose.mission_heading}
               </h3>
               <p className="text-white/60 leading-relaxed text-[15px]">
-                To provide reliable workforce solutions through structured recruitment processes, strong local networks, and professional HR expertise — ensuring every client organisation has access to the right talent, at the right time, with the right support in place.
+                {purpose.mission_body}
               </p>
             </div>
 
@@ -154,7 +160,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <TeamSection />
+          <TeamSection team={team} />
         </div>
       </section>
 

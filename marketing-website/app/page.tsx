@@ -5,7 +5,9 @@ import JobsPreview from '@/components/Home/JobsPreview'
 import ServicesSection from '@/components/Home/ServicesSection'
 import CTA from '@/components/Home/CTA'
 import { createAdminClient } from '@/lib/supabase/server'
+import { getContent } from '@/lib/cms'
 import type { JobRow } from '@/lib/supabase/types'
+import type { HeroContent, FeaturesContent, CTAContent } from '@/lib/cms-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -22,24 +24,30 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const supabase = createAdminClient()
-  const { data: raw } = await supabase
-    .from('jobs')
-    .select('id, title, sector, type, location, urgent, created_at')
-    .eq('is_active', true)
-    .order('urgent', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(3)
+
+  const [raw, hero, features, cta] = await Promise.all([
+    supabase
+      .from('jobs')
+      .select('id, title, sector, type, location, urgent, created_at')
+      .eq('is_active', true)
+      .order('urgent', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(3)
+      .then(r => r.data),
+    getContent<HeroContent>('home', 'hero'),
+    getContent<FeaturesContent>('home', 'features'),
+    getContent<CTAContent>('home', 'cta'),
+  ])
 
   const jobs = (raw ?? []) as unknown as Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at'>[]
 
   return (
     <>
-      <Hero />
-      <Features />
+      <Hero content={hero ?? undefined} />
+      <Features content={features ?? undefined} />
       <JobsPreview jobs={jobs} />
       <ServicesSection />
-      <CTA />
+      <CTA content={cta ?? undefined} />
     </>
   )
 }
-
