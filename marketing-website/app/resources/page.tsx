@@ -16,6 +16,13 @@ export const metadata: Metadata = {
     title: 'HR Resources & Career Guides | EMC Sierra Leone',
     description: 'Free HR resources, career guides and recruitment insights for employers and job seekers in Sierra Leone.',
     url: 'https://expresssl.com/resources',
+    type: 'website',
+    images: [{ url: 'https://www.expresssl.com/images/Emc%20Logo%20header.png', width: 800, height: 200, alt: 'Express Management Consultancy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HR Resources & Career Guides | EMC Sierra Leone',
+    description: 'Free HR resources, career guides and recruitment insights for employers and job seekers in Sierra Leone.',
   },
 }
 

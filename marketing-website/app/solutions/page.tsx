@@ -19,6 +19,13 @@ export const metadata: Metadata = {
     title: 'HR Solutions & Management Consulting Sierra Leone | EMC',
     description: 'Tailored HR solutions and management consulting — workforce planning, organisational design, policy development and performance management.',
     url: 'https://expresssl.com/solutions',
+    type: 'website',
+    images: [{ url: 'https://www.expresssl.com/images/Emc%20Logo%20header.png', width: 800, height: 200, alt: 'Express Management Consultancy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HR Solutions & Management Consulting Sierra Leone | EMC',
+    description: 'Tailored HR solutions and management consulting — workforce planning, organisational design, policy development and performance management.',
   },
 }
 

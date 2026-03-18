@@ -20,6 +20,13 @@ export const metadata: Metadata = {
     title: 'Recruitment & HR Services Sierra Leone | EMC',
     description: 'Permanent recruitment, contract staffing, executive search, HR consulting, HR outsourcing and management consulting across Sierra Leone.',
     url: 'https://expresssl.com/services',
+    type: 'website',
+    images: [{ url: 'https://www.expresssl.com/images/Emc%20Logo%20header.png', width: 800, height: 200, alt: 'Express Management Consultancy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Recruitment & HR Services Sierra Leone | EMC',
+    description: 'Permanent recruitment, contract staffing, executive search, HR consulting, HR outsourcing and management consulting across Sierra Leone.',
   },
 }
 

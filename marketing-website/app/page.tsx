@@ -19,6 +19,13 @@ export const metadata: Metadata = {
     title: 'Express Management Consultancy | Recruitment & HR Consultancy Sierra Leone',
     description: 'Sierra Leone\'s leading recruitment agency. Top talent placement across mining, construction, healthcare, hospitality, logistics and more.',
     url: 'https://expresssl.com',
+    type: 'website',
+    images: [{ url: 'https://www.expresssl.com/images/Emc%20Logo%20header.png', width: 800, height: 200, alt: 'Express Management Consultancy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Express Management Consultancy | Recruitment & HR Consultancy Sierra Leone',
+    description: 'Sierra Leone\'s leading recruitment agency. Top talent placement across mining, construction, healthcare, hospitality, logistics and more.',
   },
 }
 

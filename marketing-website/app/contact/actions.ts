@@ -1,5 +1,5 @@
 'use server'
-import { sendContactEnquiry } from '@/lib/email'
+import { sendContactEnquiry, sendContactConfirmation } from '@/lib/email'
 
 export async function submitContactForm(data: {
   firstName: string
@@ -9,5 +9,8 @@ export async function submitContactForm(data: {
   service: string
   message: string
 }) {
-  await sendContactEnquiry(data)
+  await Promise.all([
+    sendContactEnquiry(data),
+    sendContactConfirmation({ firstName: data.firstName, lastName: data.lastName, email: data.email, service: data.service }),
+  ])
 }

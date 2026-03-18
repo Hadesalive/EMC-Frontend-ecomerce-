@@ -69,6 +69,12 @@ const typeColor: Record<string, string> = {
   Temporary: 'bg-white/10 text-white/70',
 }
 
+const employmentTypeMap: Record<string, string> = {
+  Permanent: 'FULL_TIME',
+  Contract:  'CONTRACTOR',
+  Temporary: 'TEMPORARY',
+}
+
 export default async function JobDetailPage({ params }: Props) {
   const { id } = await params
   const supabase = createAdminClient()
@@ -82,8 +88,43 @@ export default async function JobDetailPage({ params }: Props) {
   const job = rawJob as unknown as JobRow
   const related = (rawRelated ?? []) as unknown as JobRow[]
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://expresssl.com'
+
+  const jobPostingSchema = {
+    '@context': 'https://schema.org/',
+    '@type': 'JobPosting',
+    title: job.title,
+    description: job.description,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'Express Management Consultancy',
+      value: job.id,
+    },
+    datePosted: new Date(job.created_at).toISOString().split('T')[0],
+    employmentType: employmentTypeMap[job.type] ?? 'CONTRACTOR',
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'Express Management Consultancy',
+      sameAs: siteUrl,
+      logo: `${siteUrl}/images/Emc%20Logo%20header.png`,
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: job.location,
+        addressCountry: 'SL',
+      },
+    },
+    ...(job.salary_range ? { baseSalary: { '@type': 'MonetaryAmount', currency: 'SLL', value: job.salary_range } } : {}),
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingSchema) }}
+      />
 
       {/* Dark header */}
       <div className="bg-black pt-20">

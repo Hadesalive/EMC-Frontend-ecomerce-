@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     title: 'About Express Management Consultancy | Sierra Leone',
     description: 'Founded by Abu Bakarr Turay. A veteran team of business leaders and analysts dedicated to recruitment and HR excellence in Sierra Leone.',
     url: 'https://expresssl.com/about',
+    type: 'website',
+    images: [{ url: 'https://www.expresssl.com/images/Emc%20Logo%20header.png', width: 800, height: 200, alt: 'Express Management Consultancy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Express Management Consultancy | Sierra Leone',
+    description: 'Founded by Abu Bakarr Turay. A veteran team of business leaders and analysts dedicated to recruitment and HR excellence in Sierra Leone.',
   },
 }
 

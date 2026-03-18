@@ -1,7 +1,7 @@
 'use server'
 import { revalidatePath } from 'next/cache'
 import { createAdminClient } from '@/lib/supabase/server'
-import { sendApplicationNotification } from '@/lib/email'
+import { sendApplicationNotification, sendApplicationConfirmation } from '@/lib/email'
 
 export async function submitApplication(data: {
   firstName: string
@@ -67,19 +67,27 @@ export async function submitApplication(data: {
     jobTitle = (job as unknown as { title: string } | null)?.title ?? null
   }
 
-  // Fire notification email — non-blocking, don't fail submission if email errors
-  sendApplicationNotification({
-    applicantName:   `${data.firstName.trim()} ${data.lastName.trim()}`,
-    applicantEmail:  data.email,
-    applicantPhone:  data.phone,
-    jobTitle,
-    sector:          data.preferredSector,
-    cvUrl:           data.cvUrl,
-    yearsExperience: data.yearsExperience,
-    qualification:   data.qualification,
-    currentRole:     data.currentRole,
-    summary:         data.summary,
-  }).catch(console.error)
+  // Fire both emails — non-blocking, don't fail submission if email errors
+  Promise.all([
+    sendApplicationNotification({
+      applicantName:   `${data.firstName.trim()} ${data.lastName.trim()}`,
+      applicantEmail:  data.email,
+      applicantPhone:  data.phone,
+      jobTitle,
+      sector:          data.preferredSector,
+      cvUrl:           data.cvUrl,
+      yearsExperience: data.yearsExperience,
+      qualification:   data.qualification,
+      currentRole:     data.currentRole,
+      summary:         data.summary,
+    }),
+    sendApplicationConfirmation({
+      firstName:   data.firstName.trim(),
+      email:       data.email,
+      jobTitle,
+      cvUploaded:  !!data.cvUrl,
+    }),
+  ]).catch(console.error)
 
   revalidatePath('/dashboard/applications')
   revalidatePath('/dashboard/talent')

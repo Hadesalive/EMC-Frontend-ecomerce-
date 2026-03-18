@@ -6,11 +6,20 @@ import { DEFAULT_CONTACT } from '@/lib/cms-types'
 import type { ContactContent } from '@/lib/cms-types'
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with Express Management Consultancy. We are here to help with your talent management and recruitment needs in Sierra Leone.',
+  title: 'Contact Us | Express Management Consultancy Sierra Leone',
+  description: 'Get in touch with Express Management Consultancy. Reach our team in Freetown, Sierra Leone for recruitment, HR consulting and staffing enquiries.',
+  alternates: { canonical: 'https://expresssl.com/contact' },
   openGraph: {
-    title: 'Contact Us | Express Management Consultancy',
-    description: 'Get in touch with Express Management Consultancy.',
+    title: 'Contact Us | Express Management Consultancy Sierra Leone',
+    description: 'Reach our team in Freetown, Sierra Leone for recruitment, HR consulting and staffing enquiries.',
+    url: 'https://expresssl.com/contact',
+    type: 'website',
+    images: [{ url: 'https://www.expresssl.com/images/Emc%20Logo%20header.png', width: 800, height: 200, alt: 'Express Management Consultancy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact Us | Express Management Consultancy Sierra Leone',
+    description: 'Reach our team in Freetown, Sierra Leone for recruitment, HR consulting and staffing enquiries.',
   },
 }
 

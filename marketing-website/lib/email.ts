@@ -215,6 +215,152 @@ export async function sendApplicationNotification(data: {
   })
 }
 
+// ─── Contact confirmation (to enquirer) ──────────────────────────────────────
+
+export async function sendContactConfirmation(data: {
+  firstName: string
+  lastName: string
+  email: string
+  service: string
+}) {
+  const body = `
+    <!-- Heading -->
+    <tr>
+      <td style="padding:32px 40px 0">
+        <span style="display:inline-block;font-size:12px;font-weight:600;color:#f97316;text-transform:uppercase;letter-spacing:0.06em">Message Received</span>
+        <h1 style="margin:8px 0 0;font-size:22px;font-weight:700;color:#111827;line-height:1.3">Thanks for reaching out, ${data.firstName}.</h1>
+      </td>
+    </tr>
+
+    <!-- Body -->
+    <tr>
+      <td style="padding:24px 40px 32px">
+        <p style="margin:0 0 16px;font-size:15px;color:#374151;line-height:1.7">
+          We have received your enquiry${data.service ? ` regarding <strong>${data.service}</strong>` : ''} and a member of our team will get back to you as soon as possible — typically within <strong>1–2 business days</strong>.
+        </p>
+        <p style="margin:0;font-size:15px;color:#374151;line-height:1.7">
+          In the meantime, feel free to browse our current job vacancies or learn more about our services.
+        </p>
+      </td>
+    </tr>
+
+    <!-- CTAs -->
+    <tr>
+      <td style="padding:0 40px 40px;border-top:1px solid #e5e7eb">
+        <p style="margin:0 0 16px;font-size:13px;color:#6b7280;padding-top:24px">Need an urgent response? Call us directly on <strong>+232 79 252182</strong>.</p>
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="padding-right:12px">
+              <a href="${SITE}/jobs" style="display:inline-block;padding:11px 22px;background:#111827;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;border-radius:6px">
+                Browse Jobs
+              </a>
+            </td>
+            <td>
+              <a href="${SITE}/services" style="display:inline-block;padding:11px 22px;background:#ffffff;color:#111827;text-decoration:none;font-size:14px;font-weight:600;border-radius:6px;border:1px solid #d1d5db">
+                Our Services
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>`
+
+  await resend.emails.send({
+    from:    FROM_TEAM,
+    to:      data.email,
+    subject: `We've received your message — Express Management Consultancy`,
+    html:    emailWrapper(body),
+  })
+}
+
+// ─── Application confirmation (to applicant) ─────────────────────────────────
+
+export async function sendApplicationConfirmation(data: {
+  firstName: string
+  email: string
+  jobTitle: string | null
+  cvUploaded: boolean
+}) {
+  const isGeneral = !data.jobTitle
+
+  const body = `
+    <!-- Heading -->
+    <tr>
+      <td style="padding:32px 40px 0">
+        <span style="display:inline-block;font-size:12px;font-weight:600;color:#f97316;text-transform:uppercase;letter-spacing:0.06em">
+          ${isGeneral ? 'CV Received' : 'Application Received'}
+        </span>
+        <h1 style="margin:8px 0 0;font-size:22px;font-weight:700;color:#111827;line-height:1.3">
+          Thanks for applying, ${data.firstName}.
+        </h1>
+        ${!isGeneral ? `<p style="margin:6px 0 0;font-size:14px;color:#6b7280">${data.jobTitle}</p>` : ''}
+      </td>
+    </tr>
+
+    <!-- Body -->
+    <tr>
+      <td style="padding:24px 40px 32px">
+        <p style="margin:0 0 16px;font-size:15px;color:#374151;line-height:1.7">
+          ${isGeneral
+            ? `We have received your CV submission${data.cvUploaded ? ' including your CV' : ''}. Our team will review your profile and reach out if a suitable opportunity arises.`
+            : `We have received your application for <strong>${data.jobTitle}</strong>${data.cvUploaded ? ', including your CV' : ''}. Our recruitment team will review it within <strong>2–3 business days</strong> and contact shortlisted candidates directly.`
+          }
+        </p>
+        <p style="margin:0;font-size:15px;color:#374151;line-height:1.7">
+          We appreciate your interest in working with Express Management Consultancy. While we review every application carefully, only shortlisted candidates will be contacted for the next stage.
+        </p>
+      </td>
+    </tr>
+
+    <!-- What happens next -->
+    <tr>
+      <td style="padding:0 40px 32px">
+        <div style="background:#f9fafb;border-radius:8px;padding:20px 24px">
+          <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em">What happens next</p>
+          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            ${['Our team reviews your application', 'Shortlisted candidates are contacted', 'Interview arranged at a convenient time', 'Offer and placement confirmed'].map((step, i) => `
+            <tr>
+              <td style="padding:6px 12px 6px 0;vertical-align:top;width:28px">
+                <span style="display:inline-block;width:22px;height:22px;background:#111827;color:#ffffff;font-size:11px;font-weight:700;border-radius:50%;text-align:center;line-height:22px">${i + 1}</span>
+              </td>
+              <td style="padding:6px 0;font-size:14px;color:#374151;vertical-align:top">${step}</td>
+            </tr>`).join('')}
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <!-- CTAs -->
+    <tr>
+      <td style="padding:0 40px 40px;border-top:1px solid #e5e7eb">
+        <p style="margin:0 0 16px;font-size:13px;color:#6b7280;padding-top:24px">Questions about your application? Reply to this email or contact us directly.</p>
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="padding-right:12px">
+              <a href="${SITE}/jobs" style="display:inline-block;padding:11px 22px;background:#111827;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;border-radius:6px">
+                Browse More Jobs
+              </a>
+            </td>
+            <td>
+              <a href="mailto:recruitment@expresssl.com" style="display:inline-block;padding:11px 22px;background:#ffffff;color:#111827;text-decoration:none;font-size:14px;font-weight:600;border-radius:6px;border:1px solid #d1d5db">
+                Contact Us
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>`
+
+  await resend.emails.send({
+    from:    FROM_TEAM,
+    to:      data.email,
+    subject: isGeneral
+      ? `We've received your CV — Express Management Consultancy`
+      : `Application received — ${data.jobTitle}`,
+    html:    emailWrapper(body),
+  })
+}
+
 // ─── Status notification (to candidate) ──────────────────────────────────────
 
 const STATUS_META: Record<NotifiableStatus, { subject: string; heading: string }> = {

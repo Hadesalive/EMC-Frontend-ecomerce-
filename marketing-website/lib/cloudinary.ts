@@ -37,6 +37,11 @@ export const uploadToCloudinary   = (file: File) => cloudinaryUpload(file, 'imag
 export const uploadCvToCloudinary = (file: File) => cloudinaryUpload(file, 'raw',   CV_PRESET)
 export const uploadCmsImage       = (file: File) => cloudinaryUpload(file, 'image', IMAGE_PRESET, 'emc/cms')
 
-// Open a CV URL inline (Google Docs viewer) instead of triggering a download
-export const cvViewerUrl = (url: string) =>
-  `https://docs.google.com/viewer?url=${encodeURIComponent(url)}`
+// Open a CV URL inline:
+//   PDF  → direct URL (browsers render natively — no preview issues)
+//   DOC/DOCX → Google Docs viewer (required for Word files)
+export const cvViewerUrl = (url: string): string => {
+  const lower = url.split('?')[0].toLowerCase()
+  if (lower.endsWith('.pdf')) return url
+  return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}`
+}
