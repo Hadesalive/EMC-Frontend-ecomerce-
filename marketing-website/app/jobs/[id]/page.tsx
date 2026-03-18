@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     job.salary_range,
   ].filter(Boolean)
   const description = descParts.join(' · ')
+  const ogImage = `${siteUrl}/jobs/${id}/opengraph-image`
 
   return {
     title,
@@ -41,11 +42,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteUrl}/jobs/${id}`,
       siteName: 'Express Management Consultancy',
       type: 'article',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: job.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [ogImage],
     },
   }
 }
