@@ -58,158 +58,127 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
+        background: '#ffffff',
         fontFamily: 'sans-serif',
       }}
     >
-      {/* LEFT — orange brand panel */}
-      <div
-        style={{
-          width: 380,
-          height: '100%',
-          background: 'linear-gradient(160deg, #f97316 0%, #c2410c 100%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '0 32px',
-          flexShrink: 0,
-        }}
-      >
-        {logoSrc ? (
-          <img
-            src={logoSrc}
-            width={280}
-            height={280}
-            style={{ objectFit: 'contain' }}
-          />
-        ) : (
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}>
-            <div style={{
-              display: 'flex',
-              fontSize: 72,
-              fontWeight: 900,
-              color: '#ffffff',
-              letterSpacing: '0.05em',
-            }}>
-              EMC
-            </div>
-            <div style={{
-              display: 'flex',
-              fontSize: 14,
-              fontWeight: 600,
-              color: 'rgba(255,255,255,0.8)',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              marginTop: 8,
-              textAlign: 'center',
-            }}>
-              Express Management Consultancy
-            </div>
-          </div>
-        )}
+      {/* Orange top stripe */}
+      <div style={{ width: '100%', height: 14, background: '#f97316', display: 'flex', flexShrink: 0 }} />
 
-        {/* "We're Hiring" tag */}
-        <div style={{
-          display: 'flex',
-          marginTop: 32,
-          background: 'rgba(0,0,0,0.25)',
-          color: '#ffffff',
-          fontSize: 16,
-          fontWeight: 700,
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          padding: '8px 20px',
-          borderRadius: 6,
-        }}>
-          We&apos;re Hiring
-        </div>
-      </div>
-
-      {/* RIGHT — job details panel */}
+      {/* Main content — everything centered so mobile square crop always hits the logo */}
       <div
         style={{
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'center',
-          padding: '50px 60px',
-          background: '#ffffff',
+          padding: '30px 80px',
         }}
       >
-        {/* Sector label */}
+        {/* Logo — centered, large */}
+        {logoSrc ? (
+          <img
+            src={logoSrc}
+            width={420}
+            height={140}
+            style={{ objectFit: 'contain' }}
+          />
+        ) : (
+          <div style={{
+            display: 'flex',
+            fontSize: 56,
+            fontWeight: 900,
+            color: '#f97316',
+            letterSpacing: '0.08em',
+          }}>
+            EMC
+          </div>
+        )}
+
+        {/* Orange divider */}
         <div style={{
           display: 'flex',
-          fontSize: 16,
-          fontWeight: 700,
-          color: '#f97316',
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          marginBottom: 16,
-        }}>
-          {sector}
-        </div>
+          width: 64,
+          height: 5,
+          background: '#f97316',
+          borderRadius: 3,
+          margin: '24px 0',
+          flexShrink: 0,
+        }} />
 
-        {/* Job title */}
+        {/* Job title — centered */}
         <div
           style={{
             display: 'flex',
-            fontSize: title.length > 40 ? 44 : title.length > 28 ? 52 : 60,
+            fontSize: title.length > 45 ? 40 : title.length > 32 ? 48 : 56,
             fontWeight: 800,
-            color: '#0a0a0a',
-            lineHeight: 1.1,
-            marginBottom: 32,
+            color: '#111827',
+            lineHeight: 1.15,
+            marginBottom: 24,
+            textAlign: 'center',
+            maxWidth: 900,
           }}
         >
           {title}
         </div>
 
-        {/* Meta row */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{
-              display: 'flex',
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: badgeColor,
-              flexShrink: 0,
-            }} />
-            <div style={{ display: 'flex', fontSize: 20, fontWeight: 600, color: '#374151' }}>
-              {location}
-            </div>
+        {/* Badges row — centered */}
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'nowrap' }}>
+          <div style={{
+            padding: '10px 22px',
+            background: badgeColor,
+            color: '#fff',
+            fontSize: 17,
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            borderRadius: 8,
+            display: 'flex',
+            textTransform: 'uppercase',
+          }}>
+            {type}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{
-              display: 'flex',
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: badgeColor,
-              flexShrink: 0,
-            }} />
-            <div style={{ display: 'flex', fontSize: 20, fontWeight: 600, color: '#374151' }}>
-              {type}{salary ? ` · ${salary}` : ''}
-            </div>
+          <div style={{
+            padding: '10px 22px',
+            background: '#f3f4f6',
+            color: '#374151',
+            fontSize: 17,
+            fontWeight: 700,
+            borderRadius: 8,
+            display: 'flex',
+          }}>
+            {sector}
           </div>
-        </div>
-
-        {/* Bottom domain */}
-        <div style={{
-          display: 'flex',
-          marginTop: 40,
-          fontSize: 15,
-          fontWeight: 500,
-          color: '#9ca3af',
-          letterSpacing: '0.05em',
-        }}>
-          www.expresssl.com
+          <div style={{
+            padding: '10px 22px',
+            background: '#f3f4f6',
+            color: '#374151',
+            fontSize: 17,
+            fontWeight: 700,
+            borderRadius: 8,
+            display: 'flex',
+          }}>
+            📍 {location}
+          </div>
+          {salary ? (
+            <div style={{
+              padding: '10px 22px',
+              background: '#eff6ff',
+              color: '#1d4ed8',
+              fontSize: 17,
+              fontWeight: 700,
+              borderRadius: 8,
+              display: 'flex',
+            }}>
+              {salary}
+            </div>
+          ) : null}
         </div>
       </div>
+
+      {/* Bottom gradient bar */}
+      <div style={{ width: '100%', height: 14, background: 'linear-gradient(to right, #f97316, #1d4ed8)', display: 'flex', flexShrink: 0 }} />
     </div>,
     { width: 1200, height: 630 }
   )
