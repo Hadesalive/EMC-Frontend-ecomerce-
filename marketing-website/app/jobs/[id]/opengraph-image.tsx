@@ -78,17 +78,17 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
         {logoSrc ? (
           <img
             src={logoSrc}
-            style={{ height: 52, objectFit: 'contain', objectPosition: 'left', marginBottom: 48 }}
+            style={{ height: 80, objectFit: 'contain', objectPosition: 'left', marginBottom: 44 }}
           />
         ) : (
           <div style={{
             display: 'flex',
-            fontSize: 18,
-            fontWeight: 700,
+            fontSize: 22,
+            fontWeight: 800,
             color: '#f97316',
             letterSpacing: '0.15em',
             textTransform: 'uppercase',
-            marginBottom: 48,
+            marginBottom: 44,
           }}>
             Express Management Consultancy
           </div>
@@ -101,7 +101,7 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
             fontWeight: 800,
             color: '#0a0a0a',
             lineHeight: 1.1,
-            marginBottom: 40,
+            marginBottom: 44,
             maxWidth: 980,
           }}
         >
@@ -109,16 +109,16 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Badges */}
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           <div
             style={{
-              padding: '8px 20px',
+              padding: '12px 28px',
               background: badgeColor,
               color: '#fff',
-              fontSize: 14,
+              fontSize: 18,
               fontWeight: 700,
-              letterSpacing: '0.1em',
-              borderRadius: 6,
+              letterSpacing: '0.08em',
+              borderRadius: 8,
               display: 'flex',
               textTransform: 'uppercase',
             }}
@@ -127,12 +127,12 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           </div>
           <div
             style={{
-              padding: '8px 20px',
+              padding: '12px 28px',
               background: '#f3f4f6',
-              color: '#374151',
-              fontSize: 14,
-              fontWeight: 600,
-              borderRadius: 6,
+              color: '#111827',
+              fontSize: 18,
+              fontWeight: 700,
+              borderRadius: 8,
               display: 'flex',
             }}
           >
@@ -140,12 +140,12 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           </div>
           <div
             style={{
-              padding: '8px 20px',
+              padding: '12px 28px',
               background: '#f3f4f6',
-              color: '#374151',
-              fontSize: 14,
-              fontWeight: 600,
-              borderRadius: 6,
+              color: '#111827',
+              fontSize: 18,
+              fontWeight: 700,
+              borderRadius: 8,
               display: 'flex',
             }}
           >
@@ -154,12 +154,12 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           {salary ? (
             <div
               style={{
-                padding: '8px 20px',
+                padding: '12px 28px',
                 background: '#eff6ff',
                 color: '#1d4ed8',
-                fontSize: 14,
-                fontWeight: 600,
-                borderRadius: 6,
+                fontSize: 18,
+                fontWeight: 700,
+                borderRadius: 8,
                 display: 'flex',
               }}
             >
