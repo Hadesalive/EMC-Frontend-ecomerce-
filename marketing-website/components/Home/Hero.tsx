@@ -41,22 +41,8 @@ export default function Hero({ content }: { content?: Partial<HeroContent> }) {
               Talent,<br />
               <span className="inline-flex items-baseline gap-2 sm:gap-3">
                 Faster &{' '}
-                <span className="text-brand-blue relative inline-block">
+                <span className="text-brand-blue">
                   Smarter
-                  <svg
-                    className="absolute -bottom-2 left-0 w-full h-3 text-brand-blue opacity-30 hidden sm:block"
-                    viewBox="0 0 150 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M1 5C20 2 40 1 75 3C110 5 130 2 149 4"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
                 </span>
               </span>
             </h1>

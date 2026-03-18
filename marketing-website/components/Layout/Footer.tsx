@@ -40,8 +40,9 @@ export default function Footer() {
                 <Image
                   src="/images/Emc Logo header.png"
                   alt="Express Management Consultancy Logo"
-                  width={200}
-                  height={60}
+                  width={120}
+                  height={36}
+                  sizes="120px"
                   className="h-auto w-auto max-h-[40px] object-contain"
                 />
               </Link>

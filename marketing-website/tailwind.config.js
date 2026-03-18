@@ -12,9 +12,11 @@ module.exports = {
         brand: {
           orange: '#f1975e',
           'orange-dark': '#e0864a',
+          'orange-text': '#b85800',  // accessible on white: 4.74:1
           blue: '#539fea',
           'blue-dark': '#3d8ae8',
           'blue-light': '#6db0f5',
+          'blue-text': '#1558b0',    // accessible on white: 6.88:1
         },
       },
       fontFamily: {

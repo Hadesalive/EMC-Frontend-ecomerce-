@@ -7,8 +7,8 @@ import type { JobRow } from '@/lib/supabase/types'
 type JobPreview = Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at' | 'deadline'>
 
 const typeColor: Record<string, string> = {
-  Permanent: 'bg-brand-blue/10 text-brand-blue',
-  Contract:  'bg-brand-orange/10 text-brand-orange',
+  Permanent: 'bg-brand-blue/10 text-brand-blue-text',
+  Contract:  'bg-brand-orange/10 text-brand-orange-text',
   Temporary: 'bg-gray-100 text-gray-600',
 }
 
@@ -29,14 +29,14 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-8 lg:mb-12 gap-4 lg:gap-6">
           <div>
-            <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">Open Positions</p>
+            <p className="text-brand-orange-text text-xs font-medium tracking-widest uppercase mb-4">Open Positions</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-black dark:text-white leading-tight tracking-tight">
               Roles we're<br />filling right now.
             </h2>
           </div>
           <Link
             href="/jobs"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:gap-4 transition-all duration-200 no-underline self-start lg:self-auto"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue-text hover:gap-4 transition-all duration-200 no-underline self-start lg:self-auto"
           >
             View all open positions
             <ArrowRight size={16} weight="bold" />
@@ -75,13 +75,13 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
                   <h3 className="font-display text-xl font-bold text-black dark:text-white group-hover:text-brand-blue transition-colors duration-200 leading-snug mb-1">
                     {job.title}
                   </h3>
-                  <p className="text-xs text-black/40 dark:text-white/40">{job.sector}</p>
+                  <p className="text-xs text-black/60 dark:text-white/60">{job.sector}</p>
                 </div>
 
                 {/* Bottom row — location + deadline + apply */}
                 <div className="flex items-end justify-between gap-3 pt-4 border-t border-black/5 dark:border-white/5">
                   <div className="space-y-1">
-                    <span className="flex items-center gap-1.5 text-xs text-black/40 dark:text-white/40">
+                    <span className="flex items-center gap-1.5 text-xs text-black/60 dark:text-white/60">
                       <MapPin size={12} weight="bold" />
                       {job.location}
                     </span>
@@ -108,8 +108,8 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
           </div>
         ) : (
           <div className="text-center py-16 mb-10 rounded-2xl border border-black/5">
-            <p className="text-black/40 text-sm">No open positions at the moment.</p>
-            <Link href="/apply" className="mt-3 inline-block text-brand-blue text-sm font-medium hover:underline no-underline">
+            <p className="text-black/60 text-sm">No open positions at the moment.</p>
+            <Link href="/apply" className="mt-3 inline-block text-brand-blue-text text-sm font-medium hover:underline no-underline">
               Submit your CV anyway →
             </Link>
           </div>
@@ -119,7 +119,7 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
         <div className="grid grid-cols-2 divide-x divide-black/8 dark:divide-white/8 pt-8 border-t border-black/5 dark:border-white/5">
           {/* Candidate CTA */}
           <div className="flex flex-col gap-2 pr-4 sm:pr-8">
-            <p className="text-xs text-black/40 dark:text-white/40 font-medium">No matching role yet?</p>
+            <p className="text-xs text-black/60 dark:text-white/60 font-medium">No matching role yet?</p>
             <Link
               href="/apply"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-black dark:text-white hover:text-brand-blue dark:hover:text-brand-blue transition-colors no-underline"
@@ -131,10 +131,10 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
 
           {/* Employer CTA */}
           <div className="flex flex-col gap-2 pl-4 sm:pl-8">
-            <p className="text-xs text-black/40 dark:text-white/40 font-medium">Looking to hire?</p>
+            <p className="text-xs text-black/60 dark:text-white/60 font-medium">Looking to hire?</p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue hover:gap-3 transition-all duration-200 no-underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue-text hover:gap-3 transition-all duration-200 no-underline"
             >
               Talk to our team
               <ArrowRight size={14} weight="bold" />
