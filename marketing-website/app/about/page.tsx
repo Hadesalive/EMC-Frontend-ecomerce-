@@ -208,8 +208,8 @@ export default async function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/10 to-brand-blue/10 rounded-2xl blur-2xl scale-105" />
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
                 <img
-                  src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1200&q=80"
-                  alt="Community engagement"
+                  src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1200&q=80"
+                  alt="Cape Town aerial view — African coastal city"
                   className="w-full h-full object-cover"
                 />
               </div>

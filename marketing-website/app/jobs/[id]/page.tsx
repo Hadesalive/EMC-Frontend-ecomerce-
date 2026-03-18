@@ -13,12 +13,40 @@ type Props = { params: Promise<{ id: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const supabase = createAdminClient()
-  const { data: raw } = await supabase.from('jobs').select('title, sector, description').eq('id', id).single()
+  const { data: raw } = await supabase
+    .from('jobs')
+    .select('title, sector, description, location, type, salary_range')
+    .eq('id', id)
+    .single()
+
   if (!raw) return { title: 'Job Not Found' }
-  const job = raw as unknown as Pick<JobRow, 'title' | 'sector' | 'description'>
+  const job = raw as unknown as Pick<JobRow, 'title' | 'sector' | 'description' | 'location' | 'type' | 'salary_range'>
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://expresssl.com'
+  const title = `${job.title} | ${job.sector} — EMC Sierra Leone`
+  const descParts = [
+    job.description?.slice(0, 120),
+    `📍 ${job.location}`,
+    job.type,
+    job.salary_range,
+  ].filter(Boolean)
+  const description = descParts.join(' · ')
+
   return {
-    title: `${job.title} — ${job.sector}`,
-    description: job.description?.slice(0, 160),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/jobs/${id}`,
+      siteName: 'Express Management Consultancy',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   }
 }
 

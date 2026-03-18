@@ -103,8 +103,8 @@ export const DEFAULT_HERO: HeroContent = {
   cta_secondary_href: '/services',
   trust_1: 'Free initial consultation',
   trust_2: 'No placement, no fee',
-  image_url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80',
-  image_alt: 'EMC team',
+  image_url: 'https://images.unsplash.com/photo-1596005554384-d293674c91d7?w=1200&q=80',
+  image_alt: 'African city skyline at night',
 }
 
 export const DEFAULT_FEATURES: FeaturesContent = {
@@ -149,8 +149,8 @@ export const DEFAULT_ABOUT_INTRO: AboutIntroContent = {
   paragraph_1: 'Express Management Consultancy (SL) Limited is a professional workforce solutions and HR consulting firm providing recruitment, staff outsourcing, payroll administration and HR advisory services to organisations across Sierra Leone.',
   paragraph_2: 'Our goal is to enable organisations to focus on their core business operations while we manage talent acquisition, workforce administration and HR support services. We bring structured recruitment processes and strong local talent networks to every brief — delivering qualified staffing solutions quickly and professionally.',
   paragraph_3: 'We provide reliable workforce solutions that reduce administrative burden, improve operational efficiency and ensure organisations have access to qualified talent. From a single specialist placement to a full outsourced HR function, we apply the same rigour and commitment to every client engagement.',
-  image_url: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1200&q=80',
-  image_alt: 'EMC team at work',
+  image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
+  image_alt: 'Modern professional building',
 }
 
 export const DEFAULT_ABOUT_PURPOSE: AboutPurposeContent = {
