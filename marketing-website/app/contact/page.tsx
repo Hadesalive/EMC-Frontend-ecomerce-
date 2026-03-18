@@ -52,51 +52,43 @@ export default async function ContactPage() {
                 <h2 className="font-display text-2xl font-bold text-white mb-1">Contact Information</h2>
                 <p className="text-white/60 text-sm mb-6 lg:mb-10">Reach us directly or visit our office.</p>
 
-                <div className="space-y-6 lg:space-y-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                      <MapPin size={20} weight="duotone" className="text-brand-blue" aria-hidden="true" />
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/[0.06] rounded-xl overflow-hidden">
+                  <div className="bg-black p-4 lg:p-5 flex gap-3">
+                    <MapPin size={16} weight="duotone" className="text-brand-blue flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Address</p>
-                      <p className="text-white font-medium">{c.address_line1}</p>
-                      <p className="text-white/60">{c.address_line2}</p>
-                      <p className="text-white/60">{c.address_line3}</p>
+                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1.5">Address</p>
+                      <p className="text-white text-sm font-medium leading-snug">{c.address_line1}</p>
+                      <p className="text-white/50 text-xs mt-0.5">{c.address_line2}</p>
+                      <p className="text-white/50 text-xs">{c.address_line3}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                      <EnvelopeSimple size={20} weight="duotone" className="text-brand-orange" aria-hidden="true" />
-                    </div>
+                  <div className="bg-black p-4 lg:p-5 flex gap-3">
+                    <EnvelopeSimple size={16} weight="duotone" className="text-brand-orange flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Email</p>
-                      <a href={`mailto:${c.email}`} className="text-white font-medium hover:text-brand-orange transition-colors no-underline">
+                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1.5">Email</p>
+                      <a href={`mailto:${c.email}`} className="text-white text-sm font-medium hover:text-brand-orange transition-colors no-underline break-all leading-snug">
                         {c.email}
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                      <Phone size={20} weight="duotone" className="text-brand-blue" aria-hidden="true" />
-                    </div>
+                  <div className="bg-black p-4 lg:p-5 flex gap-3">
+                    <Phone size={16} weight="duotone" className="text-brand-blue flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Phone</p>
-                      <a href={`tel:${c.phone.replace(/\s/g, '')}`} className="text-white font-medium hover:text-brand-blue transition-colors no-underline">
+                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1.5">Phone</p>
+                      <a href={`tel:${c.phone.replace(/\s/g, '')}`} className="text-white text-sm font-medium hover:text-brand-blue transition-colors no-underline">
                         {c.phone}
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                      <Clock size={20} weight="duotone" className="text-brand-orange" aria-hidden="true" />
-                    </div>
+                  <div className="bg-black p-4 lg:p-5 flex gap-3">
+                    <Clock size={16} weight="duotone" className="text-brand-orange flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Office Hours</p>
-                      <p className="text-white font-medium">{c.hours_weekday}</p>
-                      <p className="text-white/60 text-sm mt-0.5">{c.hours_weekend}</p>
+                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest mb-1.5">Hours</p>
+                      <p className="text-white text-sm font-medium leading-snug">{c.hours_weekday}</p>
+                      <p className="text-white/50 text-xs mt-0.5">{c.hours_weekend}</p>
                     </div>
                   </div>
                 </div>

@@ -50,45 +50,52 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
                 key={job.id}
                 className="bg-white dark:bg-gray-900 rounded-2xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 hover:shadow-md transition-all duration-200 p-6 group flex flex-col gap-5"
               >
-                {/* Top */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-3 flex-wrap">
+                {/* Top row — type badge + date */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
                     {job.urgent && (
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-500">Urgent</span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-500 uppercase tracking-wide">Urgent</span>
                     )}
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${typeColor[job.type] ?? 'bg-gray-100 text-gray-600'}`}>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide ${typeColor[job.type] ?? 'bg-gray-100 text-gray-600'}`}>
                       {job.type}
                     </span>
                   </div>
-                  <h3 className="font-display text-lg font-bold text-black dark:text-white group-hover:text-brand-blue transition-colors duration-200 mb-1">
-                    {job.title}
-                  </h3>
-                  <p className="text-xs text-black/40 dark:text-white/40 mb-4">{job.sector}</p>
-                  <div className="flex items-center gap-4 text-xs text-black/40 dark:text-white/40">
-                    <span className="flex items-center gap-1.5">
-                      <MapPin size={14} weight="bold" />
-                      {job.location}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock size={14} weight="bold" />
-                      {relativeDate(job.created_at)}
-                    </span>
-                  </div>
-                  {job.deadline && (
-                    <div className="flex items-center gap-1.5 mt-2.5 text-xs font-medium text-amber-600">
-                      <CalendarBlank size={13} weight="bold" />
-                      Deadline: {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </div>
-                  )}
+                  <span className="flex items-center gap-1 text-[11px] text-black/30 dark:text-white/30">
+                    <Clock size={11} weight="bold" />
+                    {relativeDate(job.created_at)}
+                  </span>
                 </div>
 
-                {/* CTA */}
-                <Link
-                  href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                  className="block text-center px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-lg hover:bg-black/90 dark:hover:bg-white/90 transition-all no-underline"
-                >
-                  Apply Now
-                </Link>
+                {/* Title + sector */}
+                <div className="flex-1">
+                  <h3 className="font-display text-xl font-bold text-black dark:text-white group-hover:text-brand-blue transition-colors duration-200 leading-snug mb-1">
+                    {job.title}
+                  </h3>
+                  <p className="text-xs text-black/40 dark:text-white/40">{job.sector}</p>
+                </div>
+
+                {/* Bottom row — location + deadline + apply */}
+                <div className="flex items-end justify-between gap-3 pt-4 border-t border-black/5 dark:border-white/5">
+                  <div className="space-y-1">
+                    <span className="flex items-center gap-1.5 text-xs text-black/40 dark:text-white/40">
+                      <MapPin size={12} weight="bold" />
+                      {job.location}
+                    </span>
+                    {job.deadline && (
+                      <span className="flex items-center gap-1.5 text-xs font-medium text-amber-600">
+                        <CalendarBlank size={12} weight="bold" />
+                        {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                      </span>
+                    )}
+                  </div>
+                  <Link
+                    href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
+                    className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black px-3 py-2 rounded-lg transition-all duration-200 no-underline"
+                  >
+                    Apply
+                    <ArrowRight size={12} weight="bold" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -102,35 +109,28 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
         )}
 
         {/* Dual CTA strip */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-8 border-t border-black/5 dark:border-white/5">
+        <div className="grid grid-cols-2 divide-x divide-black/8 dark:divide-white/8 pt-8 border-t border-black/5 dark:border-white/5">
           {/* Candidate CTA */}
-          <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5">
-            <p className="text-sm text-black/50 dark:text-white/50">
-              No matching role yet?
-            </p>
+          <div className="flex flex-col gap-2 pr-4 sm:pr-8">
+            <p className="text-xs text-black/40 dark:text-white/40 font-medium">No matching role yet?</p>
             <Link
               href="/apply"
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-black/15 dark:border-white/15 text-black dark:text-white text-sm font-semibold rounded-lg hover:border-black/30 dark:hover:border-white/30 hover:bg-black/5 dark:hover:bg-white/5 transition-all no-underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-black dark:text-white hover:text-brand-blue dark:hover:text-brand-blue transition-colors no-underline"
             >
-              <Briefcase size={16} weight="regular" />
+              <Briefcase size={14} weight="regular" />
               Submit your CV
             </Link>
           </div>
 
-          {/* Divider */}
-          <div className="hidden sm:block w-px h-8 bg-black/10 dark:bg-white/10" />
-
           {/* Employer CTA */}
-          <div className="flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 sm:justify-end">
-            <p className="text-sm text-black/50 dark:text-white/50">
-              Looking to hire?
-            </p>
+          <div className="flex flex-col gap-2 pl-4 sm:pl-8">
+            <p className="text-xs text-black/40 dark:text-white/40 font-medium">Looking to hire?</p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:gap-4 transition-all duration-200 no-underline"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue hover:gap-3 transition-all duration-200 no-underline"
             >
               Talk to our team
-              <ArrowRight size={16} weight="bold" />
+              <ArrowRight size={14} weight="bold" />
             </Link>
           </div>
         </div>

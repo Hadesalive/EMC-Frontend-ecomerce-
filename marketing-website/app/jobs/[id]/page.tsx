@@ -180,20 +180,20 @@ export default async function JobDetailPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="lg:col-span-4 hidden lg:flex justify-end items-center gap-3">
+            <div className="lg:col-span-4 flex justify-start lg:justify-end items-center gap-3">
               <a
                 href={`https://wa.me/?text=${encodeURIComponent(`${job.title} — ${job.sector} | EMC Sierra Leone\n${siteUrl}/jobs/${job.id}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Share on WhatsApp"
-                className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/10 hover:bg-[#25D366] text-white transition-all duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/10 hover:bg-[#25D366] text-white transition-all duration-200 flex-shrink-0"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
               </a>
               <Link href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                className="px-8 py-4 bg-white text-black text-base font-semibold rounded-lg hover:bg-white/90 transition-all no-underline whitespace-nowrap">
+                className="px-6 lg:px-8 py-3 lg:py-4 bg-white text-black text-sm lg:text-base font-semibold rounded-lg hover:bg-white/90 transition-all no-underline whitespace-nowrap">
                 Apply for This Role
               </Link>
             </div>
@@ -262,26 +262,28 @@ export default async function JobDetailPage({ params }: Props) {
               <p className="text-white/55 leading-relaxed mb-6 text-sm">
                 Send us your application and our team will review it within 2–3 business days.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col gap-3">
                 <Link href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                  className="px-7 py-3.5 bg-white text-black text-sm font-semibold rounded-lg hover:bg-white/90 transition-all no-underline text-center">
+                  className="w-full px-7 py-3.5 bg-white text-black text-sm font-semibold rounded-lg hover:bg-white/90 transition-all no-underline text-center">
                   Apply for This Role
                 </Link>
-                <Link href="/contact"
-                  className="px-7 py-3.5 border border-white/20 text-white text-sm font-semibold rounded-lg hover:border-white/40 hover:bg-white/5 transition-all no-underline text-center">
-                  Ask a Question
-                </Link>
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(`${job.title} — ${job.sector} | EMC Sierra Leone\n${siteUrl}/jobs/${job.id}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-7 py-3.5 border border-white/20 text-white text-sm font-semibold rounded-lg hover:bg-[#25D366] hover:border-[#25D366] transition-all no-underline text-center flex items-center justify-center gap-2"
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 flex-shrink-0" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                  Share Job
-                </a>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/contact"
+                    className="px-4 py-3 border border-white/20 text-white text-sm font-semibold rounded-lg hover:border-white/40 hover:bg-white/5 transition-all no-underline text-center">
+                    Ask a Question
+                  </Link>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(`${job.title} — ${job.sector} | EMC Sierra Leone\n${siteUrl}/jobs/${job.id}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 border border-white/20 text-white text-sm font-semibold rounded-lg hover:bg-[#25D366] hover:border-[#25D366] transition-all no-underline text-center flex items-center justify-center gap-2"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 flex-shrink-0" aria-hidden="true">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Share Job
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -352,32 +354,44 @@ export default async function JobDetailPage({ params }: Props) {
             </div>
             <div className="grid md:grid-cols-3 gap-4">
               {(related ?? []).map(j => (
-                <div key={j.id} className="bg-white rounded-2xl border border-black/5 hover:border-black/10 hover:shadow-md transition-all p-6 flex flex-col gap-4">
-                  <Link href={`/jobs/${j.id}`} className="no-underline group flex-1">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        {j.urgent && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-500">Urgent</span>}
-                        <span className="text-xs text-black/40">{j.sector}</span>
-                      </div>
-                      <h3 className="font-display text-base font-bold text-black group-hover:text-brand-blue transition-colors">{j.title}</h3>
+                <div key={j.id} className="bg-white rounded-2xl border border-black/5 hover:border-black/10 hover:shadow-md transition-all p-6 flex flex-col gap-4 group">
+                  {/* Top row */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      {j.urgent && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-500 uppercase tracking-wide">Urgent</span>}
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 uppercase tracking-wide">{j.type}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-black/40 mt-3">
-                      <span className="flex items-center gap-1"><MapPin size={14} weight="bold" />{j.location}</span>
-                      <span className="flex items-center gap-1"><Clock size={14} weight="bold" />{relativeDate(j.created_at)}</span>
+                    <span className="text-[11px] text-black/30 flex items-center gap-1">
+                      <Clock size={11} weight="bold" />{relativeDate(j.created_at)}
+                    </span>
+                  </div>
+                  {/* Title */}
+                  <div className="flex-1">
+                    <Link href={`/jobs/${j.id}`} className="no-underline">
+                      <h3 className="font-display text-lg font-bold text-black group-hover:text-brand-blue transition-colors leading-snug mb-1">{j.title}</h3>
+                    </Link>
+                    <p className="text-xs text-black/40">{j.sector}</p>
+                  </div>
+                  {/* Bottom row */}
+                  <div className="flex items-end justify-between gap-3 pt-4 border-t border-black/5">
+                    <div className="space-y-1">
+                      <span className="flex items-center gap-1.5 text-xs text-black/40">
+                        <MapPin size={12} weight="bold" />{j.location}
+                      </span>
+                      {j.deadline && (
+                        <span className="flex items-center gap-1.5 text-xs font-medium text-amber-600">
+                          <CalendarBlank size={12} weight="bold" />
+                          {new Date(j.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                        </span>
+                      )}
                     </div>
-                    {j.deadline && (
-                      <div className="flex items-center gap-1.5 mt-2 text-xs font-medium text-amber-600">
-                        <CalendarBlank size={13} weight="bold" />
-                        Deadline: {new Date(j.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                      </div>
-                    )}
-                  </Link>
-                  <Link
-                    href={`/apply?job=${j.id}&title=${encodeURIComponent(j.title)}`}
-                    className="block text-center px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all no-underline"
-                  >
-                    Apply Now
-                  </Link>
+                    <Link
+                      href={`/apply?job=${j.id}&title=${encodeURIComponent(j.title)}`}
+                      className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-black bg-black/5 hover:bg-black hover:text-white px-3 py-2 rounded-lg transition-all no-underline"
+                    >
+                      Apply <ArrowLeft size={12} weight="bold" className="rotate-180" />
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>

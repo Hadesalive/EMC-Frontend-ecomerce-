@@ -150,7 +150,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           </div>
 
           {mobileOpen && (
-            <div className="lg:hidden bg-white border border-gray-200 rounded-2xl p-5 mb-5">
+            <div className="lg:hidden bg-white/60 backdrop-blur-md backdrop-saturate-150 border border-white/80 rounded-2xl p-5 mb-5">
               <FilterGroup label="Type"     options={TYPES}     selected={types}     counts={typeCounts}     onToggle={t => toggle(types,     setTypes,     t)} />
               <FilterGroup label="Sector"   options={SECTORS}   selected={sectors}   counts={sectorCounts}   onToggle={s => toggle(sectors,   setSectors,   s)} />
               <FilterGroup label="Location" options={LOCATIONS} selected={locations} counts={locationCounts} onToggle={l => toggle(locations, setLocations, l)} />
@@ -186,60 +186,56 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           {filtered.length > 0 ? (
             <div className="space-y-3">
               {paginated.map(job => (
-                <article key={job.id} className={`bg-white rounded-2xl p-5 sm:p-6 transition-all duration-150 hover:shadow-md ${
+                <article key={job.id} className={`bg-white/60 backdrop-blur-md backdrop-saturate-150 rounded-2xl p-5 sm:p-6 transition-all duration-150 hover:bg-white/75 hover:shadow-lg ${
                   job.urgent
-                    ? 'border-2 border-amber-400'
-                    : 'border border-gray-200 hover:border-gray-300'
+                    ? 'border-2 border-amber-400/70'
+                    : 'border border-white/80 hover:border-white'
                 }`}>
-                  <div className="flex items-center gap-4">
-                    {/* Left: job info */}
-                    <div className="flex-1 min-w-0">
+                  {/* Top row — badges + date */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       {job.urgent && (
-                        <p className="text-[13px] font-semibold text-amber-700 bg-amber-50 inline-block px-3 py-1 rounded-full mb-3">
-                          Urgently hiring
-                        </p>
+                        <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-wide">
+                          Urgent
+                        </span>
                       )}
-                      <Link href={`/jobs/${job.id}`} className="no-underline group/title">
-                        <h2 className="text-[17px] sm:text-[19px] font-bold text-gray-900 group-hover/title:text-brand-blue transition-colors duration-150 leading-snug mb-1">
-                          {job.title}
-                        </h2>
-                      </Link>
-                      <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug">Express Management Consultancy</p>
-                      <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug mb-4">{job.location}, Sierra Leone</p>
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {[job.type, job.sector, job.salary_range].filter(Boolean).map(tag => (
-                          <span key={tag} className="text-[12px] sm:text-[13px] font-semibold text-gray-700 bg-gray-100 px-2.5 sm:px-3 py-1 rounded-lg">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-4 flex-wrap">
-                        <p className="text-[12px] sm:text-[13px] text-gray-400">Posted {relativeDate(job.created_at)}</p>
-                        {job.deadline && (
-                          <span className="inline-flex items-center gap-1.5 text-[12px] sm:text-[13px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
-                            <CalendarBlank size={13} weight="bold" />
-                            Closes {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
-                          </span>
-                        )}
-                      </div>
+                      {[job.type, job.sector].map(tag => (
+                        <span key={tag} className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full uppercase tracking-wide">
+                          {tag}
+                        </span>
+                      ))}
+                      {job.salary_range && (
+                        <span className="text-[10px] font-bold text-brand-blue bg-brand-blue/8 px-2 py-0.5 rounded-full uppercase tracking-wide">
+                          {job.salary_range}
+                        </span>
+                      )}
                     </div>
-
-                    {/* Right: apply button (hidden on smallest screens) */}
-                    <div className="hidden sm:flex items-center shrink-0">
-                      <Link
-                        href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                        className="no-underline px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/85 transition-all whitespace-nowrap"
-                      >
-                        Apply Now
-                      </Link>
-                    </div>
+                    <span className="text-[11px] text-gray-400 shrink-0 ml-2">
+                      {relativeDate(job.created_at)}
+                    </span>
                   </div>
 
-                  {/* Mobile apply button */}
-                  <div className="sm:hidden mt-4 pt-4 border-t border-gray-100">
+                  {/* Title */}
+                  <Link href={`/jobs/${job.id}`} className="no-underline group/title">
+                    <h2 className="text-[17px] sm:text-[19px] font-bold text-gray-900 group-hover/title:text-brand-blue transition-colors duration-150 leading-snug mb-1">
+                      {job.title}
+                    </h2>
+                  </Link>
+
+                  {/* Bottom row — location + deadline + apply */}
+                  <div className="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-gray-100">
+                    <div className="flex items-center gap-3 flex-wrap min-w-0">
+                      <span className="text-[13px] text-gray-400 truncate">{job.location}</span>
+                      {job.deadline && (
+                        <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-amber-700">
+                          <CalendarBlank size={12} weight="bold" />
+                          {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                        </span>
+                      )}
+                    </div>
                     <Link
                       href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                      className="no-underline block w-full text-center px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/85 transition-all"
+                      className="no-underline shrink-0 px-4 py-2 bg-black text-white text-[12px] font-bold rounded-lg hover:bg-black/85 transition-all whitespace-nowrap"
                     >
                       Apply Now
                     </Link>
@@ -248,7 +244,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-gray-200 py-16 sm:py-20 text-center px-4">
+            <div className="bg-white/60 backdrop-blur-md backdrop-saturate-150 rounded-2xl border border-white/80 py-16 sm:py-20 text-center px-4">
               <p className="text-gray-500 font-medium mb-1">No positions match your search</p>
               <p className="text-gray-400 text-sm mb-5">Try adjusting your filters or search terms</p>
               <button onClick={clearAll} className="text-brand-blue text-sm font-medium hover:underline">Clear all filters</button>
@@ -324,7 +320,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           </div>
 
           {/* Submit CV */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-5">
+          <div className="bg-white/60 backdrop-blur-md backdrop-saturate-150 rounded-2xl border border-white/80 p-5">
             <p className="text-brand-blue text-[10px] font-bold tracking-widest uppercase mb-2">Candidates</p>
             <h3 className="font-display text-sm font-bold text-gray-900 leading-snug mb-2">
               No match yet?
@@ -341,7 +337,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           </div>
 
           {/* Application tips */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-5">
+          <div className="rounded-2xl border border-white/80 bg-white/60 backdrop-blur-md backdrop-saturate-150 p-5">
             <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-3">Quick tips</p>
             <ul className="space-y-3">
               {[
