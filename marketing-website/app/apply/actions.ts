@@ -3,6 +3,33 @@ import { revalidatePath } from 'next/cache'
 import { createAdminClient } from '@/lib/supabase/server'
 import { sendApplicationNotification, sendApplicationConfirmation } from '@/lib/email'
 
+export type SubmitResult = { success: true } | { error: string }
+
+export type SavedProfile = {
+  full_name: string
+  phone: string | null
+  location: string | null
+  linkedin_url: string | null
+  current_role: string | null
+  years_experience: string | null
+  qualification: string | null
+  summary: string | null
+  cv_url: string | null
+  preferred_sector: string | null
+  employment_type: string | null
+  preferred_location: string | null
+}
+
+export async function lookupProfile(email: string): Promise<SavedProfile | null> {
+  const supabase = createAdminClient()
+  const { data } = await supabase
+    .from('talent_profiles')
+    .select('full_name, phone, location, linkedin_url, current_role, years_experience, qualification, summary, cv_url, preferred_sector, employment_type, preferred_location')
+    .eq('email', email.toLowerCase().trim())
+    .maybeSingle()
+  return (data as SavedProfile | null)
+}
+
 export async function submitApplication(data: {
   firstName: string
   lastName: string
@@ -20,7 +47,7 @@ export async function submitApplication(data: {
   preferredLocation: string
   notes: string
   jobId: string | null
-}) {
+}): Promise<SubmitResult> {
   const supabase = createAdminClient()
 
   // Upsert talent profile (create or update by email)
@@ -48,7 +75,21 @@ export async function submitApplication(data: {
     .select('id')
     .single()
 
-  if (profileErr) throw new Error(profileErr.message)
+  if (profileErr) return { error: profileErr.message }
+
+  // Check for existing application for this specific job
+  if (data.jobId) {
+    const { data: existing } = await supabase
+      .from('applications')
+      .select('id')
+      .eq('profile_id', profile.id)
+      .eq('job_id', data.jobId)
+      .maybeSingle()
+
+    if (existing) {
+      return { error: 'You have already applied for this position. Our team will be in touch if you are shortlisted.' }
+    }
+  }
 
   // Insert application record
   const { error: appErr } = await supabase.from('applications').insert({
@@ -58,7 +99,13 @@ export async function submitApplication(data: {
     status:          'pending',
   })
 
-  if (appErr) throw new Error(appErr.message)
+  if (appErr) {
+    // Catch the DB-level unique violation as a fallback
+    if (appErr.code === '23505') {
+      return { error: 'You have already applied for this position. Our team will be in touch if you are shortlisted.' }
+    }
+    return { error: appErr.message }
+  }
 
   // Resolve job title for the email (best-effort)
   let jobTitle: string | null = null
@@ -91,4 +138,5 @@ export async function submitApplication(data: {
 
   revalidatePath('/dashboard/applications')
   revalidatePath('/dashboard/talent')
+  return { success: true as const }
 }

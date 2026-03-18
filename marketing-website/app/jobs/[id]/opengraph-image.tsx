@@ -64,58 +64,74 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
         fontFamily: 'sans-serif',
       }}
     >
+      {/* Orange top accent bar */}
+      <div style={{ width: '100%', height: 10, background: '#f97316', display: 'flex' }} />
+
       {/* Main content */}
       <div
         style={{
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'center',
-          padding: '60px 90px',
+          padding: '30px 80px 40px',
         }}
       >
-        {/* Logo */}
+        {/* BIG Logo — hero element */}
         {logoSrc ? (
           <img
             src={logoSrc}
-            style={{ height: 80, objectFit: 'contain', objectPosition: 'left', marginBottom: 44 }}
+            style={{ height: 160, objectFit: 'contain', marginBottom: 36 }}
           />
         ) : (
           <div style={{
             display: 'flex',
-            fontSize: 22,
-            fontWeight: 800,
+            fontSize: 42,
+            fontWeight: 900,
             color: '#f97316',
-            letterSpacing: '0.15em',
+            letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            marginBottom: 44,
+            marginBottom: 36,
           }}>
-            Express Management Consultancy
+            EMC
           </div>
         )}
+
+        {/* Divider */}
+        <div style={{
+          width: 80,
+          height: 4,
+          background: '#f97316',
+          borderRadius: 2,
+          marginBottom: 32,
+          display: 'flex',
+        }} />
 
         {/* Job title */}
         <div
           style={{
-            fontSize: title.length > 45 ? 46 : title.length > 30 ? 56 : 66,
+            fontSize: title.length > 50 ? 38 : title.length > 35 ? 46 : 54,
             fontWeight: 800,
             color: '#0a0a0a',
-            lineHeight: 1.1,
-            marginBottom: 44,
-            maxWidth: 980,
+            lineHeight: 1.15,
+            marginBottom: 28,
+            textAlign: 'center',
+            maxWidth: 920,
+            display: 'flex',
           }}
         >
           {title}
         </div>
 
         {/* Badges */}
-        <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
           <div
             style={{
-              padding: '12px 28px',
+              padding: '10px 24px',
               background: badgeColor,
               color: '#fff',
-              fontSize: 18,
+              fontSize: 17,
               fontWeight: 700,
               letterSpacing: '0.08em',
               borderRadius: 8,
@@ -127,10 +143,10 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           </div>
           <div
             style={{
-              padding: '12px 28px',
+              padding: '10px 24px',
               background: '#f3f4f6',
               color: '#111827',
-              fontSize: 18,
+              fontSize: 17,
               fontWeight: 700,
               borderRadius: 8,
               display: 'flex',
@@ -140,10 +156,10 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           </div>
           <div
             style={{
-              padding: '12px 28px',
+              padding: '10px 24px',
               background: '#f3f4f6',
               color: '#111827',
-              fontSize: 18,
+              fontSize: 17,
               fontWeight: 700,
               borderRadius: 8,
               display: 'flex',
@@ -154,10 +170,10 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           {salary ? (
             <div
               style={{
-                padding: '12px 28px',
+                padding: '10px 24px',
                 background: '#eff6ff',
                 color: '#1d4ed8',
-                fontSize: 18,
+                fontSize: 17,
                 fontWeight: 700,
                 borderRadius: 8,
                 display: 'flex',
@@ -169,8 +185,8 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
         </div>
       </div>
 
-      {/* Bottom accent bar */}
-      <div style={{ width: '100%', height: 8, background: 'linear-gradient(to right, #f97316, #1d4ed8)', display: 'flex' }} />
+      {/* Bottom gradient bar */}
+      <div style={{ width: '100%', height: 10, background: 'linear-gradient(to right, #f97316, #1d4ed8)', display: 'flex' }} />
     </div>,
     { width: 1200, height: 630 }
   )

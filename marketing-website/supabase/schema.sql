@@ -102,6 +102,11 @@ CREATE TRIGGER applications_updated_at
   BEFORE UPDATE ON applications
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
+-- Prevent duplicate applications for the same job (allows multiple general CV submissions)
+CREATE UNIQUE INDEX IF NOT EXISTS applications_profile_job_unique
+  ON applications (profile_id, job_id)
+  WHERE job_id IS NOT NULL;
+
 ALTER TABLE applications ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Service role full access on applications" ON applications;
 CREATE POLICY "Service role full access on applications"

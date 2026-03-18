@@ -2,9 +2,10 @@
 import { Suspense, useState, useRef, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircleIcon, PaperClipIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import { CheckCircleIcon, PaperClipIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { uploadCvToCloudinary } from '@/lib/cloudinary'
-import { submitApplication } from './actions'
+import { submitApplication, lookupProfile } from './actions'
+import type { SubmitResult, SavedProfile } from './actions'
 
 const steps = ['Personal Info', 'Experience', 'Preferences']
 
@@ -28,11 +29,18 @@ function ApplyForm() {
   const jobId    = searchParams.get('job')   ?? ''
   const jobTitle = searchParams.get('title') ?? ''
 
-  const [step, setStep]         = useState(0)
-  const [submitted, setSubmitted] = useState(false)
-  const [form, setForm]         = useState<FormData>(empty)
-  const [cvUrl, setCvUrl]       = useState<string | null>(null)
+  const [step, setStep]               = useState(0)
+  const [submitted, setSubmitted]     = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [form, setForm]               = useState<FormData>(empty)
+  const [cvUrl, setCvUrl]             = useState<string | null>(null)
   const [cvUploading, setCvUploading] = useState(false)
+  const [savedCvUrl, setSavedCvUrl]   = useState<string | null>(null)
+
+  // Returning applicant state
+  const [returning, setReturning]       = useState<'idle' | 'checking' | 'found' | 'none'>('idle')
+  const [savedProfile, setSavedProfile] = useState<SavedProfile | null>(null)
+
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -50,6 +58,7 @@ function ApplyForm() {
     const file = e.target.files?.[0]
     if (!file) return
     set('cvFile', file)
+    setSavedCvUrl(null)
     setCvUploading(true)
     try {
       const url = await uploadCvToCloudinary(file)
@@ -62,10 +71,57 @@ function ApplyForm() {
     }
   }
 
+  // Called when user clicks Continue on Step 0
+  async function handleStep0Continue() {
+    if (!canAdvance()) return
+    setReturning('checking')
+    const profile = await lookupProfile(form.email)
+    if (profile) {
+      setSavedProfile(profile)
+      setReturning('found')
+    } else {
+      setReturning('none')
+      setStep(1)
+    }
+  }
+
+  // Pre-fill form from saved profile and advance
+  function useSavedDetails() {
+    if (!savedProfile) return
+    const [firstName, ...rest] = savedProfile.full_name.trim().split(' ')
+    setForm(prev => ({
+      ...prev,
+      firstName:         firstName ?? prev.firstName,
+      lastName:          rest.join(' ') || prev.lastName,
+      phone:             savedProfile.phone             ?? prev.phone,
+      location:          savedProfile.location          ?? prev.location,
+      linkedin:          savedProfile.linkedin_url      ?? prev.linkedin,
+      yearsExperience:   savedProfile.years_experience  ?? prev.yearsExperience,
+      qualification:     savedProfile.qualification     ?? prev.qualification,
+      currentRole:       savedProfile.current_role      ?? prev.currentRole,
+      summary:           savedProfile.summary           ?? prev.summary,
+      preferredSector:   savedProfile.preferred_sector  ?? prev.preferredSector,
+      employmentType:    savedProfile.employment_type   ?? prev.employmentType,
+      preferredLocation: savedProfile.preferred_location ?? prev.preferredLocation,
+    }))
+    if (savedProfile.cv_url) {
+      setCvUrl(savedProfile.cv_url)
+      setSavedCvUrl(savedProfile.cv_url)
+    }
+    setReturning('none')
+    setStep(1)
+  }
+
+  function startFresh() {
+    setReturning('none')
+    setStep(1)
+  }
+
   const handleSubmit = () => {
     if (!canAdvance() || isPending) return
+    setSubmitError(null)
     startTransition(async () => {
-      await submitApplication({
+      const result: SubmitResult = await submitApplication({
         firstName:         form.firstName,
         lastName:          form.lastName,
         email:             form.email,
@@ -83,7 +139,11 @@ function ApplyForm() {
         notes:             form.notes,
         jobId:             jobId || null,
       })
-      setSubmitted(true)
+      if ('error' in result) {
+        setSubmitError(result.error)
+      } else {
+        setSubmitted(true)
+      }
     })
   }
 
@@ -105,6 +165,83 @@ function ApplyForm() {
             <Link href="/" className="px-6 py-3 border border-black/15 text-black text-sm font-semibold rounded-lg hover:bg-black/5 transition-all no-underline">
               Back to Home
             </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Returning applicant interstitial ─────────────────────────────────────────
+  if (returning === 'found' && savedProfile) {
+    const displayName = savedProfile.full_name.split(' ')[0]
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-black pt-20">
+          <div className="container py-12">
+            <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-3">Job Application</p>
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
+              {jobTitle ? `Apply — ${jobTitle}` : 'Apply for a Position'}
+            </h1>
+          </div>
+        </div>
+        <div className="container py-10 max-w-2xl">
+          <div className="bg-white rounded-2xl border border-black/5 p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
+                <UserCircleIcon className="w-7 h-7 text-brand-blue" aria-hidden="true" />
+              </div>
+              <div>
+                <h2 className="font-display text-xl font-bold text-black">Welcome back, {displayName}!</h2>
+                <p className="text-sm text-black/50 mt-0.5">We found a previous profile for <span className="font-medium text-black/70">{form.email}</span></p>
+              </div>
+            </div>
+
+            {/* Saved profile summary */}
+            <div className="bg-gray-50 rounded-xl p-5 mb-6 space-y-2">
+              {savedProfile.current_role && (
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-black/40 w-28 flex-shrink-0">Current role</span>
+                  <span className="text-black/80 font-medium">{savedProfile.current_role}</span>
+                </div>
+              )}
+              {savedProfile.years_experience && (
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-black/40 w-28 flex-shrink-0">Experience</span>
+                  <span className="text-black/80 font-medium">{savedProfile.years_experience}</span>
+                </div>
+              )}
+              {savedProfile.qualification && (
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-black/40 w-28 flex-shrink-0">Qualification</span>
+                  <span className="text-black/80 font-medium">{savedProfile.qualification}</span>
+                </div>
+              )}
+              {savedProfile.cv_url && (
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-black/40 w-28 flex-shrink-0">CV</span>
+                  <span className="text-green-600 font-medium flex items-center gap-1">
+                    <CheckCircleIcon className="w-3.5 h-3.5" aria-hidden="true" /> Previously uploaded
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <p className="text-sm text-black/60 mb-6">Would you like to use your saved details, or fill in everything fresh?</p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={useSavedDetails}
+                className="flex-1 px-6 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all"
+              >
+                Use saved details
+              </button>
+              <button
+                onClick={startFresh}
+                className="flex-1 px-6 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:bg-black/5 transition-all"
+              >
+                Fill in fresh
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -221,7 +358,21 @@ function ApplyForm() {
               <div>
                 <label htmlFor="apply-cv" className="block text-sm font-medium text-black mb-2">Upload CV</label>
                 <input ref={fileInputRef} id="apply-cv" type="file" accept=".pdf,.doc,.docx" onChange={handleCvPick} className="sr-only" />
-                {form.cvFile ? (
+
+                {/* Using saved CV */}
+                {savedCvUrl && !form.cvFile ? (
+                  <div className="flex items-center gap-3 px-4 py-3.5 border border-green-200 bg-green-50 rounded-xl">
+                    <CheckCircleIcon className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
+                    <span className="text-sm text-green-800 font-medium flex-1">Using your previously uploaded CV</span>
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="text-xs text-black/40 hover:text-black/70 transition-colors flex-shrink-0"
+                    >
+                      Replace
+                    </button>
+                  </div>
+                ) : form.cvFile ? (
                   <div className="flex items-center gap-3 px-4 py-3.5 border border-brand-blue/20 bg-brand-blue/5 rounded-xl">
                     <PaperClipIcon className="w-4 h-4 text-brand-blue flex-shrink-0" aria-hidden="true" />
                     <span className="text-sm text-black/70 font-medium flex-1 truncate">{form.cvFile.name}</span>
@@ -232,7 +383,11 @@ function ApplyForm() {
                     <button
                       type="button"
                       aria-label="Remove CV"
-                      onClick={() => { set('cvFile', null); setCvUrl(null); if (fileInputRef.current) fileInputRef.current.value = '' }}
+                      onClick={() => {
+                        set('cvFile', null)
+                        setCvUrl(savedCvUrl)
+                        if (fileInputRef.current) fileInputRef.current.value = ''
+                      }}
                       className="p-1 rounded hover:bg-black/10 transition-colors flex-shrink-0"
                     >
                       <XMarkIcon className="w-3.5 h-3.5 text-black/40" aria-hidden="true" />
@@ -323,15 +478,25 @@ function ApplyForm() {
               Back
             </button>
             {step < steps.length - 1 ? (
-              <button onClick={() => { if (canAdvance()) setStep(s => s + 1) }} disabled={!canAdvance()}
-                className="px-6 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
-                Continue
+              <button
+                onClick={step === 0 ? handleStep0Continue : () => { if (canAdvance()) setStep(s => s + 1) }}
+                disabled={!canAdvance() || returning === 'checking'}
+                className="px-6 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {returning === 'checking' ? 'Checking…' : 'Continue'}
               </button>
             ) : (
-              <button onClick={handleSubmit} disabled={!canAdvance() || isPending || cvUploading}
-                className="px-8 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
-                {isPending ? 'Submitting…' : 'Submit Application'}
-              </button>
+              <div className="flex flex-col items-end gap-3">
+                {submitError && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-2.5 max-w-sm text-right">
+                    {submitError}
+                  </p>
+                )}
+                <button onClick={handleSubmit} disabled={!canAdvance() || isPending || cvUploading}
+                  className="px-8 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                  {isPending ? 'Submitting…' : 'Submit Application'}
+                </button>
+              </div>
             )}
           </div>
         </div>
