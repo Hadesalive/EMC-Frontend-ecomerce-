@@ -2,6 +2,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { MagnifyingGlass, X, Faders, CaretLeft, CaretRight, CalendarBlank } from '@phosphor-icons/react'
+import CopyLinkButton from '@/components/ui/CopyLinkButton'
 import type { JobRow } from '@/lib/supabase/types'
 
 const PAGE_SIZE = 10
@@ -222,7 +223,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                     </h2>
                   </Link>
 
-                  {/* Bottom row — location + deadline + apply */}
+                  {/* Bottom row — location + deadline + actions */}
                   <div className="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-gray-100">
                     <div className="flex items-center gap-3 flex-wrap min-w-0">
                       <span className="text-[13px] text-gray-400 truncate">{job.location}</span>
@@ -233,12 +234,15 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                         </span>
                       )}
                     </div>
-                    <Link
-                      href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                      className="no-underline shrink-0 px-4 py-2 bg-black text-white text-[12px] font-bold rounded-lg hover:bg-black/85 transition-all whitespace-nowrap"
-                    >
-                      Apply Now
-                    </Link>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <CopyLinkButton jobId={job.id} />
+                      <Link
+                        href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
+                        className="no-underline px-4 py-2 bg-black text-white text-[12px] font-bold rounded-lg hover:bg-black/85 transition-all whitespace-nowrap"
+                      >
+                        Apply Now
+                      </Link>
+                    </div>
                   </div>
                 </article>
               ))}

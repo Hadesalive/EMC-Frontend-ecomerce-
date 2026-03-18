@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { MapPin, ArrowRight, Briefcase, Clock, CalendarBlank } from '@phosphor-icons/react/dist/ssr'
+import CopyLinkButton from '@/components/ui/CopyLinkButton'
 import type { JobRow } from '@/lib/supabase/types'
 
 type JobPreview = Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at' | 'deadline'>
@@ -91,13 +92,16 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
                       </span>
                     )}
                   </div>
-                  <Link
-                    href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                    className="relative z-10 flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black px-3 py-2 rounded-lg transition-all duration-200 no-underline"
-                  >
-                    Apply
-                    <ArrowRight size={12} weight="bold" />
-                  </Link>
+                  <div className="relative z-10 flex items-center gap-2">
+                    <CopyLinkButton jobId={job.id} />
+                    <Link
+                      href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
+                      className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black px-3 py-2 rounded-lg transition-all duration-200 no-underline"
+                    >
+                      Apply
+                      <ArrowRight size={12} weight="bold" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
