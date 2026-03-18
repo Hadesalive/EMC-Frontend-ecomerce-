@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { XMarkIcon, ArrowRightIcon } from '@heroicons/react/24/solid'
+import { X, ArrowRight } from '@phosphor-icons/react'
 import type { TeamMember, BioSection } from '@/lib/cms-types'
 
 function Avatar({ member, size = 'sm' }: { member: TeamMember; size?: 'sm' | 'lg' }) {
@@ -92,7 +92,7 @@ export default function TeamSection({ team }: { team: TeamMember[] }) {
                 {member.short_bio}
               </p>
               <p className={`mt-3 text-xs font-semibold flex items-center gap-1 ${isBlueFor(member) ? 'text-brand-blue' : 'text-brand-orange'}`}>
-                Full profile <ArrowRightIcon className="w-3 h-3" aria-hidden="true" />
+                Full profile <ArrowRight size={12} weight="bold" aria-hidden="true" />
               </p>
             </div>
           </button>
@@ -133,7 +133,7 @@ export default function TeamSection({ team }: { team: TeamMember[] }) {
                 aria-label="Close profile"
                 className="w-9 h-9 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center transition-colors flex-shrink-0 mt-0.5"
               >
-                <XMarkIcon className="w-5 h-5 text-black" aria-hidden="true" />
+                <X size={20} weight="bold" className="text-black" aria-hidden="true" />
               </button>
             </div>
 

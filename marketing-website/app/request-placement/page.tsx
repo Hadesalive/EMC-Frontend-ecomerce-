@@ -1,7 +1,7 @@
 'use client'
 import { useState, useTransition } from 'react'
 import Link from 'next/link'
-import { CheckCircleIcon } from '@heroicons/react/24/solid'
+import { CheckCircle } from '@phosphor-icons/react'
 import { submitPlacementRequest } from './actions'
 
 const SECTORS = [
@@ -57,7 +57,7 @@ export default function RequestPlacementPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="bg-white rounded-2xl border border-black/5 p-10 max-w-md w-full text-center">
           <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-5">
-            <CheckCircleIcon className="w-8 h-8 text-green-500" />
+            <CheckCircle size={32} weight="fill" className="text-green-500" />
           </div>
           <h2 className="font-display text-2xl font-bold text-black mb-3">Request Received</h2>
           <p className="text-black/60 leading-relaxed mb-6">

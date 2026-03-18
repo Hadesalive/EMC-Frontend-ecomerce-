@@ -1,6 +1,6 @@
 'use client'
 import { useState, useTransition } from 'react'
-import { CheckCircleIcon } from '@heroicons/react/24/solid'
+import { CheckCircle } from '@phosphor-icons/react'
 import { submitContactForm } from './actions'
 
 export default function ContactForm() {
@@ -34,7 +34,7 @@ export default function ContactForm() {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center mb-5">
-          <CheckCircleIcon className="w-7 h-7 text-green-500" />
+          <CheckCircle size={28} weight="fill" className="text-green-500" />
         </div>
         <h2 className="font-display text-2xl font-bold text-black mb-3">Message sent</h2>
         <p className="text-black/55 leading-relaxed max-w-sm">

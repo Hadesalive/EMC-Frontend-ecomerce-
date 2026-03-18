@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import {
-  DocumentTextIcon,
-  LightBulbIcon,
-  ClipboardDocumentListIcon,
-  NewspaperIcon,
-  AcademicCapIcon,
-  ArrowRightIcon,
-} from '@heroicons/react/24/outline'
+  FileText,
+  Lightbulb,
+  ClipboardText,
+  Newspaper,
+  GraduationCap,
+  ArrowRight,
+} from '@phosphor-icons/react/dist/ssr'
 
 export const metadata: Metadata = {
   title: 'HR Resources & Career Guides | Sierra Leone',
@@ -35,7 +35,7 @@ const featured = {
 
 const articles = [
   {
-    icon: ClipboardDocumentListIcon,
+    icon: ClipboardText,
     color: 'brand-blue',
     tag: 'Checklist',
     title: 'Recruitment Readiness Checklist',
@@ -43,7 +43,7 @@ const articles = [
     readTime: '4 min read',
   },
   {
-    icon: LightBulbIcon,
+    icon: Lightbulb,
     color: 'brand-blue',
     tag: 'Insight',
     title: 'How to Write a Job Description That Attracts Top Talent',
@@ -51,7 +51,7 @@ const articles = [
     readTime: '5 min read',
   },
   {
-    icon: NewspaperIcon,
+    icon: Newspaper,
     color: 'brand-orange',
     tag: 'Article',
     title: 'HR Trends Shaping Workplaces in West Africa',
@@ -59,7 +59,7 @@ const articles = [
     readTime: '6 min read',
   },
   {
-    icon: AcademicCapIcon,
+    icon: GraduationCap,
     color: 'brand-blue',
     tag: 'Guide',
     title: 'Building a High-Performing Team from the Ground Up',
@@ -67,7 +67,7 @@ const articles = [
     readTime: '7 min read',
   },
   {
-    icon: DocumentTextIcon,
+    icon: FileText,
     color: 'brand-orange',
     tag: 'Template',
     title: 'Employee Onboarding Plan Template',
@@ -160,7 +160,7 @@ export default function ResourcesPage() {
               <div className="flex items-center gap-5">
                 <a href="#" className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all no-underline group/btn">
                   Read Guide
-                  <ArrowRightIcon className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  <ArrowRight size={16} weight="bold" className="group-hover/btn:translate-x-1 transition-transform" />
                 </a>
                 <span className="text-sm text-black/40">{featured.readTime}</span>
               </div>
@@ -195,7 +195,7 @@ export default function ResourcesPage() {
               return (
                 <div key={i} className="group flex items-start gap-6 py-8 hover:bg-black/[0.015] -mx-6 px-6 rounded-xl transition-colors cursor-pointer">
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${isBlue ? 'bg-brand-blue/10' : 'bg-brand-orange/10'}`}>
-                    <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                    <Icon size={20} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1.5">
@@ -207,7 +207,7 @@ export default function ResourcesPage() {
                     </h3>
                     <p className="text-black/55 text-sm leading-relaxed">{a.description}</p>
                   </div>
-                  <ArrowRightIcon className="w-4 h-4 text-black/20 group-hover:text-brand-blue group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-1.5" />
+                  <ArrowRight size={16} weight="bold" className="text-black/20 group-hover:text-brand-blue group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-1.5" />
                 </div>
               )
             })}

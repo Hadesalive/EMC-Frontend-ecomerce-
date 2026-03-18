@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 import {
-  UserGroupIcon,
-  MagnifyingGlassIcon,
-  ArrowPathIcon,
-  ChartBarIcon,
-  ShieldCheckIcon,
-  BuildingOfficeIcon,
-  ClipboardDocumentCheckIcon,
-  AcademicCapIcon,
-  ArrowRightIcon,
-} from '@heroicons/react/24/outline'
+  UsersThree,
+  MagnifyingGlass,
+  ArrowsClockwise,
+  ChartBar,
+  ShieldCheck,
+  Buildings,
+  ClipboardText,
+  GraduationCap,
+  ArrowRight,
+} from '@phosphor-icons/react/dist/ssr'
 
 export const metadata: Metadata = {
   title: 'HR Solutions & Management Consulting Sierra Leone',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 const solutions = [
   {
-    icon: UserGroupIcon,
+    icon: UsersThree,
     color: 'brand-blue',
     num: '01',
     title: 'Recruitment & Talent Acquisition',
@@ -39,7 +39,7 @@ const solutions = [
     features: ['Job profiling & role scoping', 'Multi-channel candidate sourcing', 'Competency-based screening', 'Post-placement follow-up'],
   },
   {
-    icon: ArrowPathIcon,
+    icon: ArrowsClockwise,
     color: 'brand-orange',
     num: '02',
     title: 'Workforce Outsourcing',
@@ -47,7 +47,7 @@ const solutions = [
     features: ['Outsourced staff deployment', 'Ongoing personnel management', 'Contract & compliance handling', 'Flexible workforce scaling'],
   },
   {
-    icon: ChartBarIcon,
+    icon: ChartBar,
     color: 'brand-blue',
     num: '03',
     title: 'Payroll Administration',
@@ -55,7 +55,7 @@ const solutions = [
     features: ['Payroll calculation & processing', 'Statutory deduction management', 'Labour law compliance', 'Payroll reporting & records'],
   },
   {
-    icon: BuildingOfficeIcon,
+    icon: Buildings,
     color: 'brand-orange',
     num: '04',
     title: 'HR Advisory Services',
@@ -63,7 +63,7 @@ const solutions = [
     features: ['HR policy development', 'Performance management', 'Regulatory compliance advisory', 'Compensation & benefits design'],
   },
   {
-    icon: ClipboardDocumentCheckIcon,
+    icon: ClipboardText,
     color: 'brand-blue',
     num: '05',
     title: 'Workforce Planning',
@@ -71,7 +71,7 @@ const solutions = [
     features: ['Headcount planning', 'Skills gap analysis', 'Succession planning', 'Organisational design advisory'],
   },
   {
-    icon: AcademicCapIcon,
+    icon: GraduationCap,
     color: 'brand-orange',
     num: '06',
     title: 'Talent Pool Development',
@@ -127,7 +127,7 @@ export default function SolutionsPage() {
                   className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black text-sm font-semibold rounded-lg hover:bg-white/90 transition-all duration-200 no-underline group/btn"
                 >
                   Get in Touch
-                  <ArrowRightIcon className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  <ArrowRight size={16} weight="bold" className="group-hover/btn:translate-x-1 transition-transform" />
                 </a>
                 <a
                   href="/services"
@@ -169,7 +169,7 @@ export default function SolutionsPage() {
                   <div className="md:col-span-1 flex md:flex-col items-center md:items-start gap-3">
                     <span className={`text-xs font-bold tracking-widest ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}>{s.num}</span>
                     <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isBlue ? 'bg-brand-blue/10' : 'bg-brand-orange/10'}`}>
-                      <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                      <Icon size={20} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                     </div>
                   </div>
 
@@ -242,7 +242,7 @@ export default function SolutionsPage() {
               </p>
               <a href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:gap-4 transition-all duration-200 no-underline">
                 Talk to a specialist
-                <ArrowRightIcon className="w-4 h-4" />
+                <ArrowRight size={16} weight="bold" />
               </a>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

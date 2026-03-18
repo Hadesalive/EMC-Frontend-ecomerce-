@@ -1,16 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import {
-  UserGroupIcon,
-  BriefcaseIcon,
-  BuildingOfficeIcon,
-  ArrowRightIcon,
-} from '@heroicons/react/24/outline'
+  UsersThree,
+  Briefcase,
+  Buildings,
+  ArrowRight,
+} from '@phosphor-icons/react/dist/ssr'
 
 const services = [
   {
     num: '01',
-    icon: UserGroupIcon,
+    icon: UsersThree,
     color: 'brand-blue',
     title: 'Recruitment & Staffing',
     description: 'From permanent hires to contract placements, executive search to mass recruitment — we find the right people for every level and every role across Sierra Leone.',
@@ -19,7 +19,7 @@ const services = [
   },
   {
     num: '02',
-    icon: BriefcaseIcon,
+    icon: Briefcase,
     color: 'brand-orange',
     title: 'HR & Management Consulting',
     description: 'Strategic guidance on HR policies, organisational structure, performance management, and change — tailored to your sector and scale of operation.',
@@ -28,7 +28,7 @@ const services = [
   },
   {
     num: '03',
-    icon: BuildingOfficeIcon,
+    icon: Buildings,
     color: 'brand-blue',
     title: 'Outsourcing Services',
     description: 'Hand over your HR operations entirely. We manage payroll, onboarding, compliance, and day-to-day HR administration professionally on your behalf.',
@@ -55,7 +55,7 @@ export default function ServicesSection() {
             className="inline-flex items-center gap-2 text-sm font-medium text-white/50 hover:text-white transition-colors no-underline group"
           >
             View all services
-            <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={16} weight="bold" className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
@@ -73,7 +73,7 @@ export default function ServicesSection() {
                 <div className="lg:col-span-1 flex lg:flex-col items-center lg:items-start gap-3">
                   <span className={`text-xs font-bold tracking-widest ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}>{s.num}</span>
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isBlue ? 'bg-brand-blue/20' : 'bg-brand-orange/20'}`}>
-                    <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                    <Icon size={20} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                   </div>
                 </div>
 
@@ -102,7 +102,7 @@ export default function ServicesSection() {
                     className={`inline-flex items-center gap-1.5 text-xs font-semibold no-underline mt-2 group-hover:gap-3 transition-all duration-200 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}
                   >
                     Learn more
-                    <ArrowRightIcon className="w-3.5 h-3.5" />
+                    <ArrowRight size={14} weight="bold" />
                   </Link>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import type { CTAContent } from '@/lib/cms-types'
 import { DEFAULT_CTA } from '@/lib/cms-types'
 
@@ -44,7 +44,7 @@ export default function CTA({ content }: { content?: Partial<CTAContent> }) {
                 className="px-8 py-4 bg-white text-black text-base font-semibold rounded-lg hover:bg-white/90 transition-all duration-200 no-underline inline-flex items-center justify-center gap-2"
               >
                 {c.cta_primary}
-                <ArrowRightIcon className="w-5 h-5" />
+                <ArrowRight size={20} weight="bold" />
               </Link>
               <Link
                 href={c.cta_secondary_href}

@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
 import {
-  UserGroupIcon,
-  BriefcaseIcon,
-  MagnifyingGlassIcon,
-  ClipboardDocumentCheckIcon,
-  ChartBarIcon,
-  DocumentTextIcon,
-  Cog6ToothIcon,
-  BuildingOfficeIcon,
-  CurrencyDollarIcon,
-  ArrowPathIcon,
-} from '@heroicons/react/24/outline'
+  UsersThree,
+  Briefcase,
+  MagnifyingGlass,
+  ClipboardText,
+  ChartBar,
+  FileText,
+  Gear,
+  Buildings,
+  CurrencyDollar,
+  ArrowsClockwise,
+} from '@phosphor-icons/react/dist/ssr'
 
 export const metadata: Metadata = {
   title: 'Recruitment & HR Services | Staffing Agency Sierra Leone',
@@ -91,7 +91,7 @@ export default function ServicesPage() {
             </div>
             <div className="p-6 sm:p-10 lg:p-12 flex flex-col justify-start">
               <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-6">
-                <UserGroupIcon className="w-6 h-6 text-brand-blue" />
+                <UsersThree size={24} weight="regular" className="text-brand-blue" />
               </div>
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-black mb-4">Recruitment &amp; Talent Acquisition</h3>
               <p className="text-black/60 leading-relaxed mb-6 text-base lg:text-lg">
@@ -116,19 +116,19 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: ArrowPathIcon,
+                icon: ArrowsClockwise,
                 color: 'brand-orange',
                 title: 'Talent Pool Development',
                 desc: 'Development of skilled talent databases for rapid recruitment. We maintain pre-screened candidate rosters so we can respond to your workforce needs quickly.',
               },
               {
-                icon: MagnifyingGlassIcon,
+                icon: MagnifyingGlass,
                 color: 'brand-blue',
                 title: 'Executive Search',
                 desc: 'Discreet, targeted search for C-suite and specialist roles. Our local networks give you access to passive talent not found on open job boards.',
               },
               {
-                icon: ClipboardDocumentCheckIcon,
+                icon: ClipboardText,
                 color: 'brand-orange',
                 title: 'Mass & Contract Recruitment',
                 desc: 'Large-scale and short-term hiring coordinated efficiently — from assessment and screening through to deployment and compliance documentation.',
@@ -139,7 +139,7 @@ export default function ServicesPage() {
               return (
                 <div key={i} className="p-6 border border-black/5 rounded-2xl hover:border-black/10 hover:shadow-md transition-all duration-300 group">
                   <div className={`w-12 h-12 rounded-xl mb-5 flex items-center justify-center ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
-                    <Icon className={`w-6 h-6 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                    <Icon size={24} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                   </div>
                   <h3 className="font-display text-lg font-bold text-black mb-2">{s.title}</h3>
                   <p className="text-black/60 text-sm leading-relaxed">{s.desc}</p>
@@ -163,21 +163,21 @@ export default function ServicesPage() {
           <div className="divide-y divide-white/10">
             {[
               {
-                icon: BriefcaseIcon,
+                icon: Briefcase,
                 color: 'brand-orange',
                 title: 'HR Advisory Services',
                 desc: 'Professional HR consulting and workforce advisory services. We provide expert guidance on HR policies, compliance, performance management, and building scalable HR functions.',
                 tags: ['Policy development', 'Performance management', 'Regulatory compliance'],
               },
               {
-                icon: BuildingOfficeIcon,
+                icon: Buildings,
                 color: 'brand-blue',
                 title: 'Workforce Planning',
                 desc: 'Strategic workforce planning to support business growth. We help you forecast headcount needs, identify skills gaps, and build resilient teams aligned to your operational objectives.',
                 tags: ['Headcount planning', 'Skills gap analysis', 'Succession planning'],
               },
               {
-                icon: Cog6ToothIcon,
+                icon: Gear,
                 color: 'brand-orange',
                 title: 'Organisational Development',
                 desc: 'Guiding organisations through restructuring, cultural transformation, and change management to improve operational efficiency and long-term performance.',
@@ -190,7 +190,7 @@ export default function ServicesPage() {
                 <div key={i} className="py-7 md:py-10 grid md:grid-cols-3 gap-4 md:gap-6 group">
                   <div className="flex items-start gap-4">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${isBlue ? 'bg-brand-blue/20' : 'bg-brand-orange/20'}`}>
-                      <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                      <Icon size={20} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                     </div>
                     <h3 className="font-display text-xl font-bold text-white mt-2">{s.title}</h3>
                   </div>
@@ -222,25 +222,25 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 gap-5 sm:gap-8 mb-8 lg:mb-16">
             {[
               {
-                icon: DocumentTextIcon,
+                icon: FileText,
                 color: 'brand-blue',
                 title: 'Workforce Outsourcing',
                 desc: 'Provision and management of outsourced staff for client organisations. We supply, deploy and manage personnel on your behalf — allowing you to scale your workforce without the administrative overhead.',
               },
               {
-                icon: CurrencyDollarIcon,
+                icon: CurrencyDollar,
                 color: 'brand-orange',
                 title: 'Payroll Administration',
                 desc: 'Administration of employee payroll, statutory deductions and compliance. Accurate, on-time payroll processing with full compliance to Sierra Leone labour regulations.',
               },
               {
-                icon: ChartBarIcon,
+                icon: ChartBar,
                 color: 'brand-orange',
                 title: 'HR Operations Management',
                 desc: 'End-to-end management of day-to-day HR operations including onboarding, employee records, leave administration, and compliance reporting.',
               },
               {
-                icon: UserGroupIcon,
+                icon: UsersThree,
                 color: 'brand-blue',
                 title: 'Background & Reference Verification',
                 desc: 'Thorough background screening — employment history, qualifications, references, and criminal record checks — for every candidate before placement.',
@@ -251,7 +251,7 @@ export default function ServicesPage() {
               return (
                 <div key={i} className="flex gap-5 p-5 sm:p-7 border border-black/5 rounded-2xl hover:border-black/10 hover:shadow-md transition-all duration-300 group">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 self-start ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
-                    <Icon className={`w-6 h-6 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                    <Icon size={24} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                   </div>
                   <div>
                     <h3 className="font-display text-lg font-bold text-black mb-2">{s.title}</h3>
