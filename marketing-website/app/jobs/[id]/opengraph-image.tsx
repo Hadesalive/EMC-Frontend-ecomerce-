@@ -26,14 +26,24 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
     )
     const [job] = await res.json()
     if (job) {
-      title    = job.title    ?? title
-      sector   = job.sector   ?? sector
-      type     = job.type     ?? type
-      location = job.location ?? location
+      title    = job.title        ?? title
+      sector   = job.sector       ?? sector
+      type     = job.type         ?? type
+      location = job.location     ?? location
       salary   = job.salary_range ?? ''
     }
   } catch {
     // fallback values used
+  }
+
+  // Fetch logo as base64 for reliable rendering inside ImageResponse
+  let logoSrc = ''
+  try {
+    const logoRes = await fetch('https://www.expresssl.com/images/Emc%20Logo%20header.png')
+    const logoData = await logoRes.arrayBuffer()
+    logoSrc = `data:image/png;base64,${Buffer.from(logoData).toString('base64')}`
+  } catch {
+    // logo omitted on error
   }
 
   const typeColor: Record<string, string> = {
@@ -50,12 +60,10 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        background: '#0a0a0a',
+        background: '#ffffff',
+        fontFamily: 'sans-serif',
       }}
     >
-      {/* Top orange bar */}
-      <div style={{ width: '100%', height: 8, background: '#f97316', display: 'flex' }} />
-
       {/* Main content */}
       <div
         style={{
@@ -63,19 +71,53 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '0 90px',
+          padding: '60px 90px',
         }}
       >
+        {/* Logo */}
+        {logoSrc ? (
+          <img
+            src={logoSrc}
+            style={{ height: 52, objectFit: 'contain', objectPosition: 'left', marginBottom: 48 }}
+          />
+        ) : (
+          <div style={{
+            display: 'flex',
+            fontSize: 18,
+            fontWeight: 700,
+            color: '#f97316',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            marginBottom: 48,
+          }}>
+            Express Management Consultancy
+          </div>
+        )}
+
+        {/* Job title */}
+        <div
+          style={{
+            fontSize: title.length > 45 ? 46 : title.length > 30 ? 56 : 66,
+            fontWeight: 800,
+            color: '#0a0a0a',
+            lineHeight: 1.1,
+            marginBottom: 40,
+            maxWidth: 980,
+          }}
+        >
+          {title}
+        </div>
+
         {/* Badges */}
-        <div style={{ display: 'flex', gap: 12, marginBottom: 36, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <div
             style={{
-              padding: '8px 22px',
+              padding: '8px 20px',
               background: badgeColor,
               color: '#fff',
               fontSize: 14,
               fontWeight: 700,
-              letterSpacing: '0.12em',
+              letterSpacing: '0.1em',
               borderRadius: 6,
               display: 'flex',
               textTransform: 'uppercase',
@@ -85,9 +127,9 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           </div>
           <div
             style={{
-              padding: '8px 22px',
-              background: '#1f2937',
-              color: '#9ca3af',
+              padding: '8px 20px',
+              background: '#f3f4f6',
+              color: '#374151',
               fontSize: 14,
               fontWeight: 600,
               borderRadius: 6,
@@ -98,9 +140,9 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           </div>
           <div
             style={{
-              padding: '8px 22px',
-              background: '#1f2937',
-              color: '#9ca3af',
+              padding: '8px 20px',
+              background: '#f3f4f6',
+              color: '#374151',
               fontSize: 14,
               fontWeight: 600,
               borderRadius: 6,
@@ -112,9 +154,9 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
           {salary ? (
             <div
               style={{
-                padding: '8px 22px',
-                background: 'rgba(59,130,246,0.2)',
-                color: '#93c5fd',
+                padding: '8px 20px',
+                background: '#eff6ff',
+                color: '#1d4ed8',
                 fontSize: 14,
                 fontWeight: 600,
                 borderRadius: 6,
@@ -125,45 +167,10 @@ export default async function OgImage({ params }: { params: Promise<{ id: string
             </div>
           ) : null}
         </div>
-
-        {/* Job title */}
-        <div
-          style={{
-            fontSize: title.length > 45 ? 46 : title.length > 30 ? 56 : 68,
-            fontWeight: 800,
-            color: '#ffffff',
-            lineHeight: 1.1,
-            marginBottom: 48,
-            display: 'flex',
-            flexWrap: 'wrap',
-            maxWidth: 900,
-          }}
-        >
-          {title}
-        </div>
-
-        {/* Brand footer */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <div
-            style={{
-              fontSize: 15,
-              fontWeight: 700,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: '#f97316',
-              display: 'flex',
-            }}
-          >
-            Express Management Consultancy
-          </div>
-          <div style={{ fontSize: 15, color: '#4b5563', display: 'flex' }}>
-            expresssl.com · Freetown, Sierra Leone
-          </div>
-        </div>
       </div>
 
-      {/* Bottom bar */}
-      <div style={{ width: '100%', height: 6, background: '#1f2937', display: 'flex' }} />
+      {/* Bottom accent bar */}
+      <div style={{ width: '100%', height: 8, background: 'linear-gradient(to right, #f97316, #1d4ed8)', display: 'flex' }} />
     </div>,
     { width: 1200, height: 630 }
   )
