@@ -19,18 +19,18 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
   }
 
   return (
-    <section className="py-14 lg:py-32 bg-gray-50 dark:bg-gray-950 border-t border-gray-100 dark:border-white/5">
+    <section className="py-14 lg:py-32 bg-black">
       <div className="container">
 
         {/* Section header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-10 lg:mb-16 gap-4 lg:gap-6">
           <div>
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">{c.section_label}</p>
-            <h2 className="font-display text-4xl lg:text-5xl font-bold text-black dark:text-white leading-tight tracking-tight">
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
               {c.heading}
             </h2>
           </div>
-          <p className="text-black/60 dark:text-white/60 leading-relaxed max-w-sm lg:text-right">
+          <p className="text-white/50 leading-relaxed max-w-sm lg:text-right">
             {c.description}
           </p>
         </div>
@@ -43,14 +43,14 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
             return (
               <div
                 key={i}
-                className="group relative p-5 sm:p-7 rounded-2xl border border-black/8 dark:border-white/5 hover:border-black/15 dark:hover:border-white/10 hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-900 flex flex-col gap-4 sm:gap-5"
+                className="group relative p-5 sm:p-7 rounded-2xl bg-white/[0.06] border border-white/[0.08] hover:bg-white/[0.09] hover:border-white/[0.14] transition-all duration-300 flex flex-col gap-4 sm:gap-5"
               >
-                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${isBlue ? 'bg-brand-blue/20 group-hover:bg-brand-blue/30' : 'bg-brand-orange/20 group-hover:bg-brand-orange/30'} transition-colors`}>
                   <Icon size={22} weight="light" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                 </div>
                 <div>
-                  <h3 className="font-display text-base font-bold text-black dark:text-white mb-2">{a.title}</h3>
-                  <p className="text-black/55 dark:text-white/55 text-sm leading-relaxed">{a.description}</p>
+                  <h3 className="font-display text-base font-bold text-white mb-2">{a.title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed">{a.description}</p>
                 </div>
               </div>
             )

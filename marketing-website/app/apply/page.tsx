@@ -48,7 +48,12 @@ function ApplyForm() {
     setForm(prev => ({ ...prev, [field]: value }))
 
   const canAdvance = () => {
-    if (step === 0) return !!(form.firstName && form.lastName && form.email && form.phone)
+    if (step === 0) {
+      // Before the email check: only need a valid email
+      // After check confirms new user: need full personal info
+      if (returning === 'none') return !!(form.firstName && form.lastName && form.email && form.phone)
+      return !!form.email
+    }
     if (step === 1) return !!(form.yearsExperience && form.qualification)
     if (step === 2) return !!(form.preferredSector && form.consent)
     return true
@@ -76,14 +81,20 @@ function ApplyForm() {
   // Called when user clicks Continue on Step 0
   async function handleStep0Continue() {
     if (!canAdvance()) return
+    // Already confirmed new user and form is filled — proceed
+    if (returning === 'none') {
+      setStep(1)
+      return
+    }
+    // Check email first
     setReturning('checking')
     const profile = await lookupProfile(form.email)
     if (profile) {
       setSavedProfile(profile)
       setReturning('found')
     } else {
+      // New user — expand the form, stay on step 0
       setReturning('none')
-      setStep(1)
     }
   }
 
@@ -345,42 +356,61 @@ function ApplyForm() {
 
         <div className="bg-white rounded-2xl border border-black/5 p-5 sm:p-8">
 
-          {/* Step 0 — Personal Info */}
+          {/* Step 0 — Email first, then expand for new users */}
           {step === 0 && (
             <div className="space-y-5">
-              <h2 className="font-display text-xl font-bold text-black mb-6">Personal Information</h2>
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="apply-first-name" className="block text-sm font-medium text-black mb-2">First Name *</label>
-                  <input id="apply-first-name" type="text" value={form.firstName} onChange={e => set('firstName', e.target.value)}
-                    className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="John" />
-                </div>
-                <div>
-                  <label htmlFor="apply-last-name" className="block text-sm font-medium text-black mb-2">Last Name *</label>
-                  <input id="apply-last-name" type="text" value={form.lastName} onChange={e => set('lastName', e.target.value)}
-                    className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="Doe" />
-                </div>
-              </div>
+              <h2 className="font-display text-xl font-bold text-black mb-6">
+                {returning === 'none' ? 'Personal Information' : 'Get Started'}
+              </h2>
+
               <div>
                 <label htmlFor="apply-email" className="block text-sm font-medium text-black mb-2">Email Address *</label>
-                <input id="apply-email" type="email" value={form.email} onChange={e => set('email', e.target.value)}
-                  className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="john@email.com" />
+                <input
+                  id="apply-email"
+                  type="email"
+                  value={form.email}
+                  onChange={e => { set('email', e.target.value); if (returning !== 'idle') setReturning('idle') }}
+                  className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm"
+                  placeholder="your@email.com"
+                  autoFocus
+                />
+                {returning === 'idle' && (
+                  <p className="text-xs text-black/40 mt-1.5">Enter your email to check if you have an existing profile.</p>
+                )}
               </div>
-              <div>
-                <label htmlFor="apply-phone" className="block text-sm font-medium text-black mb-2">Phone Number *</label>
-                <input id="apply-phone" type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
-                  className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="+232 76 000 000" />
-              </div>
-              <div>
-                <label htmlFor="apply-location" className="block text-sm font-medium text-black mb-2">Current Location</label>
-                <input id="apply-location" type="text" value={form.location} onChange={e => set('location', e.target.value)}
-                  className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="Freetown, Sierra Leone" />
-              </div>
-              <div>
-                <label htmlFor="apply-linkedin" className="block text-sm font-medium text-black mb-2">LinkedIn Profile</label>
-                <input id="apply-linkedin" type="url" value={form.linkedin} onChange={e => set('linkedin', e.target.value)}
-                  className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="https://linkedin.com/in/..." />
-              </div>
+
+              {/* Expanded fields — only shown after email check confirms new user */}
+              {returning === 'none' && (
+                <>
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="apply-first-name" className="block text-sm font-medium text-black mb-2">First Name *</label>
+                      <input id="apply-first-name" type="text" value={form.firstName} onChange={e => set('firstName', e.target.value)}
+                        className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="John" autoFocus />
+                    </div>
+                    <div>
+                      <label htmlFor="apply-last-name" className="block text-sm font-medium text-black mb-2">Last Name *</label>
+                      <input id="apply-last-name" type="text" value={form.lastName} onChange={e => set('lastName', e.target.value)}
+                        className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="Doe" />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="apply-phone" className="block text-sm font-medium text-black mb-2">Phone Number *</label>
+                    <input id="apply-phone" type="tel" value={form.phone} onChange={e => set('phone', e.target.value)}
+                      className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="+232 76 000 000" />
+                  </div>
+                  <div>
+                    <label htmlFor="apply-location" className="block text-sm font-medium text-black mb-2">Current Location</label>
+                    <input id="apply-location" type="text" value={form.location} onChange={e => set('location', e.target.value)}
+                      className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="Freetown, Sierra Leone" />
+                  </div>
+                  <div>
+                    <label htmlFor="apply-linkedin" className="block text-sm font-medium text-black mb-2">LinkedIn Profile</label>
+                    <input id="apply-linkedin" type="url" value={form.linkedin} onChange={e => set('linkedin', e.target.value)}
+                      className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all text-sm" placeholder="https://linkedin.com/in/..." />
+                  </div>
+                </>
+              )}
             </div>
           )}
 
@@ -546,7 +576,7 @@ function ApplyForm() {
                 disabled={!canAdvance() || returning === 'checking'}
                 className="px-6 py-3 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                {returning === 'checking' ? 'Checking…' : 'Continue'}
+                {returning === 'checking' ? 'Checking…' : (step === 0 && returning === 'idle') ? 'Check & Continue' : 'Continue'}
               </button>
             ) : (
               <div className="flex flex-col items-end gap-3">

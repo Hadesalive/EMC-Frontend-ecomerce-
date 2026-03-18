@@ -38,7 +38,14 @@ export default async function JobsPage() {
   const urgentCount   = allJobs.filter(j => j.urgent).length
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: "linear-gradient(rgba(215,225,235,0.45), rgba(215,225,235,0.45)), url('/images/vecteezy_abstract-white-line-background-wall-vector-illustration_7696710.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+      }}
+    >
 
       {/* Hero */}
       <section className="bg-gray-950 pt-28 md:pt-32 pb-10 md:pb-14">

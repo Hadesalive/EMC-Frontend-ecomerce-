@@ -35,7 +35,7 @@ export default async function HomePage() {
   const [raw, hero, features, cta] = await Promise.all([
     supabase
       .from('jobs')
-      .select('id, title, sector, type, location, urgent, created_at')
+      .select('id, title, sector, type, location, urgent, created_at, deadline')
       .eq('is_active', true)
       .order('urgent', { ascending: false })
       .order('created_at', { ascending: false })

@@ -21,9 +21,12 @@
     @apply focus-visible:outline-2 focus-visible:outline-brand-blue focus-visible:outline-offset-2;
   }
 
-  /* Prevent iOS Safari from zooming in on focused inputs (requires font-size >= 16px) */
-  input, select, textarea {
-    font-size: 16px;
+  /* Prevent iOS Safari from zooming in on focused inputs (requires font-size >= 16px).
+     !important is needed to override Tailwind utility classes like text-sm. */
+  @media (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
   }
 }
 

@@ -120,7 +120,14 @@ export default async function JobDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: "linear-gradient(rgba(215,225,235,0.45), rgba(215,225,235,0.45)), url('/images/vecteezy_abstract-white-line-background-wall-vector-illustration_7696710.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+      }}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingSchema) }}
@@ -345,8 +352,8 @@ export default async function JobDetailPage({ params }: Props) {
             </div>
             <div className="grid md:grid-cols-3 gap-4">
               {(related ?? []).map(j => (
-                <Link key={j.id} href={`/jobs/${j.id}`} className="no-underline group">
-                  <div className="bg-white rounded-2xl border border-black/5 group-hover:border-black/10 group-hover:shadow-md transition-all p-6 h-full flex flex-col gap-4">
+                <div key={j.id} className="bg-white rounded-2xl border border-black/5 hover:border-black/10 hover:shadow-md transition-all p-6 flex flex-col gap-4">
+                  <Link href={`/jobs/${j.id}`} className="no-underline group flex-1">
                     <div>
                       <div className="flex items-center gap-2 mb-2 flex-wrap">
                         {j.urgent && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-500">Urgent</span>}
@@ -354,12 +361,24 @@ export default async function JobDetailPage({ params }: Props) {
                       </div>
                       <h3 className="font-display text-base font-bold text-black group-hover:text-brand-blue transition-colors">{j.title}</h3>
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-black/40 mt-auto">
+                    <div className="flex items-center gap-3 text-xs text-black/40 mt-3">
                       <span className="flex items-center gap-1"><MapPin size={14} weight="bold" />{j.location}</span>
                       <span className="flex items-center gap-1"><Clock size={14} weight="bold" />{relativeDate(j.created_at)}</span>
                     </div>
-                  </div>
-                </Link>
+                    {j.deadline && (
+                      <div className="flex items-center gap-1.5 mt-2 text-xs font-medium text-amber-600">
+                        <CalendarBlank size={13} weight="bold" />
+                        Deadline: {new Date(j.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </div>
+                    )}
+                  </Link>
+                  <Link
+                    href={`/apply?job=${j.id}&title=${encodeURIComponent(j.title)}`}
+                    className="block text-center px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all no-underline"
+                  >
+                    Apply Now
+                  </Link>
+                </div>
               ))}
             </div>
           </div>

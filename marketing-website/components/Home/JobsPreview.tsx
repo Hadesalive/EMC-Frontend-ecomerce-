@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import { MapPin, ArrowRight, Briefcase, Clock } from '@phosphor-icons/react/dist/ssr'
+import { MapPin, ArrowRight, Briefcase, Clock, CalendarBlank } from '@phosphor-icons/react/dist/ssr'
 import type { JobRow } from '@/lib/supabase/types'
 
-type JobPreview = Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at'>
+type JobPreview = Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at' | 'deadline'>
 
 const typeColor: Record<string, string> = {
   Permanent: 'bg-brand-blue/10 text-brand-blue',
@@ -22,7 +22,7 @@ function relativeDate(iso: string) {
 
 export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
   return (
-    <section className="py-14 lg:py-28 bg-white dark:bg-black border-t border-gray-100 dark:border-white/5">
+    <section className="py-14 lg:py-28 bg-white border-t border-black/8">
       <div className="container">
 
         {/* Header */}
@@ -74,6 +74,12 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
                       {relativeDate(job.created_at)}
                     </span>
                   </div>
+                  {job.deadline && (
+                    <div className="flex items-center gap-1.5 mt-2.5 text-xs font-medium text-amber-600">
+                      <CalendarBlank size={13} weight="bold" />
+                      Deadline: {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    </div>
+                  )}
                 </div>
 
                 {/* CTA */}
