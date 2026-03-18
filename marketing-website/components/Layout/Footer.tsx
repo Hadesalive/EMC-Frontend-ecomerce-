@@ -1,10 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {
-  EnvelopeIcon,
-  PhoneIcon,
-  MapPinIcon,
-} from '@heroicons/react/24/outline'
+import { EnvelopeSimple, Phone, MapPin } from '@phosphor-icons/react/dist/ssr'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -56,15 +52,15 @@ export default function Footer() {
               {/* Contact Info */}
               <div className="space-y-3">
                 <a href="mailto:recruitment@expresssl.com" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
-                  <EnvelopeIcon className="w-5 h-5 text-white/50 group-hover:text-brand-blue transition-colors" aria-hidden="true" />
+                  <EnvelopeSimple size={20} weight="light" className="text-white/50 group-hover:text-brand-blue transition-colors" aria-hidden="true" />
                   <span className="font-light">recruitment@expresssl.com</span>
                 </a>
                 <a href="tel:+23279252182" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
-                  <PhoneIcon className="w-5 h-5 text-white/50 group-hover:text-brand-orange transition-colors" aria-hidden="true" />
+                  <Phone size={20} weight="light" className="text-white/50 group-hover:text-brand-orange transition-colors" aria-hidden="true" />
                   <span className="font-light">+232 79 252182</span>
                 </a>
                 <div className="flex items-center gap-3 text-white/70">
-                  <MapPinIcon className="w-5 h-5 text-white/50" aria-hidden="true" />
+                  <MapPin size={20} weight="light" className="text-white/50" aria-hidden="true" />
                   <span className="font-light">10 Waterside Road, Wilberforce, Freetown</span>
                 </div>
               </div>

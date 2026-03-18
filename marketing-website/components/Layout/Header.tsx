@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import { ArrowRight } from '@phosphor-icons/react'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -52,7 +52,8 @@ export default function Header() {
   }
 
       return (
-        <header className={`fixed top-0 left-0 right-0 w-full z-[100] transition-all duration-300 overflow-hidden ${
+        <>
+        <header className={`fixed top-0 left-0 right-0 w-full z-[100] transition-all duration-300 ${
           isScrolled
             ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-lg'
             : hasDarkHero
@@ -61,11 +62,11 @@ export default function Header() {
         }`}>
           {/* Thin Line Separator */}
           <div aria-hidden="true" className={`absolute bottom-0 left-0 right-0 h-[1px] transition-all duration-300 ${
-            isScrolled 
-              ? 'bg-gradient-to-r from-transparent via-black/10 to-transparent' 
+            isScrolled
+              ? 'bg-gradient-to-r from-transparent via-black/10 to-transparent'
               : 'bg-gradient-to-r from-transparent via-brand-blue/20 to-transparent'
           }`} />
-          
+
           <div className="container">
             <nav className="flex items-center py-4 lg:py-5 w-full">
           {/* Logo - Left aligned */}
@@ -120,7 +121,7 @@ export default function Header() {
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-black dark:bg-white text-white dark:text-black text-sm font-semibold rounded-lg hover:bg-black/80 dark:hover:bg-white/90 transition-colors duration-200 no-underline group"
             >
               Get Started
-              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true" />
+              <ArrowRight size={16} weight="bold" className="group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true" />
             </Link>
           </div>
 
@@ -153,7 +154,10 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* Mobile Navigation - Minimal Apple Style */}
+          </div>
+        </header>
+
+        {/* Mobile Navigation — rendered outside <header> so overflow-hidden never clips it */}
         {isMenuOpen && (
           <div id="mobile-nav" className="lg:hidden fixed inset-0 top-[73px] bg-white/95 dark:bg-black/95 backdrop-blur-xl z-[99] border-t border-black/5 dark:border-white/10 overflow-y-auto flex flex-col">
             <div className="container py-6 flex-1 flex flex-col">
@@ -162,11 +166,11 @@ export default function Header() {
                   const active = isActive(link.href)
                   return (
                     <li key={link.href}>
-                      <Link 
-                        href={link.href} 
+                      <Link
+                        href={link.href}
                         className={`block py-4 font-display text-lg font-light transition-colors duration-200 no-underline ${
-                          active 
-                            ? 'text-brand-blue dark:text-brand-blue' 
+                          active
+                            ? 'text-brand-blue dark:text-brand-blue'
                             : 'text-black/60 dark:text-white/60'
                         }`}
                         onClick={() => setIsMenuOpen(false)}
@@ -177,7 +181,7 @@ export default function Header() {
                   )
                 })}
               </ul>
-              
+
               {/* CTA Button - Bottom */}
               <div className="pt-6 mt-auto border-t border-black/5 dark:border-white/10">
                 <Link
@@ -191,7 +195,6 @@ export default function Header() {
             </div>
           </div>
         )}
-          </div>
-        </header>
+        </>
   )
 }

@@ -2,7 +2,7 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { Sun, Moon } from '@phosphor-icons/react'
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -27,9 +27,9 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (
-        <SunIcon className="w-5 h-5 text-white" />
+        <Sun size={20} weight="fill" className="text-white" />
       ) : (
-        <MoonIcon className="w-5 h-5 text-black" />
+        <Moon size={20} weight="fill" className="text-black" />
       )}
     </button>
   )

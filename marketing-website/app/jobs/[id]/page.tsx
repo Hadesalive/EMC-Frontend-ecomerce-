@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { ArrowLeftIcon, MapPinIcon, ClockIcon, BriefcaseIcon, CurrencyDollarIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import { ArrowLeft, MapPin, Clock, Briefcase, CurrencyDollar, CheckCircle, CalendarBlank } from '@phosphor-icons/react/dist/ssr'
 import { createAdminClient } from '@/lib/supabase/server'
 import type { JobRow } from '@/lib/supabase/types'
 
@@ -131,7 +131,7 @@ export default async function JobDetailPage({ params }: Props) {
         <div className="container py-8 lg:py-16">
           <Link href="/jobs"
             className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium no-underline transition-colors mb-8 group">
-            <ArrowLeftIcon className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft size={16} weight="bold" className="group-hover:-translate-x-0.5 transition-transform" />
             All open positions
           </Link>
 
@@ -158,12 +158,18 @@ export default async function JobDetailPage({ params }: Props) {
               </h1>
 
               <div className="flex flex-wrap gap-6 text-sm text-white/50">
-                <span className="flex items-center gap-2"><MapPinIcon className="w-4 h-4" />{job.location}</span>
-                <span className="flex items-center gap-2"><BriefcaseIcon className="w-4 h-4" />{job.type}</span>
+                <span className="flex items-center gap-2"><MapPin size={16} weight="bold" />{job.location}</span>
+                <span className="flex items-center gap-2"><Briefcase size={16} weight="bold" />{job.type}</span>
                 {job.salary_range && (
-                  <span className="flex items-center gap-2"><CurrencyDollarIcon className="w-4 h-4" />{job.salary_range}</span>
+                  <span className="flex items-center gap-2"><CurrencyDollar size={16} weight="bold" />{job.salary_range}</span>
                 )}
-                <span className="flex items-center gap-2"><ClockIcon className="w-4 h-4" />Posted {relativeDate(job.created_at)}</span>
+                <span className="flex items-center gap-2"><Clock size={16} weight="bold" />Posted {relativeDate(job.created_at)}</span>
+                {job.deadline && (
+                  <span className="flex items-center gap-2 text-brand-orange font-semibold">
+                    <CalendarBlank size={16} weight="bold" />
+                    Deadline: {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -207,7 +213,7 @@ export default async function JobDetailPage({ params }: Props) {
                   {job.responsibilities.map((r, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircleIcon className="w-3 h-3 text-brand-blue" />
+                        <CheckCircle size={12} weight="fill" className="text-brand-blue" />
                       </div>
                       <span className="text-black/65 text-[15px] leading-relaxed">{r}</span>
                     </li>
@@ -291,6 +297,15 @@ export default async function JobDetailPage({ params }: Props) {
                       <span className={`font-semibold ${label === 'Salary' ? 'text-brand-blue' : 'text-black'}`}>{value}</span>
                     </div>
                   ))}
+                  {job.deadline && (
+                    <div className="flex items-center justify-between text-sm pt-1">
+                      <span className="text-black/40 font-medium">Deadline</span>
+                      <span className="flex items-center gap-1.5 font-semibold text-brand-orange">
+                        <CalendarBlank size={13} weight="bold" />
+                        {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-6 pt-5 border-t border-black/5 space-y-3">
                   <Link href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
@@ -340,8 +355,8 @@ export default async function JobDetailPage({ params }: Props) {
                       <h3 className="font-display text-base font-bold text-black group-hover:text-brand-blue transition-colors">{j.title}</h3>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-black/40 mt-auto">
-                      <span className="flex items-center gap-1"><MapPinIcon className="w-3.5 h-3.5" />{j.location}</span>
-                      <span className="flex items-center gap-1"><ClockIcon className="w-3.5 h-3.5" />{relativeDate(j.created_at)}</span>
+                      <span className="flex items-center gap-1"><MapPin size={14} weight="bold" />{j.location}</span>
+                      <span className="flex items-center gap-1"><Clock size={14} weight="bold" />{relativeDate(j.created_at)}</span>
                     </div>
                   </div>
                 </Link>

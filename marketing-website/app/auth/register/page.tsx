@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createBrowserClient } from '@supabase/ssr'
-import { EyeIcon, EyeSlashIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { Eye, EyeSlash, ArrowLeft } from '@phosphor-icons/react'
 import { createCandidateProfile } from './actions'
 
 type UserType = 'jobseeker' | 'employer'
@@ -102,7 +102,7 @@ export default function RegisterPage() {
               href="/"
               className="flex items-center gap-1.5 text-white/40 hover:text-white text-xs transition-colors no-underline"
             >
-              <ArrowLeftIcon className="w-3.5 h-3.5" />
+              <ArrowLeft size={14} weight="bold" />
               Back to site
             </Link>
           </div>
@@ -235,7 +235,7 @@ export default function RegisterPage() {
                     />
                     <button type="button" onClick={() => setShowPass(v => !v)} tabIndex={-1}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-black/25 hover:text-black/50 transition-colors">
-                      {showPass ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                      {showPass ? <EyeSlash size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
                 </div>
@@ -252,7 +252,7 @@ export default function RegisterPage() {
                     />
                     <button type="button" onClick={() => setShowConfirm(v => !v)} tabIndex={-1}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-black/25 hover:text-black/50 transition-colors">
-                      {showConfirm ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                      {showConfirm ? <EyeSlash size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
                 </div>

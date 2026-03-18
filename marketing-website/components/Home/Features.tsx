@@ -1,19 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
-import {
-  GlobeAltIcon,
-  BoltIcon,
-  ShieldCheckIcon,
-  AdjustmentsHorizontalIcon,
-} from '@heroicons/react/24/outline'
+import { UsersThree, Hourglass, Scales, Fingerprint } from '@phosphor-icons/react/dist/ssr'
 import type { FeaturesContent, Advantage } from '@/lib/cms-types'
 import { DEFAULT_FEATURES } from '@/lib/cms-types'
 
 const iconMap: Record<string, React.ElementType> = {
-  globe: GlobeAltIcon,
-  bolt: BoltIcon,
-  shield: ShieldCheckIcon,
-  sliders: AdjustmentsHorizontalIcon,
+  globe:   UsersThree,   // Deep Local Network — people, not a globe
+  bolt:    Hourglass,    // Fast Turnaround — time, not a bolt
+  shield:  Scales,       // Compliance First — justice/law, not a shield
+  sliders: Fingerprint,  // No Generic Approaches — unique identity, not sliders
 }
 
 export default function Features({ content }: { content?: Partial<FeaturesContent> }) {
@@ -24,11 +19,11 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
   }
 
   return (
-    <section className="py-20 lg:py-32 bg-gray-50 dark:bg-gray-950 border-t border-gray-100 dark:border-white/5">
+    <section className="py-14 lg:py-32 bg-gray-50 dark:bg-gray-950 border-t border-gray-100 dark:border-white/5">
       <div className="container">
 
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-10 lg:mb-16 gap-4 lg:gap-6">
           <div>
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">{c.section_label}</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-black dark:text-white leading-tight tracking-tight">
@@ -43,15 +38,15 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
         {/* 4-col advantage cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {c.advantages.map((a: Advantage, i: number) => {
-            const Icon = iconMap[a.iconKey] ?? GlobeAltIcon
+            const Icon = iconMap[a.iconKey] ?? UsersThree
             const isBlue = a.color === 'brand-blue'
             return (
               <div
                 key={i}
-                className="group relative p-7 rounded-2xl border border-black/8 dark:border-white/5 hover:border-black/15 dark:hover:border-white/10 hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-900 flex flex-col gap-5"
+                className="group relative p-5 sm:p-7 rounded-2xl border border-black/8 dark:border-white/5 hover:border-black/15 dark:hover:border-white/10 hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-900 flex flex-col gap-4 sm:gap-5"
               >
                 <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
-                  <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
+                  <Icon size={22} weight="light" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                 </div>
                 <div>
                   <h3 className="font-display text-base font-bold text-black dark:text-white mb-2">{a.title}</h3>

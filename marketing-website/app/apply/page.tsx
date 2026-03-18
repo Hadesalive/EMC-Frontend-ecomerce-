@@ -2,7 +2,7 @@
 import { Suspense, useState, useRef, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { CheckCircleIcon, PaperClipIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { CheckCircle, Paperclip, X, UserCircle } from '@phosphor-icons/react'
 import { uploadCvToCloudinary } from '@/lib/cloudinary'
 import { submitApplication, lookupProfile } from './actions'
 import type { SubmitResult, SavedProfile } from './actions'
@@ -186,7 +186,7 @@ function ApplyForm() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="bg-white rounded-2xl border border-black/5 p-10 max-w-md w-full text-center">
           <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-5">
-            <CheckCircleIcon className="w-8 h-8 text-green-500" aria-hidden="true" />
+            <CheckCircle size={32} weight="fill" className="text-green-500" aria-hidden="true" />
           </div>
           <h2 className="font-display text-2xl font-bold text-black mb-3">Application Submitted</h2>
           <p className="text-black/60 leading-relaxed mb-6">
@@ -222,7 +222,7 @@ function ApplyForm() {
           <div className="bg-white rounded-2xl border border-black/5 p-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
-                <UserCircleIcon className="w-7 h-7 text-brand-blue" aria-hidden="true" />
+                <UserCircle size={28} weight="duotone" className="text-brand-blue" aria-hidden="true" />
               </div>
               <div>
                 <h2 className="font-display text-xl font-bold text-black">Welcome back, {displayName}!</h2>
@@ -254,7 +254,7 @@ function ApplyForm() {
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-black/40 w-28 flex-shrink-0">CV</span>
                   <span className="text-green-600 font-medium flex items-center gap-1">
-                    <CheckCircleIcon className="w-3.5 h-3.5" aria-hidden="true" /> Previously uploaded
+                    <CheckCircle size={14} weight="fill" aria-hidden="true" /> Previously uploaded
                   </span>
                 </div>
               )}
@@ -331,7 +331,7 @@ function ApplyForm() {
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 transition-colors ${
                   i < step ? 'bg-green-500 text-white' : i === step ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'
                 }`} aria-current={i === step ? 'step' : undefined}>
-                  {i < step ? <CheckCircleIcon className="w-4 h-4" aria-hidden="true" /> : i + 1}
+                  {i < step ? <CheckCircle size={16} weight="fill" aria-hidden="true" /> : i + 1}
                 </div>
                 <span className={`text-sm font-medium hidden sm:block ${i === step ? 'text-black' : 'text-black/40'}`}>{s}</span>
               </div>
@@ -424,7 +424,7 @@ function ApplyForm() {
                 {/* Using saved CV */}
                 {savedCvUrl && !form.cvFile ? (
                   <div className="flex items-center gap-3 px-4 py-3.5 border border-green-200 bg-green-50 rounded-xl">
-                    <CheckCircleIcon className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
+                    <CheckCircle size={16} weight="fill" className="text-green-600 flex-shrink-0" aria-hidden="true" />
                     <span className="text-sm text-green-800 font-medium flex-1">Using your previously uploaded CV</span>
                     <button
                       type="button"
@@ -436,7 +436,7 @@ function ApplyForm() {
                   </div>
                 ) : form.cvFile ? (
                   <div className="flex items-center gap-3 px-4 py-3.5 border border-brand-blue/20 bg-brand-blue/5 rounded-xl">
-                    <PaperClipIcon className="w-4 h-4 text-brand-blue flex-shrink-0" aria-hidden="true" />
+                    <Paperclip size={16} className="text-brand-blue flex-shrink-0" aria-hidden="true" />
                     <span className="text-sm text-black/70 font-medium flex-1 truncate">{form.cvFile.name}</span>
                     {cvUploading
                       ? <span className="text-xs text-black/40 flex-shrink-0">Uploading…</span>
@@ -452,7 +452,7 @@ function ApplyForm() {
                       }}
                       className="p-1 rounded hover:bg-black/10 transition-colors flex-shrink-0"
                     >
-                      <XMarkIcon className="w-3.5 h-3.5 text-black/40" aria-hidden="true" />
+                      <X size={14} className="text-black/40" aria-hidden="true" />
                     </button>
                   </div>
                 ) : (

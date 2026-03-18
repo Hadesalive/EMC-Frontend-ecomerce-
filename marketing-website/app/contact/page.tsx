@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { MapPinIcon, EnvelopeIcon, PhoneIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { MapPin, EnvelopeSimple, Phone, Clock } from '@phosphor-icons/react/dist/ssr'
 import ContactForm from './ContactForm'
 import { getContent } from '@/lib/cms'
 import { DEFAULT_CONTACT } from '@/lib/cms-types'
@@ -40,7 +40,7 @@ export default async function ContactPage() {
               <h1 className="font-display text-4xl md:text-5xl font-bold text-black leading-tight mb-3 tracking-tight">
                 {"Let's start a conversation"}
               </h1>
-              <p className="text-black/60 text-lg mb-10 leading-relaxed">
+              <p className="text-black/60 text-base lg:text-lg mb-6 lg:mb-10 leading-relaxed">
                 Tell us about your organisation and hiring needs. We will get back to you within one business day.
               </p>
               <ContactForm />
@@ -48,14 +48,14 @@ export default async function ContactPage() {
 
             {/* Dark Info Sidebar */}
             <div className="lg:col-span-2">
-              <div className="bg-black rounded-2xl p-8 lg:p-10 sticky top-32">
+              <div className="bg-black rounded-2xl p-6 sm:p-8 lg:p-10 sticky top-32">
                 <h2 className="font-display text-2xl font-bold text-white mb-1">Contact Information</h2>
-                <p className="text-white/60 text-sm mb-10">Reach us directly or visit our office.</p>
+                <p className="text-white/60 text-sm mb-6 lg:mb-10">Reach us directly or visit our office.</p>
 
-                <div className="space-y-8">
+                <div className="space-y-6 lg:space-y-8">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                      <MapPinIcon className="w-5 h-5 text-brand-blue" aria-hidden="true" />
+                      <MapPin size={20} weight="duotone" className="text-brand-blue" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Address</p>
@@ -67,7 +67,7 @@ export default async function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                      <EnvelopeIcon className="w-5 h-5 text-brand-orange" aria-hidden="true" />
+                      <EnvelopeSimple size={20} weight="duotone" className="text-brand-orange" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Email</p>
@@ -79,7 +79,7 @@ export default async function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-blue/20 flex items-center justify-center flex-shrink-0">
-                      <PhoneIcon className="w-5 h-5 text-brand-blue" aria-hidden="true" />
+                      <Phone size={20} weight="duotone" className="text-brand-blue" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Phone</p>
@@ -91,7 +91,7 @@ export default async function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center flex-shrink-0">
-                      <ClockIcon className="w-5 h-5 text-brand-orange" aria-hidden="true" />
+                      <Clock size={20} weight="duotone" className="text-brand-orange" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-1.5">Office Hours</p>
@@ -101,7 +101,7 @@ export default async function ContactPage() {
                   </div>
                 </div>
 
-                <div className="mt-10 pt-8 border-t border-white/10">
+                <div className="mt-6 lg:mt-10 pt-6 lg:pt-8 border-t border-white/10">
                   <p className="text-white/60 text-xs font-medium uppercase tracking-widest mb-4">Follow Us</p>
                   <div className="flex gap-2">
                     {[

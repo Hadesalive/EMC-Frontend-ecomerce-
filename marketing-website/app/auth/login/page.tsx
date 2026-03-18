@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createBrowserClient } from '@supabase/ssr'
-import { EyeIcon, EyeSlashIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { Eye, EyeSlash, ArrowLeft } from '@phosphor-icons/react'
 
 export default function LoginPage() {
   const [email, setEmail]             = useState('')
@@ -63,7 +63,7 @@ export default function LoginPage() {
               href="/"
               className="flex items-center gap-1.5 text-white/40 hover:text-white text-xs transition-colors no-underline"
             >
-              <ArrowLeftIcon className="w-3.5 h-3.5" />
+              <ArrowLeft size={14} weight="bold" />
               Back to site
             </Link>
           </div>
@@ -138,8 +138,8 @@ export default function LoginPage() {
                     tabIndex={-1}
                   >
                     {showPass
-                      ? <EyeSlashIcon className="w-[18px] h-[18px]" />
-                      : <EyeIcon       className="w-[18px] h-[18px]" />}
+                      ? <EyeSlash size={18} />
+                      : <Eye size={18} />}
                   </button>
                 </div>
               </div>

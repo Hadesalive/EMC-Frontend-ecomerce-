@@ -12,6 +12,7 @@ export type JobRow = {
   urgent: boolean
   is_active: boolean
   image_url: string | null
+  deadline: string | null
   created_at: string
   updated_at: string
 }

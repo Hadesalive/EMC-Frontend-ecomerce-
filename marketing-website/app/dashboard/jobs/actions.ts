@@ -11,6 +11,7 @@ export async function createJob(data: {
   salary_range: string
   urgent: boolean
   image_url: string | null
+  deadline: string | null
   responsibilities: string[]
   requirements: string[]
   nice_to_have: string[]
@@ -37,7 +38,7 @@ export async function toggleJobActive(id: string, is_active: boolean) {
 export async function updateJob(id: string, data: {
   title: string; sector: string; type: string; location: string
   description: string; salary_range: string; urgent: boolean
-  image_url: string | null
+  image_url: string | null; deadline: string | null
   responsibilities: string[]; requirements: string[]; nice_to_have: string[]
 }) {
   const supabase = createAdminClient()

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { CheckCircleIcon, ArrowRightIcon } from '@heroicons/react/24/solid'
+import { CheckCircle, ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import type { HeroContent } from '@/lib/cms-types'
 import { DEFAULT_HERO } from '@/lib/cms-types'
 
@@ -72,7 +72,7 @@ export default function Hero({ content }: { content?: Partial<HeroContent> }) {
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-black dark:bg-white text-white dark:text-black text-sm sm:text-base font-semibold rounded-lg hover:bg-black/90 hover:shadow-lg transition-all duration-200 no-underline group/btn"
               >
                 {c.cta_primary}
-                <ArrowRightIcon className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                <ArrowRight size={16} weight="bold" className="group-hover/btn:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href={c.cta_secondary_href}
@@ -86,13 +86,13 @@ export default function Hero({ content }: { content?: Partial<HeroContent> }) {
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm">
               <div className="flex items-center gap-2 sm:gap-2.5">
                 <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
-                  <CheckCircleIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-brand-blue" />
+                  <CheckCircle size={12} weight="fill" className="text-brand-blue" />
                 </div>
                 <span className="text-black/60 dark:text-white/60 font-medium">{c.trust_1}</span>
               </div>
               <div className="flex items-center gap-2 sm:gap-2.5">
                 <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-orange/10 flex items-center justify-center flex-shrink-0">
-                  <CheckCircleIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-brand-orange" />
+                  <CheckCircle size={12} weight="fill" className="text-brand-orange" />
                 </div>
                 <span className="text-black/60 dark:text-white/60 font-medium">{c.trust_2}</span>
               </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { MapPinIcon, ArrowRightIcon, BriefcaseIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { MapPin, ArrowRight, Briefcase, Clock } from '@phosphor-icons/react/dist/ssr'
 import type { JobRow } from '@/lib/supabase/types'
 
 type JobPreview = Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at'>
@@ -22,11 +22,11 @@ function relativeDate(iso: string) {
 
 export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
   return (
-    <section className="py-20 lg:py-28 bg-white dark:bg-black border-t border-gray-100 dark:border-white/5">
+    <section className="py-14 lg:py-28 bg-white dark:bg-black border-t border-gray-100 dark:border-white/5">
       <div className="container">
 
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-8 lg:mb-12 gap-4 lg:gap-6">
           <div>
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">Open Positions</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-black dark:text-white leading-tight tracking-tight">
@@ -38,7 +38,7 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
             className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:gap-4 transition-all duration-200 no-underline self-start lg:self-auto"
           >
             View all open positions
-            <ArrowRightIcon className="w-4 h-4" />
+            <ArrowRight size={16} weight="bold" />
           </Link>
         </div>
 
@@ -66,11 +66,11 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
                   <p className="text-xs text-black/40 dark:text-white/40 mb-4">{job.sector}</p>
                   <div className="flex items-center gap-4 text-xs text-black/40 dark:text-white/40">
                     <span className="flex items-center gap-1.5">
-                      <MapPinIcon className="w-3.5 h-3.5" />
+                      <MapPin size={14} weight="bold" />
                       {job.location}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <ClockIcon className="w-3.5 h-3.5" />
+                      <Clock size={14} weight="bold" />
                       {relativeDate(job.created_at)}
                     </span>
                   </div>
@@ -106,7 +106,7 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
               href="/apply"
               className="inline-flex items-center gap-2 px-5 py-2.5 border border-black/15 dark:border-white/15 text-black dark:text-white text-sm font-semibold rounded-lg hover:border-black/30 dark:hover:border-white/30 hover:bg-black/5 dark:hover:bg-white/5 transition-all no-underline"
             >
-              <BriefcaseIcon className="w-4 h-4" />
+              <Briefcase size={16} weight="regular" />
               Submit your CV
             </Link>
           </div>
@@ -124,7 +124,7 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:gap-4 transition-all duration-200 no-underline"
             >
               Talk to our team
-              <ArrowRightIcon className="w-4 h-4" />
+              <ArrowRight size={16} weight="bold" />
             </Link>
           </div>
         </div>

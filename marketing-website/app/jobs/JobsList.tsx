@@ -1,7 +1,7 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { MagnifyingGlassIcon, XMarkIcon, AdjustmentsHorizontalIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlass, X, Faders, CaretLeft, CaretRight, CalendarBlank } from '@phosphor-icons/react'
 import type { JobRow } from '@/lib/supabase/types'
 
 const PAGE_SIZE = 10
@@ -101,7 +101,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
         {/* Sidebar */}
         <aside className="hidden lg:block w-52 xl:w-56 shrink-0 sticky top-28">
           <div className="relative mb-7">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
+            <MagnifyingGlass size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
             <input
               type="text" value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Search roles…"
@@ -109,7 +109,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
             />
             {search && (
               <button onClick={() => setSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2">
-                <XMarkIcon className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600" />
+                <X size={14} className="text-gray-400 hover:text-gray-600" />
               </button>
             )}
           </div>
@@ -118,18 +118,18 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           <FilterGroup label="Location" options={LOCATIONS} selected={locations} counts={locationCounts} onToggle={l => toggle(locations, setLocations, l)} />
           {hasFilters && (
             <button onClick={clearAll} className="flex items-center gap-1 text-[12px] text-gray-400 hover:text-gray-600 transition-colors mt-1">
-              <XMarkIcon className="w-3 h-3" /> Clear filters
+              <X size={12} /> Clear filters
             </button>
           )}
         </aside>
 
         {/* List */}
-        <main className="flex-1 min-w-0">
+        <main className="flex-1 min-w-0 max-w-3xl">
 
           {/* Mobile controls */}
           <div className="lg:hidden mb-5 flex gap-2">
             <div className="relative flex-1">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <MagnifyingGlass size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
               <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search roles…"
                 className="w-full pl-9 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/20 placeholder:text-gray-400" />
             </div>
@@ -139,7 +139,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                 filterCount > 0 ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-200'
               }`}
             >
-              <AdjustmentsHorizontalIcon className="w-4 h-4" />
+              <Faders size={16} weight="bold" />
               Filters
               {filterCount > 0 && (
                 <span className="w-4 h-4 rounded-full bg-brand-orange text-white text-[10px] font-bold flex items-center justify-center">
@@ -175,7 +175,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                     }}
                     className="flex items-center gap-1 text-[11px] font-medium bg-gray-900 text-white px-2.5 py-1 rounded-full hover:bg-gray-700 transition-colors"
                   >
-                    {chip} <XMarkIcon className="w-2.5 h-2.5" />
+                    {chip} <X size={10} weight="bold" />
                   </button>
                 ))}
               </div>
@@ -186,32 +186,65 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
           {filtered.length > 0 ? (
             <div className="space-y-3">
               {paginated.map(job => (
-                <Link key={job.id} href={`/jobs/${job.id}`} className="no-underline block group">
-                  <article className={`bg-white rounded-2xl p-5 sm:p-6 transition-all duration-150 group-hover:shadow-md ${
-                    job.urgent
-                      ? 'border-2 border-amber-400'
-                      : 'border border-gray-200 group-hover:border-gray-300'
-                  }`}>
-                    {job.urgent && (
-                      <p className="text-[13px] font-semibold text-amber-700 bg-amber-50 inline-block px-3 py-1 rounded-full mb-3">
-                        Urgently hiring
-                      </p>
-                    )}
-                    <h2 className="text-[17px] sm:text-[19px] font-bold text-gray-900 group-hover:text-brand-blue transition-colors duration-150 leading-snug mb-1">
-                      {job.title}
-                    </h2>
-                    <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug">Express Management Consultancy</p>
-                    <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug mb-4">{job.location}, Sierra Leone</p>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {[job.type, job.sector, job.salary_range].filter(Boolean).map(tag => (
-                        <span key={tag} className="text-[12px] sm:text-[13px] font-semibold text-gray-700 bg-gray-100 px-2.5 sm:px-3 py-1 rounded-lg">
-                          {tag}
-                        </span>
-                      ))}
+                <article key={job.id} className={`bg-white rounded-2xl p-5 sm:p-6 transition-all duration-150 hover:shadow-md ${
+                  job.urgent
+                    ? 'border-2 border-amber-400'
+                    : 'border border-gray-200 hover:border-gray-300'
+                }`}>
+                  <div className="flex items-center gap-4">
+                    {/* Left: job info */}
+                    <div className="flex-1 min-w-0">
+                      {job.urgent && (
+                        <p className="text-[13px] font-semibold text-amber-700 bg-amber-50 inline-block px-3 py-1 rounded-full mb-3">
+                          Urgently hiring
+                        </p>
+                      )}
+                      <Link href={`/jobs/${job.id}`} className="no-underline group/title">
+                        <h2 className="text-[17px] sm:text-[19px] font-bold text-gray-900 group-hover/title:text-brand-blue transition-colors duration-150 leading-snug mb-1">
+                          {job.title}
+                        </h2>
+                      </Link>
+                      <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug">Express Management Consultancy</p>
+                      <p className="text-[14px] sm:text-[15px] text-gray-500 leading-snug mb-4">{job.location}, Sierra Leone</p>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {[job.type, job.sector, job.salary_range].filter(Boolean).map(tag => (
+                          <span key={tag} className="text-[12px] sm:text-[13px] font-semibold text-gray-700 bg-gray-100 px-2.5 sm:px-3 py-1 rounded-lg">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-4 flex-wrap">
+                        <p className="text-[12px] sm:text-[13px] text-gray-400">Posted {relativeDate(job.created_at)}</p>
+                        {job.deadline && (
+                          <span className="inline-flex items-center gap-1.5 text-[12px] sm:text-[13px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                            <CalendarBlank size={13} weight="bold" />
+                            Closes {new Date(job.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-[12px] sm:text-[13px] text-gray-400">Posted {relativeDate(job.created_at)}</p>
-                  </article>
-                </Link>
+
+                    {/* Right: apply button (hidden on smallest screens) */}
+                    <div className="hidden sm:flex items-center shrink-0">
+                      <Link
+                        href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
+                        className="no-underline px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/85 transition-all whitespace-nowrap"
+                      >
+                        Apply Now
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Mobile apply button */}
+                  <div className="sm:hidden mt-4 pt-4 border-t border-gray-100">
+                    <Link
+                      href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
+                      className="no-underline block w-full text-center px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/85 transition-all"
+                    >
+                      Apply Now
+                    </Link>
+                  </div>
+                </article>
               ))}
             </div>
           ) : (
@@ -230,7 +263,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                 disabled={page === 0}
                 className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
-                <ChevronLeftIcon className="w-4 h-4" />
+                <CaretLeft size={16} weight="bold" />
                 <span className="hidden sm:inline">Previous</span>
               </button>
 
@@ -256,7 +289,7 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
                 className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <span className="hidden sm:inline">Next</span>
-                <ChevronRightIcon className="w-4 h-4" />
+                <CaretRight size={16} weight="bold" />
               </button>
             </div>
           )}
@@ -269,6 +302,66 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
             </p>
           )}
         </main>
+
+        {/* Right panel — desktop only */}
+        <aside className="hidden xl:block w-52 shrink-0 sticky top-28 space-y-4">
+
+          {/* Employer CTA */}
+          <div className="bg-black rounded-2xl p-5">
+            <p className="text-brand-orange text-[10px] font-bold tracking-widest uppercase mb-2">For Employers</p>
+            <h3 className="font-display text-sm font-bold text-white leading-snug mb-2">
+              Looking to hire?
+            </h3>
+            <p className="text-white/55 text-[12px] leading-relaxed mb-4">
+              Tell us what you need and we'll handle the search.
+            </p>
+            <Link
+              href="/contact"
+              className="no-underline block w-full text-center px-4 py-2 bg-white text-black text-[12px] font-semibold rounded-lg hover:bg-white/90 transition-all"
+            >
+              Get in touch
+            </Link>
+          </div>
+
+          {/* Submit CV */}
+          <div className="bg-white rounded-2xl border border-gray-200 p-5">
+            <p className="text-brand-blue text-[10px] font-bold tracking-widest uppercase mb-2">Candidates</p>
+            <h3 className="font-display text-sm font-bold text-gray-900 leading-snug mb-2">
+              No match yet?
+            </h3>
+            <p className="text-gray-500 text-[12px] leading-relaxed mb-4">
+              Submit your CV and we'll contact you when the right role comes in.
+            </p>
+            <Link
+              href="/apply"
+              className="no-underline block w-full text-center px-4 py-2 border border-gray-200 text-gray-800 text-[12px] font-semibold rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-all"
+            >
+              Submit your CV
+            </Link>
+          </div>
+
+          {/* Application tips */}
+          <div className="rounded-2xl border border-gray-200 bg-white p-5">
+            <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-3">Quick tips</p>
+            <ul className="space-y-3">
+              {[
+                'Tailor your CV to each role — even small tweaks help.',
+                'Include a phone number. Most placements start with a call.',
+                'Note your availability start date clearly.',
+                'Keep your CV to 2 pages max.',
+              ].map((tip, i) => (
+                <li key={i} className="flex items-start gap-2 text-[12px] text-gray-500 leading-relaxed">
+                  <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {i + 1}
+                  </span>
+                  {tip}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </aside>
+
       </div>
     </div>
   )

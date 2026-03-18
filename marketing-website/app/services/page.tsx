@@ -35,15 +35,15 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-white">
 
       {/* Hero — 2-col: headline left, service category index right */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-24">
+      <section className="bg-black pt-32 pb-16 lg:pt-40 lg:pb-24">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-end">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-end">
             <div>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-6 tracking-tight">
+              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-4 lg:mb-6 tracking-tight">
                 Services built<br />around your<br />
                 <span className="text-brand-orange">needs.</span>
               </h1>
-              <p className="text-xl text-white/60 leading-relaxed">
+              <p className="text-base lg:text-xl text-white/60 leading-relaxed">
                 Whether you need one specialist or want to rethink your entire HR function, we have the sector knowledge and the process to get it right.
               </p>
             </div>
@@ -60,7 +60,7 @@ export default function ServicesPage() {
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
                     <span className={`text-xs font-bold tracking-widest ${item.color}`}>{item.num}</span>
-                    <span className="text-white/70 text-lg font-medium">{item.name}</span>
+                    <span className="text-white/70 text-base lg:text-lg font-medium">{item.name}</span>
                   </div>
                 ))}
               </div>
@@ -70,13 +70,13 @@ export default function ServicesPage() {
       </section>
 
       {/* Category 1 — Recruitment & Staffing */}
-      <section className="py-24">
+      <section className="py-14 lg:py-24">
         <div className="container">
-          <div className="flex items-center gap-4 mb-14">
+          <div className="flex items-center gap-4 mb-8 lg:mb-14">
             <span className="text-xs font-bold text-brand-blue tracking-widest uppercase">01</span>
-            <div className="h-px flex-1 bg-brand-blue/20" />
-            <h2 className="font-display text-2xl font-bold text-black">Recruitment &amp; Staffing</h2>
-            <div className="h-px flex-1 bg-brand-blue/20" />
+            <div className="h-px flex-1 bg-brand-blue/20 hidden sm:block" />
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-black">Recruitment &amp; Staffing</h2>
+            <div className="h-px flex-1 bg-brand-blue/20 hidden sm:block" />
           </div>
 
           {/* Featured — horizontal card */}
@@ -89,12 +89,12 @@ export default function ServicesPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 pointer-events-none" />
             </div>
-            <div className="p-10 lg:p-12 flex flex-col justify-start">
+            <div className="p-6 sm:p-10 lg:p-12 flex flex-col justify-start">
               <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-6">
                 <UserGroupIcon className="w-6 h-6 text-brand-blue" />
               </div>
-              <h3 className="font-display text-3xl font-bold text-black mb-4">Recruitment &amp; Talent Acquisition</h3>
-              <p className="text-black/60 leading-relaxed mb-6 text-lg">
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-black mb-4">Recruitment &amp; Talent Acquisition</h3>
+              <p className="text-black/60 leading-relaxed mb-6 text-base lg:text-lg">
                 Identification and placement of qualified professionals across Sierra Leone — from entry-level positions to senior leadership. We manage the full recruitment cycle so you can focus on your core business.
               </p>
               <ul className="space-y-2.5 mb-8">
@@ -137,7 +137,7 @@ export default function ServicesPage() {
               const Icon = s.icon
               const isBlue = s.color === 'brand-blue'
               return (
-                <div key={i} className="p-8 border border-black/5 rounded-2xl hover:border-black/10 hover:shadow-md transition-all duration-300 group">
+                <div key={i} className="p-6 border border-black/5 rounded-2xl hover:border-black/10 hover:shadow-md transition-all duration-300 group">
                   <div className={`w-12 h-12 rounded-xl mb-5 flex items-center justify-center ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
                     <Icon className={`w-6 h-6 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
                   </div>
@@ -151,13 +151,13 @@ export default function ServicesPage() {
       </section>
 
       {/* Category 2 — HR & Management Consulting — dark bg, list style */}
-      <section className="bg-black py-24">
+      <section className="bg-black py-14 lg:py-24">
         <div className="container">
-          <div className="flex items-center gap-4 mb-14">
+          <div className="flex items-center gap-4 mb-8 lg:mb-14">
             <span className="text-xs font-bold text-brand-orange tracking-widest uppercase">02</span>
-            <div className="h-px flex-1 bg-brand-orange/20" />
-            <h2 className="font-display text-2xl font-bold text-white">HR Advisory &amp; Workforce Planning</h2>
-            <div className="h-px flex-1 bg-brand-orange/20" />
+            <div className="h-px flex-1 bg-brand-orange/20 hidden sm:block" />
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-white">HR Advisory &amp; Workforce Planning</h2>
+            <div className="h-px flex-1 bg-brand-orange/20 hidden sm:block" />
           </div>
 
           <div className="divide-y divide-white/10">
@@ -187,7 +187,7 @@ export default function ServicesPage() {
               const Icon = s.icon
               const isBlue = s.color === 'brand-blue'
               return (
-                <div key={i} className="py-10 grid md:grid-cols-3 gap-6 group">
+                <div key={i} className="py-7 md:py-10 grid md:grid-cols-3 gap-4 md:gap-6 group">
                   <div className="flex items-start gap-4">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${isBlue ? 'bg-brand-blue/20' : 'bg-brand-orange/20'}`}>
                       <Icon className={`w-5 h-5 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
@@ -210,16 +210,16 @@ export default function ServicesPage() {
       </section>
 
       {/* Category 3 — Outsourcing — light, clean minimal */}
-      <section className="py-24">
+      <section className="py-14 lg:py-24">
         <div className="container">
-          <div className="flex items-center gap-4 mb-14">
+          <div className="flex items-center gap-4 mb-8 lg:mb-14">
             <span className="text-xs font-bold text-brand-blue tracking-widest uppercase">03</span>
-            <div className="h-px flex-1 bg-brand-blue/20" />
-            <h2 className="font-display text-2xl font-bold text-black">Workforce Outsourcing &amp; Payroll</h2>
-            <div className="h-px flex-1 bg-brand-blue/20" />
+            <div className="h-px flex-1 bg-brand-blue/20 hidden sm:block" />
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-black">Workforce Outsourcing &amp; Payroll</h2>
+            <div className="h-px flex-1 bg-brand-blue/20 hidden sm:block" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 gap-5 sm:gap-8 mb-8 lg:mb-16">
             {[
               {
                 icon: DocumentTextIcon,
@@ -249,7 +249,7 @@ export default function ServicesPage() {
               const Icon = s.icon
               const isBlue = s.color === 'brand-blue'
               return (
-                <div key={i} className="flex gap-6 p-7 border border-black/5 rounded-2xl hover:border-black/10 hover:shadow-md transition-all duration-300 group">
+                <div key={i} className="flex gap-5 p-5 sm:p-7 border border-black/5 rounded-2xl hover:border-black/10 hover:shadow-md transition-all duration-300 group">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 self-start ${isBlue ? 'bg-brand-blue/10 group-hover:bg-brand-blue/20' : 'bg-brand-orange/10 group-hover:bg-brand-orange/20'} transition-colors`}>
                     <Icon className={`w-6 h-6 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`} />
                   </div>
@@ -265,13 +265,13 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gray-50 border-t border-black/5">
+      <section className="py-12 lg:py-20 bg-gray-50 border-t border-black/5">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-display text-4xl font-bold text-black mb-6">
+            <h2 className="font-display text-2xl sm:text-4xl font-bold text-black mb-4 sm:mb-6">
               {"Not sure which service you need?"}
             </h2>
-            <p className="text-lg text-black/60 mb-8">
+            <p className="text-base lg:text-lg text-black/60 mb-6 sm:mb-8">
               {"Talk to us. We'll listen to your situation and recommend the right approach for your organisation."}
             </p>
             <a

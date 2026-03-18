@@ -12,14 +12,14 @@ type JobForm = {
   title: string; sector: string; type: string; location: string
   description: string; salary_range: string; urgent: boolean
   responsibilities: string; requirements: string; nice_to_have: string
-  image_url: string | null
+  image_url: string | null; deadline: string
 }
 
 const emptyForm: JobForm = {
   title: '', sector: '', type: 'Permanent', location: 'Freetown',
   description: '', salary_range: '', urgent: false,
   responsibilities: '', requirements: '', nice_to_have: '',
-  image_url: null,
+  image_url: null, deadline: '',
 }
 
 const typeStyles: Record<string, string> = {
@@ -50,6 +50,7 @@ function jobToForm(job: JobRow): JobForm {
     requirements:     job.requirements.join('\n'),
     nice_to_have:     job.nice_to_have.join('\n'),
     image_url:        job.image_url,
+    deadline:         job.deadline ?? '',
   }
 }
 
@@ -113,6 +114,7 @@ export default function DashboardJobsClient({ initialJobs }: { initialJobs: JobR
       salary_range:     form.salary_range.trim(),
       urgent:           form.urgent,
       image_url:        form.image_url,
+      deadline:         form.deadline || null,
       responsibilities: form.responsibilities.split('\n').map(s => s.trim()).filter(Boolean),
       requirements:     form.requirements.split('\n').map(s => s.trim()).filter(Boolean),
       nice_to_have:     form.nice_to_have.split('\n').map(s => s.trim()).filter(Boolean),
@@ -334,6 +336,28 @@ export default function DashboardJobsClient({ initialJobs }: { initialJobs: JobR
                     className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm"
                     placeholder="e.g. SLL 8M – 12M / month" />
                 </div>
+              </div>
+
+              {/* Deadline */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-2">
+                  Application Deadline <span className="text-black/40 font-normal text-xs">— optional</span>
+                </label>
+                <input
+                  type="date"
+                  value={form.deadline}
+                  onChange={e => set('deadline', e.target.value)}
+                  className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 text-sm"
+                />
+                {form.deadline && (
+                  <button
+                    type="button"
+                    onClick={() => set('deadline', '')}
+                    className="mt-1.5 text-xs text-black/35 hover:text-black/60 transition-colors"
+                  >
+                    Remove deadline
+                  </button>
+                )}
               </div>
 
               {/* Description */}

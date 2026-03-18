@@ -44,17 +44,17 @@ export default async function AboutPage() {
     <div className="min-h-screen bg-white">
 
       {/* Hero — 2-col: headline left, stats grid right */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-24">
+      <section className="bg-black pt-32 pb-16 lg:pt-40 lg:pb-24">
         <div className="container">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
             <div className="lg:col-span-7">
-              <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">About EMC</p>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
+              <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4 lg:mb-6">About EMC</p>
+              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-5 lg:mb-8 tracking-tight">
                 Built for the people<br />
                 <span className="text-brand-blue">who build</span>{' '}
                 <span className="text-brand-orange">businesses.</span>
               </h1>
-              <p className="text-xl text-white/60 leading-relaxed">
+              <p className="text-base lg:text-xl text-white/60 leading-relaxed">
                 A Freetown-based recruitment and HR consultancy. We help Sierra Leone&rsquo;s organisations hire better, manage smarter, and build teams that last.
               </p>
             </div>
@@ -78,9 +78,9 @@ export default async function AboutPage() {
       </section>
 
       {/* About Us — prose + photo */}
-      <section className="py-24 border-b border-black/5">
+      <section className="py-14 lg:py-24 border-b border-black/5">
         <div className="container">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-20 items-start">
 
             {/* Text */}
             <div className="lg:col-span-7">
@@ -114,11 +114,11 @@ export default async function AboutPage() {
       </section>
 
       {/* Purpose / Vision / Mission */}
-      <section className="bg-gray-950 py-24">
+      <section className="bg-gray-950 py-12 md:py-24">
         <div className="container">
           <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
 
-            <div className="py-10 md:py-0 md:pr-12 lg:pr-16">
+            <div className="py-8 md:py-0 md:pr-12 lg:pr-16">
               <p className="text-white/60 text-xs font-medium tracking-widest uppercase mb-6">01 &mdash; Purpose</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
                 {purpose.purpose_heading}
@@ -128,7 +128,7 @@ export default async function AboutPage() {
               </p>
             </div>
 
-            <div className="py-10 md:py-0 md:px-12 lg:px-16">
+            <div className="py-8 md:py-0 md:px-12 lg:px-16">
               <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-6">02 &mdash; Vision</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
                 {purpose.vision_heading}
@@ -138,7 +138,7 @@ export default async function AboutPage() {
               </p>
             </div>
 
-            <div className="py-10 md:py-0 md:pl-12 lg:pl-16">
+            <div className="py-8 md:py-0 md:pl-12 lg:pl-16">
               <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-6">03 &mdash; Mission</p>
               <h3 className="font-display text-2xl font-bold text-white mb-5 leading-snug">
                 {purpose.mission_heading}
@@ -153,16 +153,16 @@ export default async function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-14 lg:py-24 bg-gray-50">
         <div className="container">
-          <div className="mb-14">
+          <div className="mb-8 lg:mb-14">
             <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-3">Our Leadership</p>
             <h2 className="font-display text-4xl font-bold text-black tracking-tight mb-5">Meet the team</h2>
             <div className="max-w-3xl space-y-4">
-              <p className="text-black/60 text-lg leading-relaxed">
+              <p className="text-black/60 text-base lg:text-lg leading-relaxed">
                 We foster a culture of leading by example, inspiring and engaging others to empower our people to reach their full potential and in turn contribute to collective goals.
               </p>
-              <p className="text-black/60 text-lg leading-relaxed">
+              <p className="text-black/60 text-base lg:text-lg leading-relaxed">
                 Our Executive Committee comprises of well experienced individuals from all works of life. We don&rsquo;t add up years spent in the industry as a measurement of success or leadership qualities, we simply look to recruit the best talent and put the right people in the right positions to deliver the diverse mix of skillsets required to drive our business forward.
               </p>
             </div>
@@ -172,7 +172,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Values — dark, editorial */}
-      <section className="bg-black py-24">
+      <section className="bg-black py-14 lg:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <h2 className="font-display text-4xl font-bold text-white mb-2">Our Values</h2>
@@ -192,7 +192,7 @@ export default async function AboutPage() {
             {/* Remaining values */}
             <div className="divide-y divide-white/10">
               {values.slice(1).map((v, i) => (
-                <div key={i} className="flex items-start gap-8 py-8 group">
+                <div key={i} className="flex items-start gap-4 sm:gap-8 py-5 sm:py-8 group">
                   <span className="font-display text-3xl font-bold text-white/10 group-hover:text-brand-orange transition-colors duration-300 w-12 flex-shrink-0">
                     {v.num}
                   </span>
@@ -208,9 +208,9 @@ export default async function AboutPage() {
       </section>
 
       {/* CSR / Community */}
-      <section className="py-24 border-t border-black/5">
+      <section className="py-14 lg:py-24 border-t border-black/5">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/10 to-brand-blue/10 rounded-2xl blur-2xl scale-105" />
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
@@ -226,10 +226,10 @@ export default async function AboutPage() {
               <h2 className="font-display text-4xl font-bold text-black mb-6 tracking-tight">
                 Giving back to<br />our community
               </h2>
-              <p className="text-lg text-black/70 leading-relaxed mb-5">
+              <p className="text-base lg:text-lg text-black/70 leading-relaxed mb-5">
                 Good recruitment has a real impact on people&rsquo;s lives — not just on business outcomes. We take that responsibility seriously. Every candidate we work with is treated with honesty about the roles we&rsquo;re briefed on and the realistic chances of success.
               </p>
-              <p className="text-lg text-black/70 leading-relaxed">
+              <p className="text-base lg:text-lg text-black/70 leading-relaxed">
                 We are committed to fair, transparent hiring practices across Sierra Leone — and to working with employers who share those standards. Through local partnerships and training initiatives, we aim to create real opportunities, not just fill vacancies.
               </p>
             </div>
@@ -238,7 +238,7 @@ export default async function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gray-50 border-t border-black/5">
+      <section className="py-12 lg:py-20 bg-gray-50 border-t border-black/5">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-display text-4xl font-bold text-black mb-6">
