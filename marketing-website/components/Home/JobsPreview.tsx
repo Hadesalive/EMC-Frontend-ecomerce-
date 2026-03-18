@@ -48,8 +48,11 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
             {jobs.map((job) => (
               <div
                 key={job.id}
-                className="bg-white dark:bg-gray-900 rounded-2xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 hover:shadow-md transition-all duration-200 p-6 group flex flex-col gap-5"
+                className="relative bg-white dark:bg-gray-900 rounded-2xl border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 hover:shadow-md transition-all duration-200 p-6 group flex flex-col gap-5"
               >
+                {/* Card-level link — covers the whole card */}
+                <Link href={`/jobs/${job.id}`} className="absolute inset-0 rounded-2xl" aria-label={job.title} />
+
                 {/* Top row — type badge + date */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
@@ -90,7 +93,7 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
                   </div>
                   <Link
                     href={`/apply?job=${job.id}&title=${encodeURIComponent(job.title)}`}
-                    className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black px-3 py-2 rounded-lg transition-all duration-200 no-underline"
+                    className="relative z-10 flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-black dark:text-white bg-black/5 dark:bg-white/10 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black px-3 py-2 rounded-lg transition-all duration-200 no-underline"
                   >
                     Apply
                     <ArrowRight size={12} weight="bold" />
