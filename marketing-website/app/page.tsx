@@ -46,7 +46,7 @@ export default async function HomePage() {
     getContent<CTAContent>('home', 'cta'),
   ])
 
-  const jobs = (raw ?? []) as unknown as Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at'>[]
+  const jobs = (raw ?? []) as unknown as Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at' | 'deadline'>[]
 
   return (
     <>
