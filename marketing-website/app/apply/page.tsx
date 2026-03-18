@@ -40,6 +40,7 @@ function ApplyForm() {
   // Returning applicant state
   const [returning, setReturning]       = useState<'idle' | 'checking' | 'found' | 'none'>('idle')
   const [savedProfile, setSavedProfile] = useState<SavedProfile | null>(null)
+  const [returningNotes, setReturningNotes] = useState('')
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isPending, startTransition] = useTransition()
@@ -85,8 +86,41 @@ function ApplyForm() {
     }
   }
 
-  // Pre-fill form from saved profile and advance
+  // One-click apply: submit immediately using saved profile — no form steps
   function useSavedDetails() {
+    if (!savedProfile || isPending) return
+    const [firstName, ...rest] = savedProfile.full_name.trim().split(' ')
+    setSubmitError(null)
+    startTransition(async () => {
+      const result: SubmitResult = await submitApplication({
+        firstName:         firstName ?? '',
+        lastName:          rest.join(' '),
+        email:             form.email,
+        phone:             savedProfile.phone             ?? '',
+        location:          savedProfile.location          ?? '',
+        linkedin:          savedProfile.linkedin_url      ?? '',
+        yearsExperience:   savedProfile.years_experience  ?? '',
+        qualification:     savedProfile.qualification     ?? '',
+        currentRole:       savedProfile.current_role      ?? '',
+        summary:           savedProfile.summary           ?? '',
+        cvUrl:             savedProfile.cv_url            ?? null,
+        preferredSector:   savedProfile.preferred_sector  ?? '',
+        employmentType:    savedProfile.employment_type   ?? 'Open to any',
+        preferredLocation: savedProfile.preferred_location ?? '',
+        notes:             returningNotes,
+        jobId:             jobId || null,
+      })
+      if ('error' in result) {
+        setSubmitError(result.error)
+      } else {
+        setForm(prev => ({ ...prev, firstName: firstName ?? '' }))
+        setSubmitted(true)
+      }
+    })
+  }
+
+  // Let them update their info instead — pre-fill and walk through the form
+  function updateAndApply() {
     if (!savedProfile) return
     const [firstName, ...rest] = savedProfile.full_name.trim().split(' ')
     setForm(prev => ({
@@ -226,22 +260,50 @@ function ApplyForm() {
               )}
             </div>
 
-            <p className="text-sm text-black/60 mb-6">Would you like to use your saved details, or fill in everything fresh?</p>
+            {/* Optional note before one-click submit */}
+            <div className="mb-5">
+              <label htmlFor="returning-notes" className="block text-sm font-medium text-black mb-2">
+                Add a note <span className="text-black/40 font-normal">(optional)</span>
+              </label>
+              <textarea
+                id="returning-notes"
+                rows={2}
+                value={returningNotes}
+                onChange={e => setReturningNotes(e.target.value)}
+                placeholder="Anything you'd like to add for this application…"
+                className="w-full px-4 py-3 border border-black/10 rounded-lg focus:outline-none focus:border-brand-blue text-sm resize-none"
+              />
+            </div>
+
+            {submitError && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-2.5 mb-4">
+                {submitError}
+              </p>
+            )}
 
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={useSavedDetails}
-                className="flex-1 px-6 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all"
+                disabled={isPending}
+                className="flex-1 px-6 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Use saved details
+                {isPending ? 'Submitting…' : 'Apply with saved details'}
               </button>
               <button
-                onClick={startFresh}
-                className="flex-1 px-6 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:bg-black/5 transition-all"
+                onClick={updateAndApply}
+                disabled={isPending}
+                className="flex-1 px-6 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:bg-black/5 transition-all disabled:opacity-50"
               >
-                Fill in fresh
+                Update my details first
               </button>
             </div>
+            <button
+              onClick={startFresh}
+              disabled={isPending}
+              className="mt-3 w-full text-center text-xs text-black/35 hover:text-black/60 transition-colors"
+            >
+              Fill in everything fresh instead
+            </button>
           </div>
         </div>
       </div>

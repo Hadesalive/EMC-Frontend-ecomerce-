@@ -2,7 +2,7 @@
 import { useState, useTransition, useRef } from 'react'
 import Image from 'next/image'
 import {
-  PlusIcon, TrashIcon, EyeIcon, EyeSlashIcon, MapPinIcon, PhotoIcon, PencilIcon,
+  PlusIcon, TrashIcon, EyeIcon, EyeSlashIcon, MapPinIcon, PhotoIcon, PencilIcon, XMarkIcon,
 } from '@heroicons/react/24/outline'
 import type { JobRow } from '@/lib/supabase/types'
 import { uploadToCloudinary } from '@/lib/cloudinary'
@@ -264,19 +264,30 @@ export default function DashboardJobsClient({ initialJobs }: { initialJobs: JobR
               {/* Image upload */}
               <div>
                 <label className="block text-sm font-medium text-black mb-2">Company / Role Image</label>
-                <div onClick={() => fileRef.current?.click()}
-                  className="flex items-center gap-4 p-4 border-2 border-dashed border-black/10 rounded-xl cursor-pointer hover:border-brand-blue/40 transition-colors">
-                  {imagePreview ? (
-                    <Image src={imagePreview} alt="Preview" width={56} height={56} className="w-14 h-14 rounded-lg object-cover flex-shrink-0" />
-                  ) : (
-                    <div className="w-14 h-14 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                      <PhotoIcon className="w-6 h-6 text-gray-400" />
+                <div className="flex items-center gap-4 p-4 border-2 border-dashed border-black/10 rounded-xl hover:border-brand-blue/40 transition-colors">
+                  <div onClick={() => fileRef.current?.click()} className="flex items-center gap-4 flex-1 cursor-pointer">
+                    {imagePreview ? (
+                      <Image src={imagePreview} alt="Preview" width={56} height={56} className="w-14 h-14 rounded-lg object-cover flex-shrink-0" />
+                    ) : (
+                      <div className="w-14 h-14 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                        <PhotoIcon className="w-6 h-6 text-gray-400" />
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-sm font-medium text-black">{uploading ? 'Uploading…' : imagePreview ? 'Change image' : 'Upload image'}</p>
+                      <p className="text-xs text-black/40 mt-0.5">PNG, JPG or WEBP · optional</p>
                     </div>
-                  )}
-                  <div>
-                    <p className="text-sm font-medium text-black">{uploading ? 'Uploading…' : imagePreview ? 'Change image' : 'Upload image'}</p>
-                    <p className="text-xs text-black/40 mt-0.5">PNG, JPG or WEBP · optional</p>
                   </div>
+                  {imagePreview && !uploading && (
+                    <button
+                      type="button"
+                      onClick={() => { setImagePreview(null); set('image_url', null) }}
+                      className="p-1.5 rounded-lg hover:bg-red-50 text-black/30 hover:text-red-500 transition-colors flex-shrink-0"
+                      title="Remove image"
+                    >
+                      <XMarkIcon className="w-5 h-5" />
+                    </button>
+                  )}
                   <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleImagePick} />
                 </div>
               </div>
