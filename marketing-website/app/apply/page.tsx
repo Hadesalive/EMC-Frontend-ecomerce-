@@ -3,8 +3,7 @@ import { Suspense, useState, useRef, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle, Paperclip, X, UserCircle } from '@phosphor-icons/react'
-import { uploadCvToCloudinary } from '@/lib/cloudinary'
-import { submitApplication, lookupProfile } from './actions'
+import { submitApplication, lookupProfile, uploadCvAction } from './actions'
 import type { SubmitResult, SavedProfile } from './actions'
 
 const steps = ['Personal Info', 'Experience', 'Preferences']
@@ -62,7 +61,9 @@ function ApplyForm() {
     setSavedCvUrl(null)
     setCvUploading(true)
     try {
-      const url = await uploadCvToCloudinary(file)
+      const fd = new FormData()
+      fd.append('file', file)
+      const url = await uploadCvAction(fd)
       setCvUrl(url)
     } catch {
       alert('CV upload failed — please try again.')

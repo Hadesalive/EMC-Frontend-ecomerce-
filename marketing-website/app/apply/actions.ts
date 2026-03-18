@@ -3,6 +3,28 @@ import { revalidatePath } from 'next/cache'
 import { createAdminClient } from '@/lib/supabase/server'
 import { sendApplicationNotification, sendApplicationConfirmation } from '@/lib/email'
 
+export async function uploadCvAction(formData: FormData): Promise<string> {
+  const file = formData.get('file') as File
+  if (!file || file.size === 0) throw new Error('No file provided')
+
+  const supabase = createAdminClient()
+  const ext = file.name.split('.').pop() ?? 'pdf'
+  const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+
+  const bytes = await file.arrayBuffer()
+  const { error } = await supabase.storage
+    .from('cvs')
+    .upload(filename, bytes, {
+      contentType: file.type || 'application/octet-stream',
+      upsert: false,
+    })
+
+  if (error) throw new Error(error.message)
+
+  const { data } = supabase.storage.from('cvs').getPublicUrl(filename)
+  return data.publicUrl
+}
+
 export type SubmitResult = { success: true } | { error: string }
 
 export type SavedProfile = {

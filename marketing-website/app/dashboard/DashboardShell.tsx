@@ -192,7 +192,7 @@ export default function DashboardShell({
           </div>
         </header>
 
-        <main className="flex-1 p-5 lg:p-8">
+        <main className="flex-1 p-5 lg:p-8 overflow-hidden">
           {children}
         </main>
       </div>
