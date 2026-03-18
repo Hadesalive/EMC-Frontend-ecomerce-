@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CheckCircle, ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import type { HeroContent } from '@/lib/cms-types'
 import { DEFAULT_HERO } from '@/lib/cms-types'
@@ -106,10 +107,13 @@ export default function Hero({ content }: { content?: Partial<HeroContent> }) {
               className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500"
               style={{ filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15))' }}
             >
-              <img
+              <Image
                 src={c.image_url}
                 alt={c.image_alt}
-                className="w-full h-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent pointer-events-none" />
             </div>

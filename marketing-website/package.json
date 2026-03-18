@@ -22,6 +22,13 @@
     "react-dom": "^18.3.1",
     "resend": "^6.9.3"
   },
+  "browserslist": [
+    "chrome >= 93",
+    "firefox >= 92",
+    "safari >= 15.4",
+    "edge >= 93",
+    "not dead"
+  ],
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.12",

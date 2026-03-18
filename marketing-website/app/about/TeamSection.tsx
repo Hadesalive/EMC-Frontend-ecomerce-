@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { X, ArrowRight } from '@phosphor-icons/react'
 import type { TeamMember, BioSection } from '@/lib/cms-types'
 
@@ -10,10 +11,12 @@ function Avatar({ member, size = 'sm' }: { member: TeamMember; size?: 'sm' | 'lg
 
   if (member.image_url) {
     return (
-      <img
+      <Image
         src={member.image_url}
         alt={member.name}
-        className={`object-cover w-full h-full ${size === 'sm' ? 'group-hover:scale-105 transition-transform duration-500' : ''}`}
+        fill
+        sizes={size === 'sm' ? '(max-width: 640px) 100vw, 25vw' : '42vw'}
+        className={`object-cover ${size === 'sm' ? 'group-hover:scale-105 transition-transform duration-500' : ''}`}
       />
     )
   }

@@ -45,7 +45,7 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
           ].map((s, i) => (
             <div key={i} className="flex flex-col justify-center px-8 py-8 bg-white/[0.03] hover:bg-white/[0.06] transition-colors duration-300">
               <dt className="font-display text-2xl lg:text-3xl font-bold text-white tracking-tight mb-1">{s.value}</dt>
-              <dd className="text-xs text-white/40 font-medium tracking-widest uppercase">{s.label}</dd>
+              <dd className="text-xs text-white/60 font-medium tracking-widest uppercase">{s.label}</dd>
             </div>
           ))}
         </dl>

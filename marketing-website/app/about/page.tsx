@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import TeamSection from './TeamSection'
 import { getContent, getTeamMembers } from '@/lib/cms'
 import { DEFAULT_ABOUT_INTRO, DEFAULT_ABOUT_PURPOSE } from '@/lib/cms-types'
@@ -100,10 +101,12 @@ export default async function AboutPage() {
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-br from-brand-blue/10 to-brand-orange/10 rounded-3xl blur-2xl" aria-hidden="true" />
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-xl">
-                  <img
+                  <Image
                     src={intro.image_url}
                     alt={intro.image_alt}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -213,10 +216,12 @@ export default async function AboutPage() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/10 to-brand-blue/10 rounded-2xl blur-2xl scale-105" />
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1200&q=80"
                   alt="Cape Town aerial view — African coastal city"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </div>

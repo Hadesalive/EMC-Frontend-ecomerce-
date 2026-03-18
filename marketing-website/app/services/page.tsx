@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import {
   UsersThree,
   Briefcase,
@@ -82,10 +83,12 @@ export default function ServicesPage() {
           {/* Featured — horizontal card */}
           <div className="grid lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-black/5 shadow-sm mb-8 group hover:shadow-lg transition-all duration-300">
             <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1000&q=80"
                 alt="Permanent recruitment"
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20 pointer-events-none" />
             </div>
