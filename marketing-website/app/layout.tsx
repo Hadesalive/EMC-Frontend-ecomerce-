@@ -3,6 +3,8 @@ import { DM_Sans, Manrope } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/Layout/SiteShell'
 import { ThemeProvider } from '@/components/Providers/ThemeProvider'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -79,6 +81,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <SiteShell>{children}</SiteShell>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -98,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
               contactPoint: {
                 '@type': 'ContactPoint',
-                telephone: '+232-79-252182',
+                telephone: '+232-73-888888',
                 contactType: 'customer service',
                 email: 'recruitment@expresssl.com',
               },

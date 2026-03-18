@@ -55,9 +55,9 @@ export default function Footer() {
                   <EnvelopeSimple size={20} weight="light" className="text-white/50 group-hover:text-brand-blue transition-colors" aria-hidden="true" />
                   <span className="font-light">recruitment@expresssl.com</span>
                 </a>
-                <a href="tel:+23279252182" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
+                <a href="tel:+23273888888" className="flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
                   <Phone size={20} weight="light" className="text-white/50 group-hover:text-brand-orange transition-colors" aria-hidden="true" />
-                  <span className="font-light">+232 79 252182</span>
+                  <span className="font-light">+232 73 888888</span>
                 </a>
                 <div className="flex items-center gap-3 text-white/70">
                   <MapPin size={20} weight="light" className="text-white/50" aria-hidden="true" />
