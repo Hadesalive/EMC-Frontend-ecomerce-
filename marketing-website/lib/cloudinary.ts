@@ -37,10 +37,11 @@ export const uploadToCloudinary   = (file: File) => cloudinaryUpload(file, 'imag
 export const uploadCvToCloudinary = (file: File) => cloudinaryUpload(file, 'raw',   CV_PRESET)
 export const uploadCmsImage       = (file: File) => cloudinaryUpload(file, 'image', IMAGE_PRESET, 'emc/cms')
 
-// Open a CV URL inline via Google Docs viewer.
-// Cloudinary raw files are served with Content-Disposition: attachment which
-// prevents iframe rendering — Google Docs viewer fetches the file server-side
-// and renders it in-browser, bypassing that header for both PDF and Word files.
+// Returns a URL suitable for opening a CV in a browser tab.
+// PDFs → proxy route (forces Content-Disposition: inline, handles auth)
+// Word  → Google Docs viewer (browsers can't render .doc/.docx natively)
 export const cvViewerUrl = (url: string): string => {
+  const lower = url.split('?')[0].toLowerCase()
+  if (lower.endsWith('.pdf')) return `/api/cv-proxy?url=${encodeURIComponent(url)}`
   return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`
 }

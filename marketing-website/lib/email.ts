@@ -152,7 +152,7 @@ export async function sendApplicationNotification(data: {
 
   const dashboardUrl = `${SITE}/dashboard/applications`
   const cvLink = data.cvUrl
-    ? `<a href="https://docs.google.com/viewer?url=${encodeURIComponent(data.cvUrl)}" style="color:#2563eb">View CV</a>`
+    ? `<a href="${data.cvUrl}" style="color:#2563eb">Download CV</a>`
     : '—'
 
   const body = `
