@@ -5,13 +5,17 @@ import type { JobRow } from '@/lib/supabase/types'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://expresssl.com'
 
-  const supabase = createAdminClient()
-  const { data: raw } = await supabase
-    .from('jobs')
-    .select('id, updated_at')
-    .eq('is_active', true)
-
-  const jobs = (raw ?? []) as unknown as Pick<JobRow, 'id' | 'updated_at'>[]
+  let jobs: Pick<JobRow, 'id' | 'updated_at'>[] = []
+  try {
+    const supabase = createAdminClient()
+    const { data: raw } = await supabase
+      .from('jobs')
+      .select('id, updated_at')
+      .eq('is_active', true)
+    jobs = (raw ?? []) as unknown as Pick<JobRow, 'id' | 'updated_at'>[]
+  } catch {
+    // DB unavailable — serve static pages only
+  }
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: base,                       lastModified: new Date(), changeFrequency: 'weekly',  priority: 1.0 },
