@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo, useTransition } from 'react'
+import Link from 'next/link'
 import { EnvelopeIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { updateApplicationStatus, updateApplicationNotes, notifyCandidate, deleteApplication } from './actions'
 import { cvViewerUrl } from '@/lib/cloudinary'
@@ -244,7 +245,9 @@ export default function ApplicationsClient({ initialApplications }: { initialApp
                         </span>
                       </div>
                       <div>
-                        <p className="font-semibold text-black">{a.talent_profiles?.full_name ?? '—'}</p>
+                        <Link href={`/dashboard/applications/${a.id}`} className="font-semibold text-black hover:text-brand-blue transition-colors no-underline">
+                          {a.talent_profiles?.full_name ?? '—'}
+                        </Link>
                         <p className="text-xs text-black/40">{a.talent_profiles?.email}</p>
                       </div>
                     </div>

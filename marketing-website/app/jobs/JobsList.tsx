@@ -347,8 +347,8 @@ export default function JobsList({ jobs }: { jobs: JobRow[] }) {
               {[
                 'Tailor your CV to each role — even small tweaks help.',
                 'Include a phone number. Most placements start with a call.',
-                'Note your availability start date clearly.',
-                'Keep your CV to 2 pages max.',
+                'Note your availability and preferred start date.',
+                'Be specific about your sector experience.',
               ].map((tip, i) => (
                 <li key={i} className="flex items-start gap-2 text-[12px] text-gray-500 leading-relaxed">
                   <span className="w-4 h-4 rounded-full bg-brand-blue/10 text-brand-blue text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
