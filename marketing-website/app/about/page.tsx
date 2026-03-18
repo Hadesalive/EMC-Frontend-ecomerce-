@@ -153,19 +153,18 @@ export default async function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-14 lg:py-24 bg-gray-50">
+      <section className="py-14 lg:py-24 bg-white border-t border-black/5">
         <div className="container">
-          <div className="mb-8 lg:mb-14">
-            <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-3">Our Leadership</p>
-            <h2 className="font-display text-4xl font-bold text-black tracking-tight mb-5">Meet the team</h2>
-            <div className="max-w-3xl space-y-4">
-              <p className="text-black/60 text-base lg:text-lg leading-relaxed">
-                We foster a culture of leading by example, inspiring and engaging others to empower our people to reach their full potential and in turn contribute to collective goals.
-              </p>
-              <p className="text-black/60 text-base lg:text-lg leading-relaxed">
-                Our Executive Committee comprises of well experienced individuals from all works of life. We don&rsquo;t add up years spent in the industry as a measurement of success or leadership qualities, we simply look to recruit the best talent and put the right people in the right positions to deliver the diverse mix of skillsets required to drive our business forward.
-              </p>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 lg:mb-16 gap-4">
+            <div>
+              <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-4">Our Leadership</p>
+              <h2 className="font-display text-4xl lg:text-5xl font-bold text-black tracking-tight leading-tight">
+                The people<br />behind EMC.
+              </h2>
             </div>
+            <p className="text-black/50 leading-relaxed max-w-sm lg:text-right text-sm">
+              The right people in the right positions — a diverse team built to deliver, not to impress on paper.
+            </p>
           </div>
           <TeamSection team={team} />
         </div>

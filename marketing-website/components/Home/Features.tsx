@@ -35,6 +35,21 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
           </p>
         </div>
 
+        {/* Stats row */}
+        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06] rounded-2xl overflow-hidden mb-16">
+          {[
+            { value: '100%', label: 'Digital Process' },
+            { value: '48hr', label: 'Average Response' },
+            { value: 'Nationwide', label: 'Sierra Leone Coverage' },
+            { value: 'End-to-end', label: 'HR & Recruitment' },
+          ].map((s, i) => (
+            <div key={i} className="flex flex-col justify-center px-8 py-8 bg-white/[0.03] hover:bg-white/[0.06] transition-colors duration-300">
+              <dt className="font-display text-2xl lg:text-3xl font-bold text-white tracking-tight mb-1">{s.value}</dt>
+              <dd className="text-xs text-white/40 font-medium tracking-widest uppercase">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+
         {/* 4-col advantage cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {c.advantages.map((a: Advantage, i: number) => {
