@@ -19,11 +19,11 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
   }
 
   return (
-    <section className="py-14 lg:py-32 bg-black">
+    <section className="py-10 lg:py-20 bg-black">
       <div className="container">
 
         {/* Section header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-10 lg:mb-16 gap-4 lg:gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-8 lg:mb-10 gap-4 lg:gap-6">
           <div>
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">{c.section_label}</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
@@ -36,7 +36,7 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
         </div>
 
         {/* Stats row */}
-        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06] rounded-2xl overflow-hidden mb-16">
+        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06] rounded-2xl overflow-hidden mb-8">
           {[
             { value: '100%', label: 'Digital Process' },
             { value: '48hr', label: 'Average Response' },
@@ -51,7 +51,7 @@ export default function Features({ content }: { content?: Partial<FeaturesConten
         </dl>
 
         {/* 4-col advantage cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
           {c.advantages.map((a: Advantage, i: number) => {
             const Icon = iconMap[a.iconKey] ?? UsersThree
             const isBlue = a.color === 'brand-blue'

@@ -7,7 +7,8 @@ import CTA from '@/components/Home/CTA'
 import { createAdminClient } from '@/lib/supabase/server'
 import { getContent } from '@/lib/cms'
 import type { JobRow } from '@/lib/supabase/types'
-import type { HeroContent, FeaturesContent, CTAContent } from '@/lib/cms-types'
+import type { HeroContent, FeaturesContent, CTAContent, HomeServicesContent } from '@/lib/cms-types'
+import { DEFAULT_HOME_SERVICES } from '@/lib/cms-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const supabase = createAdminClient()
 
-  const [raw, hero, features, cta] = await Promise.all([
+  const [raw, hero, features, servicesData, cta] = await Promise.all([
     supabase
       .from('jobs')
       .select('id, title, sector, type, location, urgent, created_at, deadline')
@@ -43,8 +44,15 @@ export default async function HomePage() {
       .then(r => r.data),
     getContent<HeroContent>('home', 'hero'),
     getContent<FeaturesContent>('home', 'features'),
+    getContent<HomeServicesContent>('home', 'services'),
     getContent<CTAContent>('home', 'cta'),
   ])
+
+  const homeServices: HomeServicesContent = {
+    section_label: (servicesData as HomeServicesContent | null)?.section_label ?? DEFAULT_HOME_SERVICES.section_label,
+    heading: (servicesData as HomeServicesContent | null)?.heading ?? DEFAULT_HOME_SERVICES.heading,
+    services: (servicesData as HomeServicesContent | null)?.services ?? DEFAULT_HOME_SERVICES.services,
+  }
 
   const jobs = (raw ?? []) as unknown as Pick<JobRow, 'id' | 'title' | 'sector' | 'type' | 'location' | 'urgent' | 'created_at' | 'deadline'>[]
 
@@ -53,7 +61,7 @@ export default async function HomePage() {
       <Hero content={hero ?? undefined} />
       <Features content={features ?? undefined} />
       <JobsPreview jobs={jobs} />
-      <ServicesSection />
+      <ServicesSection content={homeServices} />
       <CTA content={cta ?? undefined} />
     </>
   )

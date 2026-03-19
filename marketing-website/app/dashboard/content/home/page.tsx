@@ -1,13 +1,14 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { getContent } from '@/lib/cms'
-import { DEFAULT_HERO, DEFAULT_FEATURES, DEFAULT_CTA } from '@/lib/cms-types'
-import type { HeroContent, FeaturesContent, CTAContent } from '@/lib/cms-types'
+import { DEFAULT_HERO, DEFAULT_FEATURES, DEFAULT_CTA, DEFAULT_HOME_SERVICES } from '@/lib/cms-types'
+import type { HeroContent, FeaturesContent, CTAContent, HomeServicesContent } from '@/lib/cms-types'
 import { HomeContentEditor } from './HomeContentEditor'
 
 export default async function HomeContentPage() {
-  const [hero, features, cta] = await Promise.all([
+  const [hero, features, servicesData, cta] = await Promise.all([
     getContent<HeroContent>('home', 'hero'),
     getContent<FeaturesContent>('home', 'features'),
+    getContent<HomeServicesContent>('home', 'services'),
     getContent<CTAContent>('home', 'cta'),
   ])
 
@@ -17,7 +18,7 @@ export default async function HomeContentPage() {
       <div className="flex items-center justify-between mb-5">
         <div>
           <h1 className="text-xl font-bold text-black">Home Page</h1>
-          <p className="text-xs text-black/40 mt-0.5">Hero banner · Features section · Bottom CTA</p>
+          <p className="text-xs text-black/40 mt-0.5">Hero banner · Features section · Services · Bottom CTA</p>
         </div>
         <a
           href="/"
@@ -36,6 +37,11 @@ export default async function HomeContentPage() {
           ...DEFAULT_FEATURES,
           ...features,
           advantages: (features as FeaturesContent | null)?.advantages ?? DEFAULT_FEATURES.advantages,
+        }}
+        services={{
+          section_label: (servicesData as HomeServicesContent | null)?.section_label ?? DEFAULT_HOME_SERVICES.section_label,
+          heading: (servicesData as HomeServicesContent | null)?.heading ?? DEFAULT_HOME_SERVICES.heading,
+          services: (servicesData as HomeServicesContent | null)?.services ?? DEFAULT_HOME_SERVICES.services,
         }}
         cta={{
           ...DEFAULT_CTA,

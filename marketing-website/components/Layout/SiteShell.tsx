@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import Header from './Header'
 import Footer from './Footer'
 
-export default function SiteShell({ children }: { children: React.ReactNode }) {
+export default function SiteShell({ children, footerDescription }: { children: React.ReactNode; footerDescription?: string }) {
   const pathname = usePathname()
   const isApp = pathname?.startsWith('/dashboard') ||
                 pathname?.startsWith('/candidate') ||
@@ -24,7 +24,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
       </a>
       <Header />
       <main id="main-content">{children}</main>
-      {!hideFooter && <Footer />}
+      {!hideFooter && <Footer description={footerDescription} />}
     </>
   )
 }

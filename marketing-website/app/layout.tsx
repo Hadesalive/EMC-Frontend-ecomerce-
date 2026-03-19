@@ -5,6 +5,9 @@ import SiteShell from '@/components/Layout/SiteShell'
 import { ThemeProvider } from '@/components/Providers/ThemeProvider'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { getContent } from '@/lib/cms'
+import { DEFAULT_GLOBAL } from '@/lib/cms-types'
+import type { GlobalContent } from '@/lib/cms-types'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -74,12 +77,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const globalData = await getContent<GlobalContent>('global', 'main')
+  const global: GlobalContent = { ...DEFAULT_GLOBAL, ...globalData }
+
   return (
     <html lang="en" className={`${dmSans.variable} ${manrope.variable}`} suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <SiteShell>{children}</SiteShell>
+          <SiteShell footerDescription={global.site_description}>{children}</SiteShell>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

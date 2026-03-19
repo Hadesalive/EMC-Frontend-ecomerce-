@@ -12,7 +12,7 @@ export default function CTA({ content }: { content?: Partial<CTAContent> }) {
   }
 
   return (
-    <section className="relative py-20 lg:py-32 bg-brand-blue overflow-hidden">
+    <section className="relative py-12 lg:py-20 bg-brand-blue overflow-hidden">
       {/* Subtle dot grid */}
       <div
         className="absolute inset-0 z-0 opacity-[0.08]"

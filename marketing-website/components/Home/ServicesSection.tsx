@@ -6,48 +6,22 @@ import {
   Buildings,
   ArrowRight,
 } from '@phosphor-icons/react/dist/ssr'
+import type { HomeServicesContent } from '@/lib/cms-types'
 
-const services = [
-  {
-    num: '01',
-    icon: UsersThree,
-    color: 'brand-blue',
-    title: 'Recruitment & Staffing',
-    description: 'From permanent hires to contract placements, executive search to mass recruitment — we find the right people for every level and every role across Sierra Leone.',
-    features: ['Permanent recruitment', 'Temporary & contract staffing', 'Executive search & headhunting', 'Mass recruitment'],
-    link: '/services',
-  },
-  {
-    num: '02',
-    icon: Briefcase,
-    color: 'brand-orange',
-    title: 'HR & Management Consulting',
-    description: 'Strategic guidance on HR policies, organisational structure, performance management, and change — tailored to your sector and scale of operation.',
-    features: ['HR policy development', 'Organisational restructuring', 'Performance management', 'Leadership development'],
-    link: '/services',
-  },
-  {
-    num: '03',
-    icon: Buildings,
-    color: 'brand-blue',
-    title: 'Outsourcing Services',
-    description: 'Hand over your HR operations entirely. We manage payroll, onboarding, compliance, and day-to-day HR administration professionally on your behalf.',
-    features: ['HR outsourcing', 'Payroll management', 'Employee onboarding', 'Compliance management'],
-    link: '/services',
-  },
-]
+const SERVICE_ICONS = [UsersThree, Briefcase, Buildings]
+const SERVICE_COLORS = ['brand-blue', 'brand-orange', 'brand-blue'] as const
 
-export default function ServicesSection() {
+export default function ServicesSection({ content }: { content: HomeServicesContent }) {
   return (
-    <section className="bg-black py-20 lg:py-32">
+    <section className="bg-black py-10 lg:py-16">
       <div className="container">
 
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-8 gap-6">
           <div>
-            <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-4">What We Do</p>
+            <p className="text-brand-blue text-xs font-medium tracking-widest uppercase mb-4">{content.section_label}</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight">
-              Core services
+              {content.heading}
             </h2>
           </div>
           <Link
@@ -61,17 +35,18 @@ export default function ServicesSection() {
 
         {/* Service rows */}
         <div className="divide-y divide-white/10">
-          {services.map((s, i) => {
-            const Icon = s.icon
-            const isBlue = s.color === 'brand-blue'
+          {content.services.map((s, i) => {
+            const Icon = SERVICE_ICONS[i] ?? UsersThree
+            const color = SERVICE_COLORS[i] ?? 'brand-blue'
+            const isBlue = color === 'brand-blue'
             return (
               <div
                 key={i}
-                className="group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 py-12 hover:bg-white/[0.02] -mx-6 px-6 rounded-xl transition-colors"
+                className="group grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 py-8 hover:bg-white/[0.02] -mx-6 px-6 rounded-xl transition-colors"
               >
                 {/* Number + icon */}
                 <div className="lg:col-span-1 flex lg:flex-col items-center lg:items-start gap-3">
-                  <span className={`text-xs font-bold tracking-widest ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}>{s.num}</span>
+                  <span className={`text-xs font-bold tracking-widest ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}>0{i + 1}</span>
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isBlue ? 'bg-brand-blue/20' : 'bg-brand-orange/20'}`}>
                     <Icon size={20} weight="regular" className={isBlue ? 'text-brand-blue' : 'text-brand-orange'} />
                   </div>
@@ -98,7 +73,7 @@ export default function ServicesSection() {
                     ))}
                   </ul>
                   <Link
-                    href={s.link}
+                    href="/services"
                     className={`inline-flex items-center gap-1.5 text-xs font-semibold no-underline mt-2 group-hover:gap-3 transition-all duration-200 ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}
                   >
                     Learn more

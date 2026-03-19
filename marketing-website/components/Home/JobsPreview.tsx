@@ -23,11 +23,11 @@ function relativeDate(iso: string) {
 
 export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
   return (
-    <section className="py-14 lg:py-28 bg-white border-t border-black/8">
+    <section className="py-10 lg:py-16 bg-white border-t border-black/8">
       <div className="container">
 
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-8 lg:mb-12 gap-4 lg:gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-6 lg:mb-8 gap-4 lg:gap-6">
           <div>
             <p className="text-brand-orange-text text-xs font-medium tracking-widest uppercase mb-4">Open Positions</p>
             <h2 className="font-display text-4xl lg:text-5xl font-bold text-black dark:text-white leading-tight tracking-tight">
@@ -45,7 +45,7 @@ export default function JobsPreview({ jobs }: { jobs: JobPreview[] }) {
 
         {/* Job cards */}
         {jobs.length > 0 ? (
-          <div className="grid md:grid-cols-3 gap-4 mb-10">
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
             {jobs.map((job) => (
               <div
                 key={job.id}

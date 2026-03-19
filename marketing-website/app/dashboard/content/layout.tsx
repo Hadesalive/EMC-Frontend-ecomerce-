@@ -4,10 +4,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const TABS = [
-  { href: '/dashboard/content/home',    label: 'Home' },
-  { href: '/dashboard/content/about',   label: 'About' },
-  { href: '/dashboard/content/contact', label: 'Contact' },
-  { href: '/dashboard/content/team',    label: 'Team' },
+  { href: '/dashboard/content/home',      label: 'Home' },
+  { href: '/dashboard/content/about',     label: 'About' },
+  { href: '/dashboard/content/services',  label: 'Services' },
+  { href: '/dashboard/content/solutions', label: 'Solutions' },
+  { href: '/dashboard/content/resources', label: 'Resources' },
+  { href: '/dashboard/content/contact',   label: 'Contact' },
+  { href: '/dashboard/content/team',      label: 'Team' },
+  { href: '/dashboard/content/global',    label: 'Global' },
 ]
 
 export default function ContentLayout({ children }: { children: React.ReactNode }) {

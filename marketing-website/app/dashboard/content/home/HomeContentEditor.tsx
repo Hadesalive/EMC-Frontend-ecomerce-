@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useTransition, useRef, useEffect } from 'react'
-import { saveHero, saveFeatures, saveCTA } from './actions'
-import type { HeroContent, FeaturesContent, CTAContent, Advantage } from '@/lib/cms-types'
+import { saveHero, saveFeatures, saveCTA, saveHomeServices } from './actions'
+import type { HeroContent, FeaturesContent, CTAContent, Advantage, HomeServicesContent } from '@/lib/cms-types'
 import { ImageUpload } from '@/components/dashboard/ImageUpload'
 
 // ─── Shared primitives ────────────────────────────────────────────────────────
@@ -79,11 +79,12 @@ function SaveBar({ isPending, dirty, saved }: { isPending: boolean; dirty: boole
 
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
 
-type Tab = 'hero' | 'features' | 'cta'
+type Tab = 'hero' | 'features' | 'services' | 'cta'
 
 const TABS: { id: Tab; label: string; desc: string }[] = [
   { id: 'hero',     label: 'Hero',     desc: 'Headline area and call-to-action buttons' },
   { id: 'features', label: 'Features', desc: '"Why EMC" section with the 4 advantage cards' },
+  { id: 'services', label: 'Services', desc: 'Core services section — label, heading, and the 3 service rows' },
   { id: 'cta',      label: 'CTA',      desc: 'Bottom banner that prompts visitors to get in touch' },
 ]
 
@@ -129,18 +130,6 @@ function HeroPanel({ initial }: { initial: HeroContent }) {
             hrefValue={data.cta_secondary_href} hrefOnChange={v => set('cta_secondary_href', v)}
           />
         </Field>
-      </div>
-
-      <div className="space-y-3">
-        <GroupLabel>Trust badges</GroupLabel>
-        <div className="grid sm:grid-cols-2 gap-3">
-          <Field label="Badge 1">
-            <input type="text" className={cx.input} value={data.trust_1} onChange={e => set('trust_1', e.target.value)} />
-          </Field>
-          <Field label="Badge 2">
-            <input type="text" className={cx.input} value={data.trust_2} onChange={e => set('trust_2', e.target.value)} />
-          </Field>
-        </div>
       </div>
 
       <div className="space-y-3">
@@ -236,6 +225,53 @@ function FeaturesPanel({ initial }: { initial: FeaturesContent }) {
   )
 }
 
+// ─── Services panel ───────────────────────────────────────────────────────────
+
+function ServicesPanel({ initial }: { initial: HomeServicesContent }) {
+  const [data, setData] = useState(initial)
+  const [isPending, startTransition] = useTransition()
+  const [saved, setSaved] = useState(false)
+  const dirty = JSON.stringify(data) !== JSON.stringify(initial)
+
+  function setService(i: number, key: 'title' | 'description', value: string) {
+    setData(prev => { const s = [...prev.services]; s[i] = { ...s[i], [key]: value }; return { ...prev, services: s } }); setSaved(false)
+  }
+  function setFeature(i: number, fi: number, value: string) {
+    setData(prev => { const s = [...prev.services]; const f = [...s[i].features]; f[fi] = value; s[i] = { ...s[i], features: f }; return { ...prev, services: s } }); setSaved(false)
+  }
+
+  return (
+    <form onSubmit={e => { e.preventDefault(); startTransition(async () => { await saveHomeServices(data); setSaved(true) }) }} className="space-y-5 px-6 pb-6">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label="Section label">
+          <input type="text" className={cx.input} value={data.section_label} onChange={e => { setData(prev => ({ ...prev, section_label: e.target.value })); setSaved(false) }} />
+        </Field>
+        <Field label="Heading">
+          <input type="text" className={cx.input} value={data.heading} onChange={e => { setData(prev => ({ ...prev, heading: e.target.value })); setSaved(false) }} />
+        </Field>
+      </div>
+      {data.services.map((s, i) => (
+        <div key={i} className="border border-black/8 rounded-xl p-5 space-y-4">
+          <p className="text-xs font-semibold text-black/40">Service {i + 1}</p>
+          <Field label="Title">
+            <input type="text" className={cx.input} value={s.title} onChange={e => setService(i, 'title', e.target.value)} />
+          </Field>
+          <Field label="Description">
+            <textarea rows={3} className={cx.textarea} value={s.description} onChange={e => setService(i, 'description', e.target.value)} />
+          </Field>
+          <div className="space-y-2">
+            <GroupLabel>Features</GroupLabel>
+            {s.features.map((f, fi) => (
+              <input key={fi} type="text" className={cx.input} value={f} onChange={e => setFeature(i, fi, e.target.value)} placeholder={`Feature ${fi + 1}`} />
+            ))}
+          </div>
+        </div>
+      ))}
+      <SaveBar isPending={isPending} dirty={dirty} saved={saved} />
+    </form>
+  )
+}
+
 // ─── CTA panel ────────────────────────────────────────────────────────────────
 
 function CTAPanel({ initial }: { initial: CTAContent }) {
@@ -318,10 +354,12 @@ function CTAPanel({ initial }: { initial: CTAContent }) {
 export function HomeContentEditor({
   hero,
   features,
+  services,
   cta,
 }: {
   hero: HeroContent
   features: FeaturesContent
+  services: HomeServicesContent
   cta: CTAContent
 }) {
   const [active, setActive] = useState<Tab>('hero')
@@ -359,6 +397,7 @@ export function HomeContentEditor({
       <div className="pt-6">
         {active === 'hero'     && <HeroPanel     initial={hero} />}
         {active === 'features' && <FeaturesPanel initial={features} />}
+        {active === 'services' && <ServicesPanel initial={services} />}
         {active === 'cta'      && <CTAPanel      initial={cta} />}
       </div>
     </div>

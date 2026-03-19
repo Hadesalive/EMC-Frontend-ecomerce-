@@ -2,8 +2,20 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import TeamSection from './TeamSection'
 import { getContent, getTeamMembers } from '@/lib/cms'
-import { DEFAULT_ABOUT_INTRO, DEFAULT_ABOUT_PURPOSE } from '@/lib/cms-types'
-import type { AboutIntroContent, AboutPurposeContent } from '@/lib/cms-types'
+import {
+  DEFAULT_ABOUT_INTRO,
+  DEFAULT_ABOUT_PURPOSE,
+  DEFAULT_ABOUT_HERO,
+  DEFAULT_ABOUT_VALUES,
+  DEFAULT_ABOUT_CSR,
+} from '@/lib/cms-types'
+import type {
+  AboutIntroContent,
+  AboutPurposeContent,
+  AboutHeroContent,
+  AboutValuesContent,
+  AboutCSRContent,
+} from '@/lib/cms-types'
 
 export const metadata: Metadata = {
   title: 'About Us | Recruitment Consultancy Sierra Leone',
@@ -23,29 +35,36 @@ export const metadata: Metadata = {
   },
 }
 
-const values = [
-  { num: '01', name: 'Integrity', desc: 'Upholding transparency and professional ethics in all engagements.' },
-  { num: '02', name: 'Excellence', desc: 'Delivering superior solutions with attention to quality and detail.' },
-  { num: '03', name: 'Confidentiality', desc: 'Ensuring secure and discreet handling of all client and candidate information.' },
-  { num: '04', name: 'Innovation', desc: 'Leveraging technology and modern methods to continuously improve our results.' },
-  { num: '05', name: 'Partnership', desc: 'Building long-term, mutually beneficial relationships with every client and candidate.' },
-]
+const STAT_COLORS = ['text-brand-blue', 'text-brand-orange', 'text-brand-blue', 'text-brand-orange']
 
 export default async function AboutPage() {
-  const [introData, purposeData, team] = await Promise.all([
+  const [introData, purposeData, heroData, valuesData, csrData, team] = await Promise.all([
     getContent<AboutIntroContent>('about', 'intro'),
     getContent<AboutPurposeContent>('about', 'purpose'),
+    getContent<AboutHeroContent>('about', 'hero'),
+    getContent<AboutValuesContent>('about', 'values'),
+    getContent<AboutCSRContent>('about', 'csr'),
     getTeamMembers(),
   ])
 
   const intro: AboutIntroContent = { ...DEFAULT_ABOUT_INTRO, ...introData }
   const purpose: AboutPurposeContent = { ...DEFAULT_ABOUT_PURPOSE, ...purposeData }
+  const hero: AboutHeroContent = {
+    subtext: (heroData as AboutHeroContent | null)?.subtext ?? DEFAULT_ABOUT_HERO.subtext,
+    stats: (heroData as AboutHeroContent | null)?.stats ?? DEFAULT_ABOUT_HERO.stats,
+  }
+  const values: AboutValuesContent = {
+    heading: (valuesData as AboutValuesContent | null)?.heading ?? DEFAULT_ABOUT_VALUES.heading,
+    subtext: (valuesData as AboutValuesContent | null)?.subtext ?? DEFAULT_ABOUT_VALUES.subtext,
+    values: (valuesData as AboutValuesContent | null)?.values ?? DEFAULT_ABOUT_VALUES.values,
+  }
+  const csr: AboutCSRContent = { ...DEFAULT_ABOUT_CSR, ...csrData }
 
   return (
     <div className="min-h-screen bg-white">
 
       {/* Hero — 2-col: headline left, stats grid right */}
-      <section className="bg-black pt-32 pb-16 lg:pt-40 lg:pb-24">
+      <section className="bg-black pt-28 pb-12 lg:pt-36 lg:pb-16">
         <div className="container">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
             <div className="lg:col-span-7">
@@ -56,19 +75,14 @@ export default async function AboutPage() {
                 <span className="text-brand-orange">businesses.</span>
               </h1>
               <p className="text-base lg:text-xl text-white/60 leading-relaxed">
-                A Freetown-based recruitment and HR consultancy. We help Sierra Leone&rsquo;s organisations hire better, manage smarter, and build teams that last.
+                {hero.subtext}
               </p>
             </div>
             <div className="lg:col-span-5 lg:pb-2">
               <div className="grid grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden">
-                {[
-                  { label: 'Sierra Leone-focused',  sub: 'Built for this market, not adapted to it',      color: 'text-brand-blue' },
-                  { label: 'Transparent process',   sub: 'Clear updates from brief to placement',          color: 'text-brand-orange' },
-                  { label: 'No placement, no fee',  sub: 'Our interests are only aligned when yours are',  color: 'text-brand-blue' },
-                  { label: 'Confidential search',   sub: 'Every brief and candidate handled discreetly',   color: 'text-brand-orange' },
-                ].map((item, i) => (
+                {hero.stats.map((item, i) => (
                   <div key={i} className="bg-white/[0.04] p-6 hover:bg-white/[0.07] transition-colors">
-                    <p className={`text-sm font-semibold mb-2 leading-snug ${item.color}`}>{item.label}</p>
+                    <p className={`text-sm font-semibold mb-2 leading-snug ${STAT_COLORS[i] ?? 'text-brand-blue'}`}>{item.label}</p>
                     <p className="text-xs text-white/60 leading-relaxed">{item.sub}</p>
                   </div>
                 ))}
@@ -79,7 +93,7 @@ export default async function AboutPage() {
       </section>
 
       {/* About Us — prose + photo */}
-      <section className="py-14 lg:py-24 border-b border-black/5">
+      <section className="py-10 lg:py-16 border-b border-black/5">
         <div className="container">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-20 items-start">
 
@@ -117,7 +131,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Purpose / Vision / Mission */}
-      <section className="bg-gray-950 py-12 md:py-24">
+      <section className="bg-gray-950 py-10 md:py-16">
         <div className="container">
           <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
 
@@ -156,7 +170,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-14 lg:py-24 bg-white border-t border-black/5">
+      <section className="py-10 lg:py-16 bg-white border-t border-black/5">
         <div className="container">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 lg:mb-16 gap-4">
             <div>
@@ -174,51 +188,55 @@ export default async function AboutPage() {
       </section>
 
       {/* Values — dark, editorial */}
-      <section className="bg-black py-14 lg:py-24">
+      <section className="bg-black py-10 lg:py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-4xl font-bold text-white mb-2">Our Values</h2>
-            <p className="text-white/60 text-lg mb-14">The principles that guide every engagement we take on.</p>
+            <h2 className="font-display text-4xl font-bold text-white mb-2">{values.heading}</h2>
+            <p className="text-white/60 text-lg mb-14">{values.subtext}</p>
 
-            {/* Featured first value */}
-            <div className="py-10 border-b border-white/10">
-              <div className="flex items-start gap-6 mb-4">
-                <span className="font-display text-5xl font-bold text-brand-orange/40 leading-none">{values[0].num}</span>
-                <div>
-                  <h3 className="font-display text-3xl font-bold text-white mb-3">{values[0].name}</h3>
-                  <p className="text-white/55 text-lg leading-relaxed max-w-xl">{values[0].desc}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Remaining values */}
-            <div className="divide-y divide-white/10">
-              {values.slice(1).map((v, i) => (
-                <div key={i} className="flex items-start gap-4 sm:gap-8 py-5 sm:py-8 group">
-                  <span className="font-display text-3xl font-bold text-white/10 group-hover:text-brand-orange transition-colors duration-300 w-12 flex-shrink-0">
-                    {v.num}
-                  </span>
-                  <div className="flex-1 flex flex-col md:flex-row md:items-center gap-2 md:gap-12">
-                    <h3 className="font-display text-xl font-bold text-white w-44 flex-shrink-0">{v.name}</h3>
-                    <p className="text-white/50 leading-relaxed">{v.desc}</p>
+            {values.values.length > 0 && (
+              <>
+                {/* Featured first value */}
+                <div className="py-10 border-b border-white/10">
+                  <div className="flex items-start gap-6 mb-4">
+                    <span className="font-display text-5xl font-bold text-brand-orange/40 leading-none">{values.values[0].num}</span>
+                    <div>
+                      <h3 className="font-display text-3xl font-bold text-white mb-3">{values.values[0].name}</h3>
+                      <p className="text-white/55 text-lg leading-relaxed max-w-xl">{values.values[0].desc}</p>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Remaining values */}
+                <div className="divide-y divide-white/10">
+                  {values.values.slice(1).map((v, i) => (
+                    <div key={i} className="flex items-start gap-4 sm:gap-8 py-5 sm:py-8 group">
+                      <span className="font-display text-3xl font-bold text-white/10 group-hover:text-brand-orange transition-colors duration-300 w-12 flex-shrink-0">
+                        {v.num}
+                      </span>
+                      <div className="flex-1 flex flex-col md:flex-row md:items-center gap-2 md:gap-12">
+                        <h3 className="font-display text-xl font-bold text-white w-44 flex-shrink-0">{v.name}</h3>
+                        <p className="text-white/50 leading-relaxed">{v.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
 
       {/* CSR / Community */}
-      <section className="py-14 lg:py-24 border-t border-black/5">
+      <section className="py-10 lg:py-16 border-t border-black/5">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-brand-orange/10 to-brand-blue/10 rounded-2xl blur-2xl scale-105" />
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=1200&q=80"
-                  alt="Cape Town aerial view — African coastal city"
+                  src={csr.image_url}
+                  alt={csr.image_alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
@@ -226,15 +244,15 @@ export default async function AboutPage() {
               </div>
             </div>
             <div>
-              <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">Community &amp; CSR</p>
+              <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-4">{csr.label}</p>
               <h2 className="font-display text-4xl font-bold text-black mb-6 tracking-tight">
-                Giving back to<br />our community
+                {csr.heading}
               </h2>
               <p className="text-base lg:text-lg text-black/70 leading-relaxed mb-5">
-                Good recruitment has a real impact on people&rsquo;s lives — not just on business outcomes. We take that responsibility seriously. Every candidate we work with is treated with honesty about the roles we&rsquo;re briefed on and the realistic chances of success.
+                {csr.paragraph_1}
               </p>
               <p className="text-base lg:text-lg text-black/70 leading-relaxed">
-                We are committed to fair, transparent hiring practices across Sierra Leone — and to working with employers who share those standards. Through local partnerships and training initiatives, we aim to create real opportunities, not just fill vacancies.
+                {csr.paragraph_2}
               </p>
             </div>
           </div>
@@ -242,28 +260,56 @@ export default async function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 lg:py-20 bg-gray-50 border-t border-black/5">
+      <section className="py-10 lg:py-14 bg-gray-50 border-t border-black/5">
         <div className="container">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-display text-4xl font-bold text-black mb-6">
-              Ready to Work With Us?
-            </h2>
-            <p className="text-lg text-black/60 mb-8">
-              {"Let's talk about how EMC can support your organisation's growth and talent strategy."}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/contact"
-                className="inline-block px-8 py-4 bg-black text-white text-base font-semibold rounded-lg hover:bg-black/90 transition-all duration-200 no-underline"
-              >
-                Get in Touch
-              </a>
-              <a
-                href="/services"
-                className="inline-block px-8 py-4 border border-black/15 text-black text-base font-semibold rounded-lg hover:border-black/30 hover:bg-black/5 transition-all duration-200 no-underline"
-              >
-                Our Services
-              </a>
+          <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black/8">
+            {/* Employers */}
+            <div className="pb-10 md:pb-0 md:pr-14 lg:pr-20">
+              <p className="text-xs font-bold text-brand-blue tracking-widest uppercase mb-4">For Employers</p>
+              <h2 className="font-display text-3xl font-bold text-black mb-4 tracking-tight">
+                Ready to grow your team?
+              </h2>
+              <p className="text-base text-black/60 mb-8 leading-relaxed">
+                {"Let's talk about how EMC can support your organisation's growth and talent strategy."}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="/contact"
+                  className="inline-block px-7 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all duration-200 no-underline"
+                >
+                  Get in Touch
+                </a>
+                <a
+                  href="/services"
+                  className="inline-block px-7 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:border-black/30 hover:bg-black/5 transition-all duration-200 no-underline"
+                >
+                  Our Services
+                </a>
+              </div>
+            </div>
+            {/* Job Seekers */}
+            <div className="pt-10 md:pt-0 md:pl-14 lg:pl-20">
+              <p className="text-xs font-bold text-brand-orange tracking-widest uppercase mb-4">For Job Seekers</p>
+              <h2 className="font-display text-3xl font-bold text-black mb-4 tracking-tight">
+                Looking for your next role?
+              </h2>
+              <p className="text-base text-black/60 mb-8 leading-relaxed">
+                Browse our open positions or send us your CV. We place candidates across mining, construction, healthcare, hospitality and more.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="/jobs"
+                  className="inline-block px-7 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all duration-200 no-underline"
+                >
+                  Browse Open Roles
+                </a>
+                <a
+                  href="/apply"
+                  className="inline-block px-7 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:border-black/30 hover:bg-black/5 transition-all duration-200 no-underline"
+                >
+                  Submit Your CV
+                </a>
+              </div>
             </div>
           </div>
         </div>

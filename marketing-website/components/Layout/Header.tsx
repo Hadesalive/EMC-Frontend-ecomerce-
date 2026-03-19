@@ -116,6 +116,18 @@ export default function Header() {
               })}
             </ul>
 
+            {/* Browse Jobs link */}
+            <Link
+              href="/jobs"
+              className={`inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-200 no-underline ${
+                hasDarkHero
+                  ? 'text-white/70 hover:text-white'
+                  : 'text-black/60 dark:text-white/60 hover:text-brand-blue dark:hover:text-brand-blue'
+              }`}
+            >
+              Browse Jobs
+            </Link>
+
             {/* CTA Button */}
             <Link
               href="/contact"
@@ -183,11 +195,18 @@ export default function Header() {
                 })}
               </ul>
 
-              {/* CTA Button - Bottom */}
-              <div className="pt-6 mt-auto border-t border-black/5 dark:border-white/10">
+              {/* CTA Buttons - Bottom */}
+              <div className="pt-6 mt-auto border-t border-black/5 dark:border-white/10 flex flex-col gap-3">
+                <Link
+                  href="/jobs"
+                  className="block py-3.5 border border-black/15 dark:border-white/20 text-black dark:text-white text-base font-medium rounded-lg text-center no-underline hover:border-brand-blue hover:text-brand-blue transition-colors duration-200"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Browse Jobs
+                </Link>
                 <Link
                   href="/contact"
-                  className="block py-4 bg-black dark:bg-white text-white dark:text-black text-base font-medium rounded-lg text-center no-underline hover:bg-black/90 dark:hover:bg-white/90 transition-colors duration-200"
+                  className="block py-3.5 bg-black dark:bg-white text-white dark:text-black text-base font-medium rounded-lg text-center no-underline hover:bg-black/90 dark:hover:bg-white/90 transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Get Started

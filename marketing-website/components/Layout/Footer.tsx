@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { EnvelopeSimple, Phone, MapPin } from '@phosphor-icons/react/dist/ssr'
 
-export default function Footer() {
+export default function Footer({ description }: { description?: string }) {
   const currentYear = new Date().getFullYear()
 
   const footerLinks = {
@@ -15,6 +15,12 @@ export default function Footer() {
     resources: [
       { href: '/resources', label: 'Resources' },
       { href: '/contact', label: 'Contact' },
+    ],
+    jobSeekers: [
+      { href: '/jobs', label: 'Browse Open Roles' },
+      { href: '/apply', label: 'Submit Your CV' },
+      { href: '/auth/register', label: 'Create an Account' },
+      { href: '/auth/login', label: 'Candidate Login' },
     ],
   }
 
@@ -33,7 +39,7 @@ export default function Footer() {
       <div className="container relative z-10">
         {/* Main Footer Content */}
         <div className="py-16 lg:py-20 border-b border-white/10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Company Info */}
             <div className="lg:col-span-2">
               <Link href="/" className="inline-block mb-6">
@@ -47,7 +53,7 @@ export default function Footer() {
                 />
               </Link>
               <p className="text-white/60 font-light leading-relaxed max-w-md mb-6">
-                Leading talent management and recruitment solutions. Empowering businesses with modern, efficient staffing platforms.
+                {description ?? 'Leading talent management and recruitment solutions. Empowering businesses with modern, efficient staffing platforms.'}
               </p>
               
               {/* Contact Info */}
@@ -97,6 +103,25 @@ export default function Footer() {
                     <Link
                       href={link.href}
                       className="text-white/60 hover:text-white font-light transition-colors inline-block"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* For Job Seekers */}
+            <div>
+              <p className="font-display text-sm font-semibold text-brand-orange mb-6 tracking-wider uppercase">
+                For Job Seekers
+              </p>
+              <ul className="space-y-3">
+                {footerLinks.jobSeekers.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-white/60 hover:text-brand-orange font-light transition-colors inline-block"
                     >
                       {link.label}
                     </Link>

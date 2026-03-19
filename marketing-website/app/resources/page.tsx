@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
+import { getContent } from '@/lib/cms'
+import { DEFAULT_RESOURCES } from '@/lib/cms-types'
+import type { ResourcesContent } from '@/lib/cms-types'
 
 export const metadata: Metadata = {
   title: 'HR Resources & Career Guides | Sierra Leone',
@@ -20,7 +23,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+  const data = await getContent<ResourcesContent>('resources', 'main')
+  const content: ResourcesContent = { ...DEFAULT_RESOURCES, ...data }
+
   return (
     <div className="min-h-screen bg-black flex flex-col">
 
@@ -31,12 +37,11 @@ export default function ResourcesPage() {
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-8">Knowledge Hub</p>
 
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
-              Coming<br />
-              <span className="text-brand-blue">soon.</span>
+              {content.heading}
             </h1>
 
             <p className="text-white/50 text-lg leading-relaxed mb-12 max-w-md mx-auto">
-              We&rsquo;re putting together guides, hiring insights, and HR resources tailored to the Sierra Leone market. Check back soon.
+              {content.subtext}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

@@ -4,12 +4,14 @@ import {
   MagnifyingGlass,
   ArrowsClockwise,
   ChartBar,
-  ShieldCheck,
   Buildings,
   ClipboardText,
   GraduationCap,
   ArrowRight,
 } from '@phosphor-icons/react/dist/ssr'
+import { getContent } from '@/lib/cms'
+import { DEFAULT_SOLUTIONS_HERO, DEFAULT_SOLUTIONS_LIST } from '@/lib/cms-types'
+import type { SolutionsHeroContent, SolutionsListContent } from '@/lib/cms-types'
 
 export const metadata: Metadata = {
   title: 'HR Solutions & Management Consulting Sierra Leone',
@@ -29,56 +31,9 @@ export const metadata: Metadata = {
   },
 }
 
-const solutions = [
-  {
-    icon: UsersThree,
-    color: 'brand-blue',
-    num: '01',
-    title: 'Recruitment & Talent Acquisition',
-    description: 'Identification and placement of qualified professionals across all levels — from entry positions to senior leadership. We manage the full recruitment cycle so you can focus on your core operations.',
-    features: ['Job profiling & role scoping', 'Multi-channel candidate sourcing', 'Competency-based screening', 'Post-placement follow-up'],
-  },
-  {
-    icon: ArrowsClockwise,
-    color: 'brand-orange',
-    num: '02',
-    title: 'Workforce Outsourcing',
-    description: 'Provision and management of outsourced staff for client organisations. We supply, deploy and manage personnel on your behalf — enabling you to scale without the administrative burden.',
-    features: ['Outsourced staff deployment', 'Ongoing personnel management', 'Contract & compliance handling', 'Flexible workforce scaling'],
-  },
-  {
-    icon: ChartBar,
-    color: 'brand-blue',
-    num: '03',
-    title: 'Payroll Administration',
-    description: 'Administration of employee payroll, statutory deductions and compliance. Accurate, on-time payroll processing fully aligned with Sierra Leone labour regulations.',
-    features: ['Payroll calculation & processing', 'Statutory deduction management', 'Labour law compliance', 'Payroll reporting & records'],
-  },
-  {
-    icon: Buildings,
-    color: 'brand-orange',
-    num: '04',
-    title: 'HR Advisory Services',
-    description: 'Professional HR consulting and workforce advisory services. We provide expert guidance on HR policies, procedures, and best practices to build scalable HR functions.',
-    features: ['HR policy development', 'Performance management', 'Regulatory compliance advisory', 'Compensation & benefits design'],
-  },
-  {
-    icon: ClipboardText,
-    color: 'brand-blue',
-    num: '05',
-    title: 'Workforce Planning',
-    description: 'Strategic workforce planning to support business growth. We help you forecast headcount requirements, identify skills gaps, and build resilient teams aligned to your strategic objectives.',
-    features: ['Headcount planning', 'Skills gap analysis', 'Succession planning', 'Organisational design advisory'],
-  },
-  {
-    icon: GraduationCap,
-    color: 'brand-orange',
-    num: '06',
-    title: 'Talent Pool Development',
-    description: 'Development of skilled talent databases for rapid recruitment. We build and maintain pre-screened candidate rosters across industries so we can respond to your workforce requirements quickly.',
-    features: ['Pre-screened candidate databases', 'Industry-specific talent rosters', 'Rapid deployment capability', 'Ongoing talent pipeline management'],
-  },
-]
+// Icons are UI concerns — kept hardcoded, text comes from CMS
+const SOLUTION_ICONS = [UsersThree, ArrowsClockwise, ChartBar, Buildings, ClipboardText, GraduationCap]
+const SOLUTION_COLORS = ['brand-blue', 'brand-orange', 'brand-blue', 'brand-orange', 'brand-blue', 'brand-orange'] as const
 
 const process = [
   { step: '01', title: 'Understand Workforce Requirements', description: 'In-depth consultation to understand your organisation, role requirements, culture, and timeline.' },
@@ -103,12 +58,20 @@ const industries = [
   { name: 'Government & Public Sector',         color: 'orange' },
 ]
 
-export default function SolutionsPage() {
+export default async function SolutionsPage() {
+  const [heroData, listData] = await Promise.all([
+    getContent<SolutionsHeroContent>('solutions', 'hero'),
+    getContent<SolutionsListContent>('solutions', 'list'),
+  ])
+
+  const hero: SolutionsHeroContent = { ...DEFAULT_SOLUTIONS_HERO, ...heroData }
+  const solutions = (listData as SolutionsListContent | null)?.solutions ?? DEFAULT_SOLUTIONS_LIST.solutions
+
   return (
     <div className="min-h-screen bg-white">
 
       {/* Hero — 2-col: text left, solution names grid right */}
-      <section className="bg-black pt-32 pb-20 lg:pt-40 lg:pb-24">
+      <section className="bg-black pt-28 pb-12 lg:pt-36 lg:pb-16">
         <div className="container">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
             <div className="lg:col-span-7">
@@ -119,7 +82,7 @@ export default function SolutionsPage() {
                 <span className="text-brand-blue">Every sector.</span>
               </h1>
               <p className="text-xl text-white/60 leading-relaxed mb-10">
-                Purpose-built for Sierra Leone&rsquo;s job market. Whether you need one specialist or a full workforce programme, we bring the same rigour to every brief.
+                {hero.subtext}
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
@@ -152,19 +115,20 @@ export default function SolutionsPage() {
       </section>
 
       {/* Solutions list */}
-      <section className="py-20">
+      <section className="py-10 lg:py-16">
         <div className="container">
-          <div className="flex items-end justify-between mb-12 pb-6 border-b border-black/5">
+          <div className="flex items-end justify-between mb-8 pb-5 border-b border-black/5">
             <h2 className="font-display text-3xl font-bold text-black">What we do</h2>
             <span className="text-sm text-black/40">{solutions.length} services</span>
           </div>
 
           <div className="divide-y divide-black/5">
             {solutions.map((s, i) => {
-              const Icon = s.icon
-              const isBlue = s.color === 'brand-blue'
+              const Icon = SOLUTION_ICONS[i] ?? UsersThree
+              const color = SOLUTION_COLORS[i] ?? 'brand-blue'
+              const isBlue = color === 'brand-blue'
               return (
-                <div key={i} className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-10 hover:bg-black/[0.015] -mx-6 px-6 rounded-xl transition-colors cursor-default">
+                <div key={i} className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-7 hover:bg-black/[0.015] -mx-6 px-6 rounded-xl transition-colors cursor-default">
                   {/* Number + Icon */}
                   <div className="md:col-span-1 flex md:flex-col items-center md:items-start gap-3">
                     <span className={`text-xs font-bold tracking-widest ${isBlue ? 'text-brand-blue' : 'text-brand-orange'}`}>{s.num}</span>
@@ -204,7 +168,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* Process — dark, horizontal steps */}
-      <section className="bg-black py-24">
+      <section className="bg-black py-10 lg:py-16">
         <div className="container">
           <div className="mb-14">
             <p className="text-brand-orange text-xs font-medium tracking-widest uppercase mb-3">How it works</p>
@@ -231,7 +195,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* Industries */}
-      <section className="py-20 border-t border-black/5">
+      <section className="py-10 lg:py-16 border-t border-black/5">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -264,28 +228,56 @@ export default function SolutionsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gray-50 border-t border-black/5">
+      <section className="py-10 lg:py-14 bg-gray-50 border-t border-black/5">
         <div className="container">
-          <div className="max-w-2xl">
-            <h2 className="font-display text-4xl font-bold text-black mb-4">
-              Ready to find the right talent?
-            </h2>
-            <p className="text-lg text-black/60 mb-8">
-              Tell us about your hiring needs and we'll design a solution that works for your organisation.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="/contact"
-                className="inline-block px-8 py-4 bg-black text-white text-base font-semibold rounded-lg hover:bg-black/90 transition-all duration-200 no-underline"
-              >
-                Get in Touch
-              </a>
-              <a
-                href="/services"
-                className="inline-block px-8 py-4 border border-black/15 text-black text-base font-semibold rounded-lg hover:border-black/30 hover:bg-black/5 transition-all duration-200 no-underline"
-              >
-                View All Services
-              </a>
+          <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black/8">
+            {/* Employers */}
+            <div className="pb-10 md:pb-0 md:pr-14 lg:pr-20">
+              <p className="text-xs font-bold text-brand-blue tracking-widest uppercase mb-4">For Employers</p>
+              <h2 className="font-display text-3xl font-bold text-black mb-4">
+                Ready to find the right talent?
+              </h2>
+              <p className="text-base text-black/60 mb-8 leading-relaxed">
+                Tell us about your hiring needs and we&apos;ll design a solution that works for your organisation.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="/contact"
+                  className="inline-block px-7 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all duration-200 no-underline"
+                >
+                  Get in Touch
+                </a>
+                <a
+                  href="/services"
+                  className="inline-block px-7 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:border-black/30 hover:bg-black/5 transition-all duration-200 no-underline"
+                >
+                  View All Services
+                </a>
+              </div>
+            </div>
+            {/* Job Seekers */}
+            <div className="pt-10 md:pt-0 md:pl-14 lg:pl-20">
+              <p className="text-xs font-bold text-brand-orange tracking-widest uppercase mb-4">For Job Seekers</p>
+              <h2 className="font-display text-3xl font-bold text-black mb-4">
+                Find your next opportunity.
+              </h2>
+              <p className="text-base text-black/60 mb-8 leading-relaxed">
+                We connect talented professionals with top employers across Sierra Leone. Browse our latest openings or add your CV to our talent pool.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="/jobs"
+                  className="inline-block px-7 py-3.5 bg-black text-white text-sm font-semibold rounded-lg hover:bg-black/90 transition-all duration-200 no-underline"
+                >
+                  Browse Open Roles
+                </a>
+                <a
+                  href="/apply"
+                  className="inline-block px-7 py-3.5 border border-black/15 text-black text-sm font-semibold rounded-lg hover:border-black/30 hover:bg-black/5 transition-all duration-200 no-underline"
+                >
+                  Submit Your CV
+                </a>
+              </div>
             </div>
           </div>
         </div>

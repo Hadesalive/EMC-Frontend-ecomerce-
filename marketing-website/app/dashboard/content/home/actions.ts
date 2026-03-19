@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { upsertContent } from '@/lib/cms'
-import type { HeroContent, FeaturesContent, CTAContent } from '@/lib/cms-types'
+import type { HeroContent, FeaturesContent, CTAContent, HomeServicesContent } from '@/lib/cms-types'
 
 export async function saveHero(content: HeroContent) {
   await upsertContent('home', 'hero', content)
@@ -16,5 +16,10 @@ export async function saveFeatures(content: FeaturesContent) {
 
 export async function saveCTA(content: CTAContent) {
   await upsertContent('home', 'cta', content)
+  revalidatePath('/')
+}
+
+export async function saveHomeServices(content: HomeServicesContent) {
+  await upsertContent('home', 'services', content)
   revalidatePath('/')
 }
