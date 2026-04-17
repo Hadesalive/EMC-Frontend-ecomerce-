@@ -77,10 +77,10 @@ export default function Header() {
             <Image
               src="/images/Emc Logo header.png"
               alt="Express Management Consultancy Logo"
-              width={120}
-              height={36}
-              sizes="120px"
-              className="h-auto w-auto max-h-[40px] lg:max-h-[42px] object-contain block"
+              width={160}
+              height={48}
+              sizes="160px"
+              className="h-auto w-auto max-h-[52px] lg:max-h-[58px] object-contain block"
               priority
             />
           </Link>

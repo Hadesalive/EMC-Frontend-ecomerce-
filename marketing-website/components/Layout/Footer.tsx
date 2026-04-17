@@ -44,12 +44,12 @@ export default function Footer({ description }: { description?: string }) {
             <div className="lg:col-span-2">
               <Link href="/" className="inline-block mb-6">
                 <Image
-                  src="/images/Emc Logo header.png"
+                  src="/images/footer logo.png"
                   alt="Express Management Consultancy Logo"
-                  width={120}
-                  height={36}
-                  sizes="120px"
-                  className="h-auto w-auto max-h-[40px] object-contain"
+                  width={160}
+                  height={48}
+                  sizes="160px"
+                  className="h-auto w-auto max-h-[58px] object-contain"
                 />
               </Link>
               <p className="text-white/60 font-light leading-relaxed max-w-md mb-6">
