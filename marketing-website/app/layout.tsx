@@ -53,6 +53,10 @@ export const metadata: Metadata = {
   authors: [{ name: 'Express Management Consultancy', url: 'https://expresssl.com' }],
   creator: 'Express Management Consultancy',
   publisher: 'Express Management Consultancy',
+  icons: {
+    icon: '/images/icon.png',
+    apple: '/images/icon.png',
+  },
   manifest: '/site.webmanifest',
   robots: {
     index: true,
