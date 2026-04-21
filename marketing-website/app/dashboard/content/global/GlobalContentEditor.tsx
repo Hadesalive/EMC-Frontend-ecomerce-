@@ -15,7 +15,7 @@ export function GlobalContentEditor({ initial }: { initial: GlobalContent }) {
   const dirty = JSON.stringify(data) !== JSON.stringify(initial)
 
   return (
-    <div className="bg-white border border-black/5 rounded-2xl overflow-hidden">
+    <div className="bg-white border border-black/5 rounded-2xl overflow-clip">
       <div className="px-6 py-4 border-b border-black/5 bg-black/[0.015]">
         <p className="text-xs text-black/40">Site-wide settings used across all pages — metadata, footer copy</p>
       </div>

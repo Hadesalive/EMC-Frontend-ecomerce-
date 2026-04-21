@@ -365,7 +365,7 @@ export function HomeContentEditor({
   const [active, setActive] = useState<Tab>('hero')
 
   return (
-    <div className="bg-white border border-black/5 rounded-2xl overflow-hidden">
+    <div className="bg-white border border-black/5 rounded-2xl overflow-clip">
       {/* Tab bar */}
       <div className="border-b border-black/5 px-6 pt-5">
         <div className="flex gap-1">

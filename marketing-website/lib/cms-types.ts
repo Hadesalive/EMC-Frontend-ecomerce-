@@ -177,8 +177,27 @@ export interface SolutionsListContent {
 // ─── Resources page ───────────────────────────────────────────────────────────
 
 export interface ResourcesContent {
+  // Hero
   heading: string
   subtext: string
+  cta_primary: string
+  cta_primary_href: string
+  cta_secondary: string
+  cta_secondary_href: string
+  // Audience split
+  employer_heading: string
+  employer_description: string
+  jobseeker_heading: string
+  jobseeker_description: string
+  // Quick insights
+  insights_label: string
+  insights_heading: string
+  insight_1_heading: string
+  insight_1_body: string
+  insight_2_heading: string
+  insight_2_body: string
+  insight_3_heading: string
+  insight_3_body: string
 }
 
 // ─── Team member ──────────────────────────────────────────────────────────────
@@ -369,8 +388,24 @@ export const DEFAULT_SOLUTIONS_LIST: SolutionsListContent = {
 }
 
 export const DEFAULT_RESOURCES: ResourcesContent = {
-  heading: 'Coming soon.',
-  subtext: 'We\'re putting together guides, hiring insights, and HR resources tailored to the Sierra Leone market. Check back soon.',
+  heading: 'Guides & Insights for the Sierra Leone Market',
+  subtext: 'Practical resources to help employers hire effectively and job seekers advance their careers — built around the realities of Sierra Leone\'s job market.',
+  cta_primary: 'Talk to our team',
+  cta_primary_href: '/contact',
+  cta_secondary: 'Browse open roles',
+  cta_secondary_href: '/jobs',
+  employer_heading: 'Hire smarter, manage better',
+  employer_description: 'Practical guides to help you attract the right candidates, stay legally compliant, and retain your best people.',
+  jobseeker_heading: 'Advance your career with confidence',
+  jobseeker_description: 'From writing a strong CV to acing your interview — our guides are built around the Sierra Leone job market.',
+  insights_label: 'Quick Insights',
+  insights_heading: 'What we know about hiring in Sierra Leone',
+  insight_1_heading: 'Start with a clear job description',
+  insight_1_body: 'Most hiring challenges trace back to unclear expectations. Specify required skills, experience, responsibilities, and what success looks like in the role.',
+  insight_2_heading: 'Invest in structured onboarding',
+  insight_2_body: "Employees who receive structured onboarding are significantly more likely to stay. The first 90 days set the tone — don't leave them to chance.",
+  insight_3_heading: 'Understand the local market',
+  insight_3_body: "Compensation expectations, talent availability, and hiring norms vary widely across Sierra Leone's industries. Local knowledge gives you a competitive edge.",
 }
 
 export const DEFAULT_ABOUT_PURPOSE: AboutPurposeContent = {

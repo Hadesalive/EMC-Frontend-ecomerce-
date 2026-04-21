@@ -63,7 +63,7 @@ export function ContactContentEditor({ initial }: { initial: ContactContent }) {
   }
 
   return (
-    <div className="bg-white border border-black/5 rounded-2xl overflow-hidden">
+    <div className="bg-white border border-black/5 rounded-2xl overflow-clip">
         {/* Header */}
         <div className="px-6 py-5 border-b border-black/5 bg-black/[0.015]">
           <p className="text-xs text-black/40">

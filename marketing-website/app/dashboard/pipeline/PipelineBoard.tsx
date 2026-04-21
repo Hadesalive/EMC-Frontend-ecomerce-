@@ -149,18 +149,20 @@ export default function PipelineBoard({ initialApplications }: { initialApplicat
       {/* ── Board — scrolls in both directions ── */}
       {/* minHeight:0 is required — flex children default to min-height:auto which prevents shrinking and breaks overflow */}
       <div className="flex-1 overflow-auto bg-[#f7f7f8]" style={{ minHeight: 0 }}>
-        {/* zoom wrapper — CSS zoom affects layout so scroll container calculates correct dimensions */}
-        <div style={{ zoom }} className="p-5 lg:p-8">
-          <div className="flex gap-4 w-max min-h-full">
+        <div className="p-5 lg:p-8">
+          <div className="flex w-max min-h-full" style={{ gap: `${zoom}rem` }}>
             {STAGES.map(stage => {
               const cards    = filtered.filter(a => a.status === stage.id)
               const allCards = applications.filter(a => a.status === stage.id)
 
               return (
-                <div key={stage.id} className="w-64 flex flex-col gap-2">
+                <div key={stage.id} className="flex flex-col" style={{ width: `${16 * zoom}rem`, gap: `${0.5 * zoom}rem` }}>
 
                   {/* Column header */}
-                  <div className={`flex items-center gap-2 px-3 py-2.5 rounded-xl ${stage.header_bg} border border-black/[0.06] sticky top-0`}>
+                  <div
+                    className={`flex items-center gap-2 rounded-xl ${stage.header_bg} border border-black/[0.06] sticky top-0`}
+                    style={{ padding: `${0.625 * zoom}rem ${0.75 * zoom}rem` }}
+                  >
                     <span className={`w-2 h-2 rounded-full flex-shrink-0 ${stage.dot}`} />
                     <span className="text-sm font-semibold text-black">{stage.label}</span>
                     <span className={`ml-auto text-[11px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${stage.count_bg}`}>
@@ -169,7 +171,7 @@ export default function PipelineBoard({ initialApplications }: { initialApplicat
                   </div>
 
                   {/* Cards */}
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col" style={{ gap: `${0.5 * zoom}rem` }}>
                     {cards.map(a => {
                       const profile    = a.talent_profiles
                       const job        = a.jobs
@@ -179,7 +181,7 @@ export default function PipelineBoard({ initialApplications }: { initialApplicat
                       const prevStage  = STAGES[stageIndex - 1]
 
                       return (
-                        <div key={a.id} className={`bg-white rounded-xl border ${stage.card} hover:shadow-sm transition-all p-3.5 group`}>
+                        <div key={a.id} className={`bg-white rounded-xl border ${stage.card} hover:shadow-sm transition-all group`} style={{ padding: `${0.875 * zoom}rem` }}>
                           <div className="flex items-center gap-2.5 mb-2.5">
                             <div className="w-7 h-7 rounded-full bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
                               <span className="text-brand-blue text-[11px] font-bold">{initial}</span>
@@ -236,3 +238,4 @@ export default function PipelineBoard({ initialApplications }: { initialApplicat
     </div>
   )
 }
+

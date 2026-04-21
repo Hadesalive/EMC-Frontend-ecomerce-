@@ -56,7 +56,7 @@ function Breadcrumbs({ pathname }: { pathname: string }) {
   }
 
   return (
-    <nav className="flex items-center gap-1">
+    <nav className="flex items-center gap-1 min-w-0 overflow-hidden">
       {crumbs.map((crumb, i) => (
         <span key={crumb.href} className="flex items-center gap-1">
           {i > 0 && <ChevronRightIcon className="w-3.5 h-3.5 text-black/20 flex-shrink-0" />}
@@ -160,7 +160,7 @@ export default function DashboardShell({
         <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
-      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
+      <div className="flex-1 min-w-0 lg:ml-60 flex flex-col min-h-screen">
         {/* Top header */}
         <header className="h-16 bg-white border-b border-black/5 flex items-center px-5 gap-4 sticky top-0 z-30">
           {/* Mobile hamburger */}
@@ -176,23 +176,25 @@ export default function DashboardShell({
 
           <div className="flex-1" />
 
-          {/* Right actions */}
-          <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
-            <BellIcon className="w-5 h-5 text-black/40" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-orange rounded-full" />
-          </button>
+          {/* Right actions — shrink-0 ensures this section never gets squeezed */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors">
+              <BellIcon className="w-5 h-5 text-black/40" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-orange rounded-full" />
+            </button>
 
-          <div className="w-px h-5 bg-black/10" />
+            <div className="w-px h-5 bg-black/10" />
 
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center">
-              <span className="text-white text-xs font-bold">{initials}</span>
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center flex-shrink-0">
+                <span className="text-white text-xs font-bold">{initials}</span>
+              </div>
+              <span className="hidden sm:block text-sm text-black/50 truncate max-w-[180px]">{userEmail}</span>
             </div>
-            <span className="hidden sm:block text-sm text-black/50 max-w-[160px] truncate">{userEmail}</span>
           </div>
         </header>
 
-        <main className="flex-1 p-5 lg:p-8 overflow-hidden">
+        <main className="flex-1 p-5 lg:p-8">
           {children}
         </main>
       </div>
